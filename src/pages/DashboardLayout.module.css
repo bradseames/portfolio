@@ -1,0 +1,64 @@
+.main {
+
+    /*border: crimson 5px;*/
+    position: fixed;
+    width: 100%;
+    height: calc(100dvh - 180px);
+
+    /*transform: translateX(-50px);*/
+    /*padding: 10px;*/
+    /*display: block;*/
+    /*padding: 20px;*/
+    /*margin: 10px;*/
+    background-color: oldlace;
+    /*border: crimson 5px;*/
+    justify-content: center;
+    justify-items: center;
+
+
+;
+}
+header {
+    height: 60px;
+    /*opacity: 0.2;*/
+
+}
+.contents {
+
+    /*background-color: var(--mantine-color-dark-1);*/
+    width: 100%;
+    /*border-radius: 10px;*/
+    overflow: auto;
+    /*border: darkblue 4px solid;*/
+}
+
+
+/*.card {*/
+/*    background-color: light-dark(*/
+/*            var(--mantine-color-gray-0),*/
+/*            var(--mantine-color-dark-6)*/
+/*    );*/
+/*}*/
+
+/*.title {*/
+/*    font-family: Outfit, var(--mantine-font-family);*/
+/*    font-weight: 500;*/
+/*}*/
+
+/*.item {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    text-align: center;*/
+/*    border-radius: var(--mantine-radius-md);*/
+/*    height: 90px;*/
+/*    background-color: var(--mantine-color-body);*/
+/*    transition: box-shadow 150ms ease,*/
+/*    transform 100ms ease;*/
+
+/*    @mixin hover {*/
+/*        box-shadow: var(--mantine-shadow-md);*/
+/*        transform: scale(1.05);*/
+/*    }*/
+/*}*/
