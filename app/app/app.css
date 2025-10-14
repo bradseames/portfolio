@@ -1,0 +1,7 @@
+@import '@mantine/core/styles.css';
+@import '@mantinex/mantine-header/styles.css';
+@import '@mantine/carousel/styles.css';
+@import 'mantine-datatable/styles.layer.css';
+@import '@gfazioli/mantine-list-view-table/styles.css';
+@import '@mantine/charts/styles.css';
+@layer mantine, mantine-datatable;
