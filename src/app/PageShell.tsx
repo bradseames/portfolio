@@ -4,20 +4,6 @@ import { useDisclosure } from '@mantine/hooks';
 // import {IconMail, IconFileTypePdf} from '@tabler/icons-react';
 import ColorToggle from '../components/Themes/ColorToggle/ColorToggle';
 
-// const navLinkData = [
-//   { href: '/', label: 'Home' },
-//   { href: '/form', label: 'Form' },
-//   { href: '/docs/charts/samples', label: 'Chart' },
-//   { href: '/work', label: 'Work' },
-//   { href: '/skills', label: 'Skills' },
-//   // {href: '/math', label: 'Math'},
-//   // {href: '/mdx', label: 'MDX'},
-//   // {href: '/table', label: 'Table'},
-//   { href: '/docs/portfolio/about-me', label: 'About' },
-//   { href: '/docs/math/math-example', label: 'Math Example' },
-//   { href: '/docs/math/quadratic-formula', label: 'Quadratic' },
-//   // {href: '/work', label: 'Work'}
-// ];
 
 const navLinkData = [
   // { href: '/', label: 'Home' },
