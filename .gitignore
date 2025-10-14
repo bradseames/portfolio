@@ -5,6 +5,6 @@
 /.react-router/
 /build/
 /.editorconfig
-/app/_archive/
+/src/_archive/
 /.idea/
 /react-router-0.cpuprofile
