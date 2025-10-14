@@ -1,13 +1,13 @@
-// import {IconStarFilled} from '@tabler/icons-react';
-// import {Carousel} from '@mantine/carousel';
-// import {Button, Card, Group, Image, Text} from '@mantine/core';
-// import {images} from './CarouselCard';
+// import { IconStarFilled } from '@tabler/icons-react';
+// import { Carousel } from '@mantine/carousel';
+// import { Button, Card, Group, Image, Text } from '@mantine/core';
+// import { images } from './CarouselCard';
 // import classes from './CarouselCard.module.css';
 //
 // export function CarouselCard() {
 //   const slides = images.map((item) => (
 //     <Carousel.Slide key={item}>
-//       <Image src={item} height={220} fit="scale-down"/>
+//       <Image src={item} height={220} fit="scale-down" />
 //     </Carousel.Slide>
 //   ));
 //
@@ -16,11 +16,11 @@
 //       <Card.Section>
 //         <Carousel
 //           withIndicators
-//           emblaOptions={{loop: true}}
+//           emblaOptions={{ loop: true }}
 //           classNames={{
 //             root: classes.carousel,
 //             controls: classes.carouselControls,
-//             indicator: classes.carouselIndicator
+//             indicator: classes.carouselIndicator,
 //           }}
 //         >
 //           {slides}
@@ -33,7 +33,7 @@
 //         </Text>
 //
 //         <Group gap={5}>
-//           <IconStarFilled size={16} color="var(--mantine-color-yellow-6)"/>
+//           <IconStarFilled size={16} color="var(--mantine-color-yellow-6)" />
 //           <Text fz="sm" fw={600}>
 //             4.78
 //           </Text>

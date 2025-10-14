@@ -1,5 +1,5 @@
 // import {compileMdx, MDXPage} from 'src/app/compile-mdx'
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import {getMDXBySlug} from './conceptAPI';
 // import type {Route} from './+types/'
 

@@ -1,38 +1,42 @@
-import {AppShell, NavLink, ScrollArea, Text} from '@mantine/core'
-import {Outlet} from 'react-router'
-import {appTheme} from './app-theme'
-import {type MantineProviderProps, MantineProvider} from '@mantine/core'
-import './app.css'
-import React from 'react'
+import { AppShell, NavLink, ScrollArea, Text } from '@mantine/core';
+import { Outlet } from 'react-router';
+import { appTheme } from './app-theme';
+import { type MantineProviderProps, MantineProvider } from '@mantine/core';
+import './app.css';
+import React from 'react';
 
-import {MDXProvider} from '@mdx-js/react';
+import { MDXProvider } from '@mdx-js/react';
 import MathJaxContext from 'better-react-mathjax/MathJaxContext'; // Better for dynamic rendering
-import {components} from '../components/MDXProvider'
+import { components } from '../components/MDXProvider';
 
-import ShellLayout from './PageShell'
+import ShellLayout from './PageShell';
 
 const mathJaxConfig = {
-  loader: {load: ["input/tex", "output/chtml"]},
+  loader: { load: ['input/tex', 'output/chtml'] },
   tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  }
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+  },
 };
 
 
-const navLinkData = [
-  {href: '/', label: 'Home'},
-  {href: '/form', label: 'Form'},
-  {href: '/docs/charts/samples', label: 'Chart'},
-  {href: '/work', label: 'Work'},
-  {href: '/skills', label: 'Skills'},
-  // {href: '/math', label: 'Math'},
-  // {href: '/mdx', label: 'MDX'},
-  // {href: '/table', label: 'Table'},
-  {href: '/docs/portfolio/about-me', label: 'About'},
-  {href: '/docs/math/math-example', label: 'Math Example'},
-  {href: '/docs/math/quadratic-formula', label: 'Quadratic'}
-  // {href: '/work', label: 'Work'}
-]
+// const navLinkData = [
+//   { href: '/', label: 'Home' },
+//   { href: '/form', label: 'Form' },
+//   { href: '/chart', label: 'My Chart' },
+//   { href: '/work', label: 'Experience' },
+//   { href: '/skills', label: 'Skills' },
+//   // {href: '/math', label: 'Math'},
+//   // {href: '/mdx', label: 'MDX'},
+//   // {href: '/table', label: 'Table'},
+//   { href: '/docs/analysis/shear-force-and-bending-moments-in-beams', label: 'Beams' },
+//   { href: '/docs/charts/samples', label: 'Chart' },
+//   // { href: '/docs/math/integration', label: 'Integration' },
+//   { href: '/docs/math/math-example', label: 'Math Example' },
+//   { href: '/docs/math/quadratic-formula', label: 'Quadratic' },
+//   { href: '/docs/portfolio/about-me', label: 'About Me' },
+//   // { href: '/about', label: 'About' },
+//   // {href: '/work', label: 'Work'}
+// ];
 
 function Providers({
   children,
@@ -53,12 +57,12 @@ function Providers({
   </MantineProvider>;
 }
 
-const navLinks = navLinkData.map((link) => {
-    return (
-      <NavLink key={link.href} href={link.href} label={link.label}/>
-    )
-  }
-)
+// const navLinks = navLinkData.map((link) => {
+//     return (
+//       <NavLink key={link.href} href={link.href} label={link.label} />
+//     );
+//   },
+// );
 // function Providers({children}: {children: React.ReactNode}) {
 //   return (
 //     <MantineProvider>
@@ -69,12 +73,12 @@ const navLinks = navLinkData.map((link) => {
 //   );
 // }
 
-function MyAppShell({children}: {children: React.ReactNode}) {
+function MyAppShell({ children }: { children: React.ReactNode }) {
   return (
-    <AppShell header={{height: 60}}
+    <AppShell header={{ height: 60 }}
               navbar={{
-                width: {base: 200, md: 200, lg: 200},
-                breakpoint: 'sm'
+                width: { base: 200, md: 200, lg: 200 },
+                breakpoint: 'sm',
                 // collapsed: {mobile: !mobileOpened, desktop: !desktopOpened}
               }}
               padding="md">
@@ -84,11 +88,11 @@ function MyAppShell({children}: {children: React.ReactNode}) {
       <AppShell.Main>{children}</AppShell.Main>
       <AppShell.Navbar p="md">
         <AppShell.Section>
-          <NavLink href="/" label="Home"/>
+          <NavLink href="/" label="Home" />
         </AppShell.Section>
         <AppShell.Section grow component={ScrollArea}>
           <Text>Docs</Text>
-          {navLinks}
+          {/*{navLinks}*/}
         </AppShell.Section>
 
         {/*<Container>*/}
@@ -117,7 +121,7 @@ export default function App() {
   return (
     <Providers>
       <ShellLayout>
-        <Outlet/>
+        <Outlet />
       </ShellLayout>
     </Providers>
   );

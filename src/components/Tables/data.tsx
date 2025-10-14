@@ -7,7 +7,7 @@ const data = [
     email: 'rob_wolf@gmail.com',
     role: 'Collaborator',
     lastActive: '2 days ago',
-    active: true
+    active: true,
   },
   {
     avatar:
@@ -17,7 +17,7 @@ const data = [
     email: 'jj@breaker.com',
     role: 'Collaborator',
     lastActive: '6 days ago',
-    active: true
+    active: true,
   },
   {
     avatar:
@@ -27,7 +27,7 @@ const data = [
     email: 'henry@silkeater.io',
     role: 'Contractor',
     lastActive: '2 days ago',
-    active: false
+    active: false,
   },
   {
     avatar:
@@ -37,7 +37,7 @@ const data = [
     email: 'bhorsefighter@gmail.com',
     role: 'Contractor',
     lastActive: '5 days ago',
-    active: true
+    active: true,
   },
   {
     avatar:
@@ -47,8 +47,8 @@ const data = [
     email: 'jeremy@foot.dev',
     role: 'Manager',
     lastActive: '3 days ago',
-    active: false
-  }
+    active: false,
+  },
 ];
 
 const rolesData = ['Manager', 'Collaborator', 'Contractor'];

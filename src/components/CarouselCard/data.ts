@@ -6,12 +6,12 @@ export const mockdata = {
   description:
     'Completely renovated for the season 2020, Arena Verudela Bech Apartments are fully equipped and modernly furnished 4-star self-service apartments located on the Adriatic coastline by one of the most beautiful beaches in Pula.',
   badges: [
-    {emoji: '☀️', label: 'Sunny weather'},
-    {emoji: '🦓', label: 'Onsite zoo'},
-    {emoji: '🌊', label: 'Sea'},
-    {emoji: '🌲', label: 'Nature'},
-    {emoji: '🤽', label: 'Water sports'}
-  ]
+    { emoji: '☀️', label: 'Sunny weather' },
+    { emoji: '🦓', label: 'Onsite zoo' },
+    { emoji: '🌊', label: 'Sea' },
+    { emoji: '🌲', label: 'Nature' },
+    { emoji: '🤽', label: 'Water sports' },
+  ],
 };
 
 
@@ -28,5 +28,5 @@ export const images = [
   'images/portfolio/3_Tilt_1_Angles_of_Motion.jpg',
   'images/portfolio/3_Tilt_2_manifold connections.jpg',
   'images/portfolio/3_Tilt_3_Field.jpg',
-  'images/portfolio/Top-View-Hose.jpg'
+  'images/portfolio/Top-View-Hose.jpg',
 ];

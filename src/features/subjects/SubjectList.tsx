@@ -1,1 +1,1 @@
-const SubjectList = []
+const SubjectList = [];

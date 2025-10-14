@@ -1,39 +1,39 @@
-import {useCallback, useEffect, useState} from 'react';
-import {type EmblaCarouselType} from 'embla-carousel';
-import {useRef} from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { type EmblaCarouselType } from 'embla-carousel';
+import { useRef } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
-import {Carousel} from '@mantine/carousel';
-import {Progress, Image} from '@mantine/core';
+import { Carousel } from '@mantine/carousel';
+import { Progress, Image } from '@mantine/core';
 import classes from './CarouselCard/CarouselCard.module.css';
-import Fade from 'embla-carousel-fade'
+import Fade from 'embla-carousel-fade';
 
 const data = [
   {
     key: 1,
-    src: "src/assets/images/portfolio/1_7PV_1_Full.jpg"
+    src: 'src/assets/images/portfolio/1_7PV_1_Full.jpg',
   },
   {
     key: 2,
-    src: "src/assets/images/portfolio/2_1x_1_Full.jpg"
+    src: 'src/assets/images/portfolio/2_1x_1_Full.jpg',
   },
   {
     key: 3,
-    src: "src/assets/images/portfolio/1_7PV_1_Full.jpg"
+    src: 'src/assets/images/portfolio/1_7PV_1_Full.jpg',
   },
   {
     key: 4,
-    src: "src/assets/images/portfolio/2_1x_1_Full.jpg"
-  }
-]
+    src: 'src/assets/images/portfolio/2_1x_1_Full.jpg',
+  },
+];
 export default function CarouselEmbla() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [embla, setEmbla] = useState<EmblaCarouselType | null>(null);
 
-  const autoplay = useRef(Autoplay({delay: 2000}));
-  const fade = useRef(Fade({}))
+  const autoplay = useRef(Autoplay({ delay: 2000 }));
+  const fade = useRef(Fade({}));
   const slides = data.map(image => (
     <Carousel.Slide key={image.key}>
-      <Image src={image.src} fit="scale-down" height={220}/>
+      <Image src={image.src} fit="scale-down" height={220} />
     </Carousel.Slide>
   ));
 
@@ -57,7 +57,7 @@ export default function CarouselEmbla() {
   return (
     <>
       <Carousel
-        emblaOptions={{slidesToScroll: 1, inViewThreshold: 1}}
+        emblaOptions={{ slidesToScroll: 1, inViewThreshold: 1 }}
 
         withIndicators={true}
         withControls={true}
@@ -72,12 +72,12 @@ export default function CarouselEmbla() {
         classNames={{
           root: classes.carousel,
           controls: classes.carouselControls,
-          indicator: classes.carouselIndicator
+          indicator: classes.carouselIndicator,
         }}
       >
         {slides}
       </Carousel>
-      <Progress value={scrollProgress} maw={320} size="sm" mt="xl" mx="auto"/>
+      <Progress value={scrollProgress} maw={320} size="sm" mt="xl" mx="auto" />
     </>
   );
 }

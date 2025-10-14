@@ -1,6 +1,6 @@
-import {Button, Group, SimpleGrid, Textarea, TextInput, Title} from '@mantine/core';
-import {useForm, type UseFormReturnType, hasLength, isEmail} from '@mantine/form';
-import {useUncontrolled} from '@mantine/hooks';
+import { Button, Group, SimpleGrid, Textarea, TextInput, Title } from '@mantine/core';
+import { useForm, type UseFormReturnType, hasLength, isEmail } from '@mantine/form';
+import { useUncontrolled } from '@mantine/hooks';
 
 
 interface FormValues {
@@ -10,7 +10,7 @@ interface FormValues {
   message: string;
 }
 
-function NameInput({form}:
+function NameInput({ form }:
 {
   form: UseFormReturnType<FormValues>
 }) {
@@ -26,7 +26,7 @@ function NameInput({form}:
   );
 }
 
-function EmailInput({form}: {
+function EmailInput({ form }: {
   form: UseFormReturnType<FormValues>
 }) {
   return (
@@ -41,7 +41,7 @@ function EmailInput({form}: {
   );
 }
 
-function SubjectInput({form}: {
+function SubjectInput({ form }: {
   form: UseFormReturnType<FormValues>
 }) {
   return (
@@ -57,7 +57,7 @@ function SubjectInput({form}: {
   );
 }
 
-function MessageInput({form}: {
+function MessageInput({ form }: {
   form: UseFormReturnType<FormValues>
 }) {
   return (
@@ -85,17 +85,17 @@ export default function GetInTouch() {
       name: '',
       email: '',
       subject: '',
-      message: ''
+      message: '',
     },
     validate: {
       name: (value) => value.trim().length < 2,
       email: isEmail('Invalid email'),
-      subject: (value) => value.trim().length === 0
+      subject: (value) => value.trim().length === 0,
     },
     onValuesChange: (values) => {
       // ✅ This will be called on every form values change
       console.log(values);
-    }
+    },
 
   });
   const handleSubmit = (values: typeof form.values) => {
@@ -110,14 +110,14 @@ export default function GetInTouch() {
       <Title
         order={2}
         size="h1"
-        style={{fontFamily: 'Outfit, var(--mantine-font-family)'}}
+        style={{ fontFamily: 'Outfit, var(--mantine-font-family)' }}
         fw={900}
         ta="center"
       >
         Get in touch
       </Title>
 
-      <SimpleGrid cols={{base: 1, sm: 2}} mt="xl">
+      <SimpleGrid cols={{ base: 1, sm: 2 }} mt="xl">
         <NameInput form={form}></NameInput>
         <EmailInput form={form}></EmailInput>
       </SimpleGrid>

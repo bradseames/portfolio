@@ -1,1 +1,1 @@
-const ConceptList = []
+const ConceptList = [];

@@ -1,12 +1,12 @@
-import {IconMoon, IconSun} from '@tabler/icons-react';
+import { IconMoon, IconSun } from '@tabler/icons-react';
 import cx from 'clsx';
-import {ActionIcon, useComputedColorScheme, useMantineColorScheme} from '@mantine/core';
+import { ActionIcon, useComputedColorScheme, useMantineColorScheme } from '@mantine/core';
 import classes from './ColorToggle.module.css';
 
 export default function ColorToggle() {
-  const {setColorScheme} = useMantineColorScheme();
+  const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light', {
-    getInitialValueInEffect: true
+    getInitialValueInEffect: true,
   });
 
   return (
@@ -16,8 +16,8 @@ export default function ColorToggle() {
       size="md"
       aria-label="Toggle color scheme"
     >
-      <IconSun className={cx(classes.icon, classes.light)} stroke={1.5}/>
-      <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5}/>
+      <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
+      <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
     </ActionIcon>
   );
 }

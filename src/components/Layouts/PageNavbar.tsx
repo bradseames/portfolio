@@ -1,4 +1,4 @@
-import {IconBulb, IconCheckbox, IconPlus, IconSearch, IconUser} from '@tabler/icons-react';
+import { IconBulb, IconCheckbox, IconPlus, IconSearch, IconUser } from '@tabler/icons-react';
 import {
   ActionIcon,
   Badge,
@@ -11,7 +11,7 @@ import {
   UnstyledButton,
   AppShellNavbar,
   type AppShellNavbarConfiguration,
-  type AppShellNavbarProps
+  type AppShellNavbarProps,
 } from '@mantine/core';
 import classes from './PageNavbar.module.css';
 
@@ -84,7 +84,7 @@ export function PageNavbar(links: LinkProps[]) {
 
           <Tooltip label="Create collection" withArrow position="right">
             <ActionIcon variant="default" size={18}>
-              <IconPlus size={12} stroke={1.5}/>
+              <IconPlus size={12} stroke={1.5} />
             </ActionIcon>
           </Tooltip>
         </Group>

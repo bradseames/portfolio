@@ -1,10 +1,10 @@
-// import {Card, Group, Switch, Text} from '@mantine/core';
-// import {Company} from '@/data/types';
+// import { Card, Group, Switch, Text } from '@mantine/core';
+// import { Company } from '@/data/types';
 // import classes from './SwitchesCard.module.css';
-// import {images} from 'app/data/portfolio-images.json'
+// import { images } from 'app/data/portfolio-images.json';
 //
 // export function SwitchesCard() {
-//   const items = images.map(({item}) => (
+//   const items = images.map(({ item }) => (
 //     <Group justify="space-between" className={classes.item} wrap="nowrap" gap="xl" key={item.title}>
 //       <div>
 //         <Text>{item.title}</Text>
@@ -12,7 +12,7 @@
 //           {item.description}
 //         </Text>
 //       </div>
-//       <Switch onLabel="ON" offLabel="OFF" className={classes.switch} size="lg"/>
+//       <Switch onLabel="ON" offLabel="OFF" className={classes.switch} size="lg" />
 //     </Group>
 //   ));
 //

@@ -1,6 +1,5 @@
-import {Welcome} from './Welcome/Welcome';
-// import {NothingFoundBackground} from './Errors/NothingFoundBackground'
+import { Welcome } from './Welcome/Welcome';
 
 export default function Home() {
-  return (<Welcome/>);
+  return (<Welcome />);
 }

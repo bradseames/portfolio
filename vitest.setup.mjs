@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom/vitest';
 
-import {vi} from 'vitest';
+import { vi } from 'vitest';
 
-const {getComputedStyle} = window;
+const { getComputedStyle } = window;
 window.getComputedStyle = (elt) => getComputedStyle(elt);
 window.HTMLElement.prototype.scrollIntoView = () => {
 };

@@ -1,15 +1,15 @@
 import {
   createTheme,
-  DEFAULT_THEME
+  DEFAULT_THEME,
   // MantineProvider,
   // type MantineProviderProps
 } from '@mantine/core';
 
 export const appTheme = createTheme({
   colors: {
-    brand: DEFAULT_THEME.colors.blue
+    brand: DEFAULT_THEME.colors.blue,
   },
-  primaryColor: 'brand'
+  primaryColor: 'brand',
 
 });
 

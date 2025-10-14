@@ -1,4 +1,4 @@
-import {Avatar, Badge, Group, Select, Table, Text} from '@mantine/core';
+import { Avatar, Badge, Group, Select, Table, Text } from '@mantine/core';
 // @ts-ignore
 const data = [
   {
@@ -9,7 +9,7 @@ const data = [
     email: 'rob_wolf@gmail.com',
     role: 'Stress',
     lastActive: '2 days ago',
-    active: true
+    active: true,
   },
   {
     avatar:
@@ -19,7 +19,7 @@ const data = [
     email: 'jj@breaker.com',
     role: 'Stress',
     lastActive: '6 days ago',
-    active: true
+    active: true,
   },
   {
     avatar:
@@ -29,7 +29,7 @@ const data = [
     email: 'henry@silkeater.io',
     role: 'Developer',
     lastActive: '2 days ago',
-    active: false
+    active: false,
   },
   {
     avatar:
@@ -39,7 +39,7 @@ const data = [
     email: 'bhorsefighter@gmail.com',
     role: 'Design',
     lastActive: '5 days ago',
-    active: true
+    active: true,
   },
   {
     avatar:
@@ -49,8 +49,8 @@ const data = [
     email: 'jeremy@foot.dev',
     role: 'Design',
     lastActive: '3 days ago',
-    active: false
-  }
+    active: false,
+  },
 ];
 
 const rolesData = ['Design', 'Stress', 'Developer'];
@@ -61,7 +61,7 @@ export default function SelectTable() {
     <Table.Tr key={item.name}>
       <Table.Td>
         <Group gap="xs">
-          <Avatar size={30} src={item.avatar} radius={30}/>
+          <Avatar size={30} src={item.avatar} radius={30} />
           <div>
             <Text fz="sm" fw={500}>
               {item.name}

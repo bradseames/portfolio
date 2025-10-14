@@ -1,15 +1,15 @@
 // vite.config.ts
-import {defineConfig} from "vite";
-import mdx from "@mdx-js/rollup";              // MDX for Vite/Rollup
-import {reactRouter} from "@react-router/dev/vite";
-import remarkMath from "remark-math";          // MDX math
+import { defineConfig } from 'vite';
+import mdx from '@mdx-js/rollup';              // MDX for Vite/Rollup
+import { reactRouter } from '@react-router/dev/vite';
+import remarkMath from 'remark-math';          // MDX math
 // import rehypeKatex from "rehype-katex";        // or rehype-mathjax
 import rehypeMathJax from 'rehype-mathjax';
 
 export default defineConfig({
   plugins: [
-    mdx({remarkPlugins: [remarkMath], rehypePlugins: [rehypeMathJax]}),
-    reactRouter()                   // React Router framework mode
+    mdx({ remarkPlugins: [remarkMath], rehypePlugins: [rehypeMathJax] }),
+    reactRouter(),                   // React Router framework mode
   ],
   optimizeDeps: {
     include: ['@mdx-js/react'],

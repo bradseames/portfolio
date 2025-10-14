@@ -23,9 +23,9 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     if (!autoplay) return
 
     const resetOrStop =
-      autoplay.options.stopOnInteraction === false
-        ? autoplay.reset
-        : autoplay.stop
+            autoplay.options.stopOnInteraction === false
+              ? autoplay.reset
+              : autoplay.stop
 
     resetOrStop()
   }, [])
@@ -36,11 +36,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   )
 
   const {
-    prevBtnDisabled,
-    nextBtnDisabled,
-    onPrevButtonClick,
-    onNextButtonClick
-  } = usePrevNextButtons(emblaApi, onNavButtonClick)
+          prevBtnDisabled,
+          nextBtnDisabled,
+          onPrevButtonClick,
+          onNextButtonClick
+        } = usePrevNextButtons(emblaApi, onNavButtonClick)
 
   return (
     <section className="embla">

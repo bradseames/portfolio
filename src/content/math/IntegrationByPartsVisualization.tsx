@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 // @ts-ignore
 // import {MathJax, MathJaxContext} from 'better-react-mathjax/esm';
-import {Container} from '@mantine/core'
+import { Container } from '@mantine/core';
 
 
 // const {MathJax} = pkg;
@@ -13,7 +13,7 @@ export default function IntegrationByPartsVisualization() {
   // Example state and slider for demonstration
   const [u, setU] = useState('x');
   const [dv, setDv] = useState('e^x dx');
-  
+
   return (
     <Container>
       <div className="p-4 border rounded-xl shadow">

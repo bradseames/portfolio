@@ -29,12 +29,12 @@ export type Employee = {
 
 export const companies: Company[] = companyData;
 
-export const departments: Department[] = departmentData.map(({companyId, ...rest}) => ({
+export const departments: Department[] = departmentData.map(({ companyId, ...rest }) => ({
   ...rest,
-  company: companies.find(({id}) => id === companyId)!
+  company: companies.find(({ id }) => id === companyId)!,
 }));
 
-export const employees = employeeData.map(({departmentId, ...rest}) => ({
+export const employees = employeeData.map(({ departmentId, ...rest }) => ({
   ...rest,
-  department: departments.find(({id}) => id === departmentId)!
+  department: departments.find(({ id }) => id === departmentId)!,
 })) as Employee[];

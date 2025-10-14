@@ -8,12 +8,13 @@ import {
   Accordion,
   Group,
   NumberFormatter,
-  List
+  List,
 } from '@mantine/core';
 
-const logos_folder = '/assets/images/logos/'
-const portfolio_folder = '/assets/images/portfolio/'
-import {experience} from './data';
+// const logos_folder = '/assets/images/logos/';
+// const portfolio_folder = '/assets/images/portfolio/';
+import { experience } from './data';
+// import { experience } from '../../data/portfolio-images.json'
 
 export default function Experience() {
   const companies = experience.map((company) => (
@@ -27,7 +28,7 @@ export default function Experience() {
         </Group>
       }
       bullet={
-        <Avatar size={22} radius="xl" src={company.logo}/>}
+        <Avatar size={22} radius="xl" src={company.logo} />}
     >
       <>
         <Accordion chevronPosition="left" variant="filled">

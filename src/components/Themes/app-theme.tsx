@@ -4,23 +4,23 @@ import {
   DEFAULT_THEME,
   MantineProvider,
   type MantineProviderProps,
-  mergeMantineTheme
+  mergeMantineTheme,
 } from '@mantine/core';
 
-import {type MantineColorScheme, useMantineColorScheme} from '@mantine/core';
+import { type MantineColorScheme, useMantineColorScheme } from '@mantine/core';
 
 function getComputedColorScheme(colorScheme: MantineColorScheme) {
   return colorScheme === 'auto' ? 'light' : colorScheme;
 }
 
 function Demo() {
-  const {colorScheme} = useMantineColorScheme();
+  const { colorScheme } = useMantineColorScheme();
   const computed = getComputedColorScheme(colorScheme);
 }
 
 const themeOverride = createTheme({
   primaryColor: 'orange',
-  defaultRadius: 0
+  defaultRadius: 0,
 });
 
 export const theme = mergeMantineTheme(DEFAULT_THEME, themeOverride);
@@ -68,9 +68,9 @@ export const theme = mergeMantineTheme(DEFAULT_THEME, themeOverride);
 
 export const appTheme = createTheme({
   colors: {
-    brand: DEFAULT_THEME.colors.blue
+    brand: DEFAULT_THEME.colors.blue,
   },
-  primaryColor: 'brand'
+  primaryColor: 'brand',
 });
 
 // export function AppTheme({

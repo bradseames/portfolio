@@ -1,6 +1,6 @@
-import {default as App, ErrorBoundary, Layout} from "./app";
+import { default as App, ErrorBoundary, Layout } from './app';
 
-export {App as default, ErrorBoundary, Layout};
+export { App as default, ErrorBoundary, Layout };
 
 // import React from 'react';
 // import {
@@ -22,8 +22,8 @@ export {App as default, ErrorBoundary, Layout};
 //   LoadingOverlay
 // } from '@mantine/core';
 
-import NothingFoundBackground from './pages/Errors/NothingFoundBackground'
-import type {Route} from './+types/root';
+import NothingFoundBackground from './pages/Errors/NothingFoundBackground';
+import type { Route } from './+types/root';
 // import './app.css'
 // import {AppTheme} from './app-theme';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface DocumentHeadProps {
-  title: string
+  title: string;
   description: string | undefined;
 }
 
