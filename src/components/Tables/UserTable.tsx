@@ -58,7 +58,7 @@ const jobColors: Record<string, string> = {
   designer: 'pink',
 };
 
-export function UsersTable() {
+export default function UsersTable() {
   const rows = data.map((item) => (
     <Table.Tr key={item.name}>
       <Table.Td>

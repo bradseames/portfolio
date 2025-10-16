@@ -5,6 +5,7 @@ import MathJaxContext from 'better-react-mathjax/MathJaxContext'; // Better for 
 import MathJax from 'better-react-mathjax/MathJax';
 import MyChart from './Charts/MyChart';
 import CarouselCard from './CarouselCard/CarouselCard';
+import LugCalculatorDemo from './parametric_lug';
 import type { JSX } from 'react/jsx-runtime';
 import { BarChart, AreaChart, BubbleChart, CompositeChart, LineChart, ScatterChart } from '@mantine/charts';
 import { Select, Card, Checkbox, Slider, Button, Code, Pagination, Stepper } from '@mantine/core';
@@ -21,7 +22,7 @@ export const mathJaxConfig = {
 
 export const components = {
   MyChart, MathJax, CarouselCard, ScatterChart, BarChart, AreaChart, BubbleChart, LineChart,
-  Select, Card, Checkbox, Slider, Button, Code, CompositeChart, Pagination, Stepper,
+  Select, Card, Checkbox, Slider, Button, Code, CompositeChart, Pagination, Stepper, LugCalculatorDemo,
   // h2: (props) => <h2 className="text-2xl font-bold mt-8" {...props} />,
 
   // You can define custom components here to use in your MDX files.

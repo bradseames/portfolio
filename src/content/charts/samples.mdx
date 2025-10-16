@@ -18,26 +18,29 @@ export const data = [
 />
 
 
-Bar Chart
 
-<BarChart
-  h={300}
-  w={600}
-  data={data}
-  type={"stacked"}
-  dataKey="month"
-  gridColor="gray.5"
-  textColor="gray.9"
-  curveType="linear"
-  activeDotProps={true}
-  withDots={true}
-  withLegend={true}
-  series={[
-    { name: 'Laptops', color: 'blue.6' },
-    { name: 'Smartphones', color: 'red.6' },
-    { name: 'Tablets', color: 'green.6' }
-  ]}
-/>
+<Card mx='auto'>
+  Bar Chart
+  <BarChart
+    h={300}
+    w={600}
+    data={data}
+    type={"stacked"}
+    dataKey="month"
+    gridColor="gray.5"
+    textColor="gray.9"
+    curveType="linear"
+    activeDotProps={true}
+    withDots={true}
+    withLegend={true}
+    series={[
+      { name: 'Laptops', color: 'lime.6' },
+      { name: 'Smartphones', color: 'cyan.6' },
+      { name: 'Tablets', color: 'violet.6' }
+    ]}
+  />
+</Card>
+
 
 Area Chart
 

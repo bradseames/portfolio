@@ -3,7 +3,7 @@ import { Avatar, Badge, Group, Select, Table, Text } from '@mantine/core';
 const data = [
   {
     avatar:
-      'app/assets/images/logos/virgin_galactic_logo.jpg',
+      'src/assets/images/logos/virgin_galactic_logo.jpg',
     name: 'Virgin Galactic (Contact)',
     job: 'Engineer',
     email: 'rob_wolf@gmail.com',
@@ -13,7 +13,7 @@ const data = [
   },
   {
     avatar:
-      'app/assets/images/logos/collins_aerospace_logo.jpg',
+      'src/assets/images/logos/collins_aerospace_logo.jpg',
     name: 'Collins Aerospace',
     job: 'Stress',
     email: 'jj@breaker.com',
@@ -23,7 +23,7 @@ const data = [
   },
   {
     avatar:
-      'app/assets/images/logos/orbital_logo.jpg',
+      'src/assets/images/logos/orbital_logo.jpg',
     name: 'Orbital Sciences',
     job: 'Sevel',
     email: 'henry@silkeater.io',
@@ -33,7 +33,7 @@ const data = [
   },
   {
     avatar:
-      'app/assets/images/logos/coolwell_logo.jpg',
+      'src/assets/images/logos/coolwell_logo.jpg',
     name: 'Coolwell',
     job: 'Designer',
     email: 'bhorsefighter@gmail.com',
@@ -43,7 +43,7 @@ const data = [
   },
   {
     avatar:
-      'app/assets/images/logos/raytech_logo.jpg',
+      'src/assets/images/logos/raytech_logo.jpg',
     name: 'Raytech',
     job: 'Manager',
     email: 'jeremy@foot.dev',
@@ -57,7 +57,9 @@ const rolesData = ['Design', 'Stress', 'Developer'];
 
 
 export default function SelectTable() {
+
   const rows = data.map((item) => (
+
     <Table.Tr key={item.name}>
       <Table.Td>
         <Group gap="xs">

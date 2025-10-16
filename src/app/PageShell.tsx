@@ -3,7 +3,9 @@ import { AppShell, Text, Group, Container, ScrollArea, Burger, ActionIcon, NavLi
 import { useDisclosure } from '@mantine/hooks';
 // import {IconMail, IconFileTypePdf} from '@tabler/icons-react';
 import ColorToggle from '../components/Themes/ColorToggle/ColorToggle';
-
+// import { useHeadroom } from '@mantine/hooks';
+import classes from './PageShell.module.css';
+// import NavbarNested from '../components/Layouts/NavBarNested';
 
 const navLinkData = [
   // { href: '/', label: 'Home' },
@@ -12,16 +14,15 @@ const navLinkData = [
   { href: '/work', label: 'Experience' },
   { href: '/skills', label: 'Skills' },
   // {href: '/math', label: 'Math'},
-  // {href: '/mdx', label: 'MDX'},
-  // {href: '/table', label: 'Table'},
+  { href: '/lug', label: 'Lug' },
+  { href: '/table', label: 'Select Table' },
+  { href: '/user_table', label: 'User Table' },
   { href: '/docs/analysis/shear-force-and-bending-moments-in-beams', label: 'Beams' },
   { href: '/docs/charts/samples', label: 'Chart' },
-  // { href: '/docs/math/integration', label: 'Integration' },
+  { href: '/docs/analysis/lug-allowables', label: 'Lugs' },
   { href: '/docs/math/math-example', label: 'Math Example' },
   { href: '/docs/math/quadratic-formula', label: 'Quadratic' },
   { href: '/docs/portfolio/about-me', label: 'About Me' },
-  // { href: '/about', label: 'About' },
-  // {href: '/work', label: 'Work'}
 ];
 
 
@@ -111,10 +112,11 @@ const navLinks = navLinkData.map((link) => {
 export default function ShellLayout({ children }: { children: React.ReactNode }) {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-
+  // const pinned = useHeadroom({ fixedAt: 120 });
   return (
     <AppShell
       padding="md"
+      // header={{ height: 60, collapsed: !pinned, offset: false }}
       header={{ height: 60 }}
       // footer={{height: 30}}
       navbar={{
@@ -124,7 +126,7 @@ export default function ShellLayout({ children }: { children: React.ReactNode })
       }}
       // aside={{width: 300, breakpoint: 'md', collapsed: {desktop: false, mobile: true}}}
     >
-      <AppShell.Header py={0}>
+      <AppShell.Header py="md" className={classes.header}>
         <Group h="100%" px="md" justify="space-between" align="stretch">
           <Group justify="flex-start" align="center">
             <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
@@ -136,10 +138,13 @@ export default function ShellLayout({ children }: { children: React.ReactNode })
           </Group>
         </Group>
       </AppShell.Header>
-      <AppShell.Main>
-        {children}
-      </AppShell.Main>
       <AppShell.Navbar p="md">
+        {/*<Group h="var(--app-shell-header-height)" p="my" justify="flex-start" align="stretch">*/}
+        {/*  <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />*/}
+        {/*  <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />*/}
+        {/*</Group>*/}
+
+
         <AppShell.Section>
           <NavLink href="/" label="Home" />
         </AppShell.Section>
@@ -165,6 +170,13 @@ export default function ShellLayout({ children }: { children: React.ReactNode })
         {/*</Container>*/}
 
       </AppShell.Navbar>
+
+
+      <AppShell.Main pt="var(--app-shell-header-height)">
+        {children}
+      </AppShell.Main>
+      {/*<AppShell.Navbar component={NavbarNested}></AppShell.Navbar>*/}
+
       {/*<AppShell.Footer>Footer</AppShell.Footer>*/}
       {/*<AppShell.Aside>*/}
       {/*</AppShell.Aside>*/}
