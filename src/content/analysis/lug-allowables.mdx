@@ -1,1 +1,82 @@
-<LugCalculatorDemo />
+<LugCalculator />
+
+export const geom = {
+  mode: "double",
+  units: "english",
+  Dp: 1.00,
+  D: 1.00,
+  w1: 1.00,
+  e1: 1.00,
+  t1: 1.00,
+  w2: 1.00,
+  e2: 1.00,
+  t2: 1.00,
+  g: 1.00
+}
+
+export const matProps = {
+  // Female Lugs, 1 (Outer)   | Al 2024-T351 Plate
+  F_tux_1: 64,                  // ksi
+  F_tyx_1: 40,                  // ksi
+  E_1: 10500,                   // ksi
+  e_u_1: 0.12,                  // in/in
+  // Male Lug, 2 (Inner)      | Al 7075-T651 Plate
+  F_tux_2: 77,                   // ksi
+  F_tyx_2: 66,                   // ksi
+  E_2: 10300,                    // ksi
+  e_u_2: 0.06,                  // in/in
+  // Bushings, 1 and 2        | Al Bronze
+  F_tu_bush: 110,               // ksi
+  F_ty_bush: 60,                // ksi
+  F_cy_bush: 60,                // ksi
+  // Pin                      | 4130 Steel
+  F_tu_pin: 125,                // ksi
+  F_ty_pin: 103,                // ksi
+  F_su_pin: 82,                 // ksi
+  E_pin: 29000,                 // ksi
+};
+
+export const dd = 10
+
+    {/*
+        9. 6 Example of Uniform Axially Loaded Lug Analysis
+
+        (1) Female Lugs and Bushings
+        Equations (9-3a) a•nd (9-3b) apply only if the load is uniformly distributed across the lug thickness.
+        Ftux. = 64, 000 psi;
+        Ftux. = 40, 000 psi;
+    */}
+
+<Flex direction="column" align="flex-start" px="auto">
+
+
+  <MathBlock tex={`F_{tux1} == ${matProps.F_tux_1} \\text{ in}^2`} />
+
+
+  <MathBlock tex={`A_{pin} = n_{s}\\, \\frac{\\pi D_p^2}{4}`} />
+  <MathBlock tex={'A_{net_1} = n_{s}\\, t_{1}\\,(w_{1}-D)'} />
+  <MathBlock tex={'A_{net_2} = t_{2}\\,(w_{2}-D)'} />
+  <MathBlock tex={'A_{net_1} = n_{s}\\, t_{1}\\,(w_{1}-D)'} />
+  <MathBlock tex={'A_{b_{total}} = n_{if}\\, t_{crit}\\, D_p'} />
+  <MathBlock tex={`A_{pin} = n_{s}\\, \\frac{\\pi \\ (${dd})^2}{4} = ${dd} \\text{ in}^2`} />
+</Flex>
+
+    {/*
+
+      if Ftux, <= 1.304 Ftyx)
+      PbruL=FbruL*D*t
+      else
+      PbruL=1.304*FbryL*D*t
+
+      1.304 Ft, = 1.304 x 40000 = 52160 psi.
+
+      a) Lug Bearing Strength (Equations (9-2a) and (9-3b))
+      e1/D _ 1 25 /1.00= 1.25; therefore K 1 = 1.46 (from Figure 9-2)
+
+          Pbru = 1.304 x 1.46 x 0.75 x 40000 x 1.00 x 0. 50 = 28600 lbs
+
+      b) Lug Net-Section Tension Strength (.Equations (9-5) and (9-6b))
+      D _ 1.00 -040; -= 4 0.625
+      wI 2. 50 Ftu 64000
+
+    */}

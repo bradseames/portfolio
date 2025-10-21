@@ -8,7 +8,7 @@ export default [
   route('work/', 'pages/Experience/Experience.tsx'),
   route('skills/', 'pages/Experience/skills.tsx'),
   route('table/', 'components/Tables/SelectTable.tsx'),
-  route('lug/', 'components/parametric_lug.tsx'),
+  route('lug/', 'components/LugCalculator/LugCalculator.tsx'),
   route('user_table/', 'components/Tables/UserTable.tsx'),
   // route('about/', 'content/portfolio/About.tsx'),
   route('/docs/:category/:name', 'routes/DynamicMdxPage.tsx'),

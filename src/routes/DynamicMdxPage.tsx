@@ -26,6 +26,7 @@ export default function DynamicMdxPage({
     <>
       <Suspense fallback={<Loading />}>
         <MdxContent components={components} />
+
       </Suspense>
     </>
   );

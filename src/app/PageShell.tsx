@@ -23,6 +23,8 @@ const navLinkData = [
   { href: '/docs/math/math-example', label: 'Math Example' },
   { href: '/docs/math/quadratic-formula', label: 'Quadratic' },
   { href: '/docs/portfolio/about-me', label: 'About Me' },
+  // { href: '/docs/analysis/about-me', label: 'About Me' },
+
 ];
 
 
