@@ -6,25 +6,26 @@ import ColorToggle from '../components/Themes/ColorToggle/ColorToggle';
 // import { useHeadroom } from '@mantine/hooks';
 import classes from './PageShell.module.css';
 // import NavbarNested from '../components/Layouts/NavBarNested';
+import { IconHome2, IconGauge, IconChevronRight, IconActivity, IconCircleOff } from '@tabler/icons-react';
 
 const navLinkData = [
-  // { href: '/', label: 'Home' },
   { href: '/form', label: 'Form' },
   { href: '/chart', label: 'My Chart' },
   { href: '/work', label: 'Experience' },
   { href: '/skills', label: 'Skills' },
-  // {href: '/math', label: 'Math'},
   { href: '/lug', label: 'Lug' },
   { href: '/table', label: 'Select Table' },
   { href: '/user_table', label: 'User Table' },
+];
+
+const navLinkDoc = [
+  { href: '/docs/analysis/lug-allowables', label: 'Lugs' },
   { href: '/docs/analysis/shear-force-and-bending-moments-in-beams', label: 'Beams' },
   { href: '/docs/charts/samples', label: 'Chart' },
-  { href: '/docs/analysis/lug-allowables', label: 'Lugs' },
   { href: '/docs/math/math-example', label: 'Math Example' },
   { href: '/docs/math/quadratic-formula', label: 'Quadratic' },
   { href: '/docs/portfolio/about-me', label: 'About Me' },
-  // { href: '/docs/analysis/about-me', label: 'About Me' },
-
+  { href: '/docs/math/integration', label: 'integration' },
 ];
 
 
@@ -63,7 +64,6 @@ const d = [
 interface INavTOC {
   href: string;
   label: string;
-  children: [INavTOC] | undefined;
 }
 
 //
@@ -103,8 +103,13 @@ interface INavTOC {
 //
 // }
 
-
 const navLinks = navLinkData.map((link) => {
+    return (
+      <NavLink key={link.href} href={link.href} label={link.label} />
+    );
+  },
+);
+const docLinks = navLinkDoc.map((link) => {
     return (
       <NavLink key={link.href} href={link.href} label={link.label} />
     );
@@ -148,11 +153,27 @@ export default function ShellLayout({ children }: { children: React.ReactNode })
 
 
         <AppShell.Section>
-          <NavLink href="/" label="Home" />
+          <NavLink
+            href="  /"
+            label="home"
+            leftSection={<IconHome2 size={16} stroke={1.5} />}
+          />
         </AppShell.Section>
         <AppShell.Section grow component={ScrollArea}>
-          <Text>Docs</Text>
+
           {navLinks}
+          <Text>Docs</Text>
+          <NavLink
+            href="#required-for-focus"
+            label="Docs"
+            leftSection={<IconGauge size={16} stroke={1.5} />}
+            rightSection={
+              <IconChevronRight size={12} stroke={1.5} className="mantine-rotate-rtl" />
+            }
+          >
+            {docLinks}
+          </NavLink>
+
         </AppShell.Section>
 
         {/*<Container>*/}

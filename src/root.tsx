@@ -22,28 +22,8 @@ export { App as default, ErrorBoundary, Layout };
 //   LoadingOverlay
 // } from '@mantine/core';
 
-import NothingFoundBackground from './pages/Errors/NothingFoundBackground';
-import type { Route } from './+types/root';
-// import './app.css'
-// import {AppTheme} from './app-theme';
-
-// export function Layout({children}: {children: React.ReactNode}) {
-//   return (
-//     <html lang="en" {...mantineHtmlProps}>
-//     <head>
-//       <meta charSet="utf-8"/>
-//       <meta name="viewport" content="width=device-width, initial-scale=1"/>
-//       <Meta/>
-//       <Links/>
-//     </head>
-//     <body>
-//     <AppTheme>{children}</AppTheme>
-//     <ScrollRestoration/>
-//     <Scripts/>
-//     </body>
-//     </html>
-//   );
-// }
+//import NothingFoundBackground from './pages/Errors/NothingFoundBackground';
+//import type { Route } from './+types/root';
 
 // function getVersion() {
 //   return 1.0

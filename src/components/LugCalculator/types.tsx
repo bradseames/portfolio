@@ -22,26 +22,18 @@ export interface LugParams {
 }
 
 export interface Allowables {
-  // Allowable stresses (units consistent w/ geometry)
-
-  // Lug 1 (Outer)
+  units: string;
   F_tux_1: number;
   F_tyx_1: number;
   E_1: number;          // Modulus of elasticity, psi
   e_u_1: number;        // Strain, inches/inch
-
-  // Lug  2 (Inner)
   F_tux_2: number;
   F_tyx_2: number;
   E_2: number;         // Modulus of elasticity, psi
   e_u_2: number;       // Strain, inches/inch
-
-  // Bushing
   F_tu_bush: number;
   F_ty_bush: number;   // Allowable bearing yield stress for bushings
   F_cy_bush: number;   // Bushing compressive yield, stress
-
-  // Pin
   F_tu_pin: number;     // Pin ultimate tensile stress
   F_ty_pin: number;
   F_su_pin: number;     // Ultimate shear stress of the pin material
@@ -52,12 +44,12 @@ export interface SketchProps {
   params: LugParams;
   allow?: Partial<Allowables>;
   // Optional overall drawing length of the lug in the axial direction
-  L?: number; // if not given, computed from e + 2*D
-  showDims?: boolean;    // show dimension graphics
-  showLoads?: boolean;   // show P arrows
-  showWarnings?: boolean;// highlight rule violations
-  showPanels?: boolean;  // draw calc panels inside SVG (default true)
-  style?: React.CSSProperties;
+  //L?: number; // if not given, computed from e + 2*D
+  //showDims?: boolean;    // show dimension graphics
+  //showLoads?: boolean;   // show P arrows
+  //showWarnings?: boolean;// highlight rule violations
+  //showPanels?: boolean;  // draw calc panels inside SVG (default true)
+  //style?: React.CSSProperties;
 }
 
 // interface NumberSlideProps {

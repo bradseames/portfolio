@@ -1,42 +1,22 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Accordion,
+  Box,
   Card,
   Container,
   Fieldset,
   Flex,
   NumberInput,
   SegmentedControl,
+  Switch,
   Slider,
   Text,
-  Box,
 } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
-import { type LugParams, type Allowables, LugMode, UnitMode } from './types';
-import { DEFAULT_ALLOW, calc } from './Calcs';
+import { type Allowables, type LugParams } from './types';
+import { DEFAULT_ALLOW } from './Calcs';
 import { LugSketch } from './parametric_lug';
 import classes from './lug.module.css';
-
-function useMathJax() {
-  useEffect(() => {
-    if ((window as any).MathJax) return;
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-    s.async = true;
-    document.head.appendChild(s);
-  }, []);
-}
-
-function MathBlock({ tex }: { tex: string }) {
-  useMathJax();
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const MJ = (window as any).MathJax;
-    if (!MJ) return;
-    MJ.typesetPromise?.([ref.current]);
-  }, [tex]);
-  return <div style={{ fontSize: 'small', color: 'black' }} ref={ref}>{`$$${tex}$$`}</div>;
-}
 
 
 function NumberSlideSet({
@@ -48,21 +28,21 @@ function NumberSlideSet({
   step = 0.01,
   suffix,
   decimalScale = 3,
-  allowNegative = true,
-  fixedDecimalScale = true,
+  allowNegative = false,
+  fixedDecimalScale = false,
 }: {
-  label: string;
+  label?: string;
   value: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  min: number;
-  max: number;
-  step: number;
-  suffix: string;
-  decimalScale: number;
-  allowNegative: boolean;
-  fixedDecimalScale: boolean;
+  min?: number;
+  max?: number;
+  step?: number;
+  suffix?: string;
+  decimalScale?: number;
+  allowNegative?: boolean;
+  fixedDecimalScale?: boolean;
 }) {
-  // const [params, setParams] = useState(props);
+
   return (
     <Fieldset p="xs">
       <Flex direction="row" bg="gray" align="center">
@@ -75,11 +55,11 @@ function NumberSlideSet({
             min={min}
             max={max}
             step={step}
+            thousandSeparator=","
             allowNegative={allowNegative}
             fixedDecimalScale={fixedDecimalScale}
             decimalScale={decimalScale}
             size="xs"
-
           />
         </Box>
       </Flex>
@@ -96,266 +76,271 @@ function NumberSlideSet({
       />
     </Fieldset>
   );
+
 }
 
+export const DEFAULT_PARAMS: LugParams = {
+  mode: 'double',
+  units: 'in',
+  Dp: Number(1.00),
+  D: Number(1.00),
+  w1: Number(3.00),
+  w2: Number(3.50),
+  e1: Number(1.50),
+  e2: Number(1.75),
+  t1: Number(0.50),
+  t2: Number(0.75),
+  g: Number(0.010),
+};
+
 export default function LugCalculator() {
-  const [mode, setMode] = useState<LugMode | string>(LugMode.double);
-  const [units, setUnits] = useState<UnitMode | string>(UnitMode.english);
-  const [conversion, setConversion] = useState<number>(1);
-  const [Dp, setPinD] = useState<number | string>(0.75);
-  const [D, setHoleD] = useState<number | string>(1.00);
-  const [g, setGap] = useState<number | string>(0.10);
-  const [t1, setT1] = useState<number | string>(0.50);
-  const [t2, setT2] = useState<number | string>(0.75);
-  const [w1, setW1] = useState<number | string>(2.5);
-  const [w2, setW2] = useState<number | string>(3.0);
-  const [e1, setEd1] = useState<number | string>(Number(w1) / 2);
-  const [e2, setEd2] = useState<number | string>(Number(w2) / 2);
+  //const [e1checked, setE1Checked] = useState(true);
+  //const [e2checked, setE2Checked] = useState(true);
 
-  const [params, setParams] = useState<LugParams>({
-    mode: mode,
-    units: units,
-    Dp: Number(Dp),
-    D: Number(D),
-    w1: Number(w1),
-    w2: Number(w2),
-    e1: Number(e1),
-    e2: Number(e2),
-    t1: Number(t1),
-    t2: Number(t2),
-    g: Number(g),
-  });
+  const [params, setParams] = useState<LugParams>(DEFAULT_PARAMS);
   const [allow, setAllow] = useState<Allowables>(DEFAULT_ALLOW);
-
-  function lengthUnits() {
-    return (units === UnitMode.english ? 'in' : 'mm');
-  };
-
-  const R = calc({
-    mode: mode,
-    units: units,
-    Dp: Number(Dp),
-    D: Number(D),
-    g: Number(g),
-    t1: Number(t1),
-    t2: Number(t2),
-    w1: Number(w1),
-    w2: Number(w2),
-    e1: (Number(w1) / 2),
-    e2: (Number(w2) / 2),
-  }, allow);
 
   const { ref, width, height } = useElementSize();
 
-  const handle = (k: keyof LugParams) => (e: React.ChangeEvent<HTMLInputElement>) => setParams(
-    p => ({ ...p, [k]: Number(e.target.value) }));
-
   return (
+
     <Container strategy="grid">
+
       <Flex bg="grape" direction="row" wrap="nowrap" justify="stretch" align="flex-start">
-        <Flex w={350} m={0} p={0} bg="teal" h="calc(100dvh - var(--app-shell-header-height))" direction="column"
+
+        <Flex w={450} m={0} p={0} bg="teal" h="calc(100dvh - var(--app-shell-header-height))" direction="column"
               justify="stretch" align="flex-start" style={{ overflow: 'auto' }}>
+
           <Accordion w="100%" h="calc(100dvh - var(--app-shell-header-height))" defaultValue="Configuration"
                      classNames={classes}>
+
             <Accordion.Item w="100%" key={'Configuration'} value={'Configuration'}>
               <Accordion.Control>{'Configuration'}</Accordion.Control>
               <Accordion.Panel>
-                <SegmentedControl
-                  value={mode}
-                  onChange={(value) => setMode(value)}
-                  fullWidth
-                  data={[
-                    {
-                      value: 'single',
-                      label: 'Single',
-                    },
-                    {
-                      value: 'double',
-                      label: 'Double',
-                    },
-                  ]}
+                <SegmentedControl value={params.mode}
+                                  fullWidth
+                                  onChange={e => {setParams({ ...params, mode: e }); }}
+                                  data={[
+                                    { value: 'single', label: 'Single' },
+                                    { value: 'double', label: 'Double' },
+                                  ]}
                 />
-                {/*<Container w="100%">*/}
-                {/*  <SegmentedControl*/}
-                {/*    value={units}*/}
-                {/*    onChange={setUnits}*/}
-                {/*    fullWidth*/}
-                {/*    size="xs"*/}
-                {/*    data={[*/}
-                {/*      {*/}
-                {/*        value: 'english',*/}
-                {/*        label: 'English',*/}
-                {/*      },*/}
-                {/*      {*/}
-                {/*        value: 'metric',*/}
-                {/*        label: 'Metric',*/}
-                {/*      },*/}
-                {/*    ]}*/}
-                {/*  />*/}
-                {/*</Container>*/}
               </Accordion.Panel>
             </Accordion.Item>
+
             <Accordion.Item w="100%" key={'Geometry'} value={'Geometry'}>
               <Accordion.Control>{'Geometry'}</Accordion.Control>
               <Accordion.Panel>
-                <NumberSlideSet label={'Dp'}
-                                value={Number(Dp)}
-                                onChange={setPinD}
+                <NumberSlideSet label={'Dp'} fixedDecimalScale={true} decimalScale={3} step={0.05}
                                 min={0.1}
-                                max={Number(D)}
-                                step={0.05}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={3}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
-
-                <NumberSlideSet label={'D'}
-                                value={Number(D)}
-                                onChange={setHoleD}
-                                min={Number(Dp)}
-                                max={Math.min(Number(w1), Number(w2)) - .1}
-                                step={0.05}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={3}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
-
-                <NumberSlideSet label={'t1'}
-                                value={Number(t1)}
-                                onChange={setT1}
-                                min={Number(.1)}
-                                max={Number(w1) * 1}
-                                step={0.05}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={2}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
-                <NumberSlideSet label={'w1'}
-                                value={Number(w1)}
-                                onChange={setW1}
-                                min={Number(D)}
-                                max={Number(D) * 5}
-                                step={0.1}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={3}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
-                <NumberSlideSet label={'e1'}
-                                value={Number(w1) / 2}
-                                onChange={setEd1}
-                                min={Number(D) / 2}
-                                max={Number(D) * 5}
-                                step={0.1}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={3}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
-
-                <NumberSlideSet label={'t2'}
-                                value={Number(t2)}
-                                onChange={setT2}
-                                min={Number(.1)}
-                                max={Number(w2) * 1}
-                                step={0.05}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={2}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
-                <NumberSlideSet label={'w2'}
-                                value={Number(w2)}
-                                onChange={setW2}
-                                min={Number(D)}
-                                max={Number(D) * 5}
-                                step={0.1}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={3}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
-                {/*<Switch label="half width" bg="gray"*/}
-                {/*        defaultChecked={true}></Switch>*/}
-                <NumberSlideSet label={'e2'}
-                                value={Number(w2) / 2}
-                                onChange={setEd2}
-                                min={Number(D) / 2}
-                                max={Number(D) * 5}
-                                step={0.1}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={3}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
-                <NumberSlideSet label={'g'}
-                                value={Number(g)}
-                                onChange={setGap}
-                                min={Number(0)}
-                                max={Number(t1) * .1}
-                                step={0.001}
-                                suffix={' ' + lengthUnits()}
-                                decimalScale={3}
-                                allowNegative={false}
-                                fixedDecimalScale={true} />
+                                max={params.D}
+                                value={params.Dp} suffix={' ' + params.units}
+                                onChange={e => { setParams({ ...params, Dp: Number(e) }); }}
+                />
+                <NumberSlideSet label={'D'} fixedDecimalScale={true} decimalScale={3} step={0.05}
+                                min={params.Dp}
+                                max={Math.min(params.w1, params.w2, params.e1 * 2, params.e2 * 2) - .1}
+                                value={params.D} suffix={' ' + params.units}
+                                onChange={e => { setParams({ ...params, D: Number(e) }); }}
+                />
+                <NumberSlideSet label={'t1'} fixedDecimalScale={true} decimalScale={2} step={0.05}
+                                min={.01}
+                                max={params.w1}
+                                value={params.t1} suffix={' ' + params.units}
+                                onChange={e => { setParams({ ...params, t1: Number(e) }); }}
+                />
+                <NumberSlideSet label={'w1'} fixedDecimalScale={true} decimalScale={3} step={0.1}
+                                min={params.D}
+                                max={params.D * 5}
+                                value={params.w1} suffix={' ' + params.units}
+                                onChange={e => { setParams({ ...params, w1: Number(e) }); }}
+                />
+                <NumberSlideSet label={'e1'} fixedDecimalScale={true} decimalScale={3} step={0.1}
+                                min={params.D / 2}
+                                max={params.D * 5}
+                                value={params.e1} suffix={' ' + params.units}
+                                onChange={e => { setParams({ ...params, e1: Number(e) }); }}
+                />
+                <NumberSlideSet label={'t2'} fixedDecimalScale={true} decimalScale={2} step={0.05}
+                                min={.01}
+                                max={params.w2}
+                                value={params.t2} suffix={' ' + params.units}
+                                onChange={e => { setParams({ ...params, t2: Number(e) }); }}
+                />
+                <NumberSlideSet label={'w2'} fixedDecimalScale={true} decimalScale={3} step={0.1}
+                                min={params.D}
+                                max={params.D * 5}
+                                value={params.w2} suffix={' ' + params.units}
+                                onChange={e => { setParams({ ...params, w2: Number(e) }); }}
+                />
+                {/*<Switch id="e2_switch" label="half width" bg="gray"*/}
+                {/*        checked={e2checked}*/}
+                {/*        onChange={(event) => {*/}
+                {/*          setE2Checked(event.currentTarget.checked);*/}
+                {/*        }}*/}
+                {/*></Switch>*/}
+                <NumberSlideSet label={'e2'} fixedDecimalScale={true} decimalScale={3} step={0.1}
+                                min={params.D / 2}
+                                max={params.D * 5}
+                                value={params.e2} suffix={' ' + params.units}
+                                onChange={e => { setParams({ ...params, e2: Number(e) }); }}
+                />
+                {(params.mode == 'double') ? (
+                  <NumberSlideSet label={'g'} fixedDecimalScale={true} decimalScale={3} step={0.001}
+                                  min={0}
+                                  max={params.t1 * .1}
+                                  value={params.g} suffix={' ' + params.units}
+                                  onChange={e => { setParams({ ...params, g: Number(e) }); }}
+                  />
+                ) : ('')}
               </Accordion.Panel>
             </Accordion.Item>
-            <Accordion.Item key={'Areas'} value={'Areas'}>
-              <Accordion.Control>{'Areas'}</Accordion.Control>
-              <Accordion.Panel>
-                <Flex direction="column" justify="flex-start" align="flex-start">
-                  <MathBlock
-                    tex={'A_{pin} = n_{s}\\, \\frac{\\pi D_p^2}{4} = ' + R.Apin_shear.toFixed(2) + '\\ in^2'} />
-                  <MathBlock tex={'A_{net_1} = n_{s}\\, t_{1}\\,(w_{1}-D) = ' + R.Anet.toFixed(2)} />
-                  <MathBlock tex={'A_{net_2} = t_{2}\\,(w_{2}-D) = ' + R.Anet.toFixed(2)} />
-                  <MathBlock tex={'A_{b,\\,each} = t_{crit}\\, D_p = ' + R.Abearing_each.toFixed(2)} />
-                  <MathBlock tex={'A_{b,\\,total} = n_{if}\\, t_{crit}\\, D_p'} />
-                  <MathBlock tex={'A_{b_{total}} = n_{if}\\, t_{crit}\\, D_p'} />
 
-                  <div className="text-sm">A_bear(total) = {R.Abearing_total.toFixed(2)}</div>
-
-                  <div className="mt-2 text-sm">P_net = {R.P_net_tension.toFixed(1)}</div>
-                  <div className="text-sm">P_bearing = {R.P_bearing_lug.toFixed(1)}</div>
-                  <div className="text-sm">P_pin(shear) = {R.P_us_p.toFixed(1)}</div>
-                  <div className="font-semibold">P_governing = {R.P_governing.toFixed(1)}</div>
-
-
-                  {R.warnings.length > 0 && (
-                    <div className="mt-2 text-sm text-red-700">
-                      {R.warnings.map((w, i) => <div key={i}>⚠ {w}</div>)}
-                    </div>
-                  )}
-                </Flex>
-              </Accordion.Panel>
-            </Accordion.Item>
             <Accordion.Item w="100%" key={'Materials'} value={'Materials'}>
               <Accordion.Control>{'Materials'}</Accordion.Control>
-              <Accordion.Panel></Accordion.Panel>
+              <Accordion.Panel>
+                <Fieldset legend="Pin">
+                  <NumberSlideSet label={'F_tu_pin'} min={0} max={500000} step={1000}
+                                  value={allow.F_tu_pin} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_tu_pin: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'F_ty_pin'} min={0} max={500000} step={1000}
+                                  value={allow.F_ty_pin} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_ty_pin: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'F_su_pin'} min={0} max={500000} step={1000}
+                                  value={allow.F_su_pin} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_su_pin: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'E_pin'} min={0} max={500000000} step={1000}
+                                  value={allow.E_pin} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, E_pin: Number(e) });}}
+                  />
+
+                </Fieldset>
+
+                <Fieldset legend="Lug 1">
+                  <NumberSlideSet label={'F_tux_1'} min={0} max={500000} step={1000}
+                                  value={allow.F_tux_1} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_tux_1: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'F_tyx_1'} min={0} max={500000} step={1000}
+                                  value={allow.F_tyx_1} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_tyx_1: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'E_1'} min={0} max={500000000} step={1000}
+                                  value={allow.E_1} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, E_1: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'e_u_1'} min={0} fixedDecimalScale={true} decimalScale={3} max={1} step={0.001}
+                                  value={allow.e_u_1}
+                                  onChange={e => {setAllow({ ...allow, e_u_1: Number(e) });}}
+                  />
+
+                </Fieldset>
+
+                <Fieldset legend="Lug 2">
+                  <NumberSlideSet label={'F_tux_2'} min={0} max={500000} step={1000}
+                                  value={allow.F_tux_2} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_tux_2: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'F_tyx_2'} min={0} max={500000} step={1000}
+                                  value={allow.F_tyx_2} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_tyx_2: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'E_2'} min={0} max={500000000} step={1000}
+                                  value={allow.E_2} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, E_2: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'e_u_2'} min={0} fixedDecimalScale={true} decimalScale={3} max={1} step={0.001}
+                                  value={allow.e_u_2}
+                                  onChange={e => {setAllow({ ...allow, e_u_2: Number(e) });}}
+                  />
+
+                </Fieldset>
+
+                <Fieldset legend="Bushing">
+                  <NumberSlideSet label={'F_tu_bush'} min={0} max={500000} step={1000}
+                                  value={allow.F_tu_bush} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_tu_bush: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'F_ty_bush'} min={0} max={500000} step={1000}
+                                  value={allow.F_ty_bush} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_ty_bush: Number(e) });}}
+                  />
+                  <NumberSlideSet label={'F_cy_bush'} min={0} max={500000} step={1000}
+                                  value={allow.F_cy_bush} suffix={' ' + allow.units}
+                                  onChange={e => {setAllow({ ...allow, F_cy_bush: Number(e) });}}
+                  />
+                </Fieldset>
+
+              </Accordion.Panel>
             </Accordion.Item>
-            <Accordion.Item w="100%" key={'Allowables'} value={'Allowables'}>
-              <Accordion.Control>{'Allowables'}</Accordion.Control>
-              <Accordion.Panel> </Accordion.Panel>
-            </Accordion.Item>
+
           </Accordion>
         </Flex>
-        <Container
-          w="100%"
-          h="calc(100dvh - var(--app-shell-header-height))"
-          bg="lime">
+
+        <Container bg="lime" w="100%" h="calc(100dvh - var(--app-shell-header-height))">
           <Card ref={ref} bg="white" h="calc(100dvh - var(--app-shell-header-height))">
-            <LugSketch params={{
-              mode: mode,
-              units: units,
-              Dp: Number(Dp),
-              D: Number(D),
-              g: Number(g),
-              t1: Number(t1),
-              t2: Number(t2),
-              w1: Number(w1),
-              w2: Number(w2),
-              e1: (Number(w1) / 2),
-              e2: (Number(w2) / 2),
-            }} />
+            <LugSketch params={{ ...params }} allow={{ ...allow }} />
           </Card>
         </Container>;
+
       </Flex>
+
+      {/*  export const equations = {*/}
+      {/*  eq9_1a: ({*/}
+      {/*  a = 'a',*/}
+      {/*  D = 'D',*/}
+      {/*  K = 'K',*/}
+      {/*  F_tux = `\\text{F}_\\text{tux}`*/}
+      {/*}*/}
+      {/*  ) => `\\text{F}_\\text{bru} = \\text{${K}} \\ \\frac{${a}}{${D}} \\ ${F_tux}`,*/}
+      {/*  eq9_1b: ({*/}
+      {/*  K = 'K',*/}
+      {/*  F_tux = `\\text{F}_\\text{tux}`*/}
+      {/*}*/}
+      {/*  ) => `\\text{F}_\\text{bru} = \\text{${K}} \\ ${F_tux}`*/}
+      {/*}*/}
+
+
+      {/*  <MathBlock*/}
+      {/*    tex={`\\quad ${vars.F_bryL} = ${1.48} \\ \\frac{${(geom.e1 - geom.D /*/}
+      {/*      2)}}{${geom.D}} \\ ${matProps.F_tyx_1}`} />*/}
+      {/*  <MathBlock*/}
+      {/*    tex={`\\quad ${vars.F_bryL} = ${(1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tyx_1).toFixed(3)}`} />*/}
+      {/*  <MathBlock*/}
+      {/*    tex={`\\quad ${vars.F_bruL} = ${(1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tux_1).toFixed(3)}`} />*/}
+
+
     </Container>
   );
 }
 
 
+//{{
+//  vars = {
+//    F: {
+//      bru_L:,
+//      bry_L:,
+//      tux:,
+//      tyx:,
+//      bru:,
+//      bry:,
+//      tu:,
+//      nu_L:,
+//      ny_L:,
+//      bry_B:,
+//      cy_B:,
+//      bru_B:,
+//      su_p:,
+//      tu_p:,
+//      tu_t:,
+//      br_max_L:,
+//      br_max_B:,
+//      s_max_p:,
+//      b_max_p:,
+//    },
+//    P: {}
+//  }
+//}}

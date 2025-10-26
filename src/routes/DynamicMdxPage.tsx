@@ -1,6 +1,7 @@
 import type { Route } from './+types/DynamicMdxPage';
 import React, { lazy, Suspense } from 'react';
 import { components } from '../components/MDXProvider';
+
 // A utility function to load the correct MDX file.
 // The path here assumes your MDX files are in src/content.
 const importMdx = (
@@ -26,7 +27,6 @@ export default function DynamicMdxPage({
     <>
       <Suspense fallback={<Loading />}>
         <MdxContent components={components} />
-
       </Suspense>
     </>
   );

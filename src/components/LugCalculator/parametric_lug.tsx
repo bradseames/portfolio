@@ -16,8 +16,9 @@ function useFit(dim: { width: number; height: number }) {
 
 // ---------- SVG Sketch ----------
 export const LugSketch: React.FC<SketchProps> = ({
-  params, allow, showDims = false, showLoads = true, showWarnings = true, showPanels = true, style,
+  params, allow,
 }) => {
+  console.log(params);
   // const p = params;
   // const A = { ...DEFAULT_ALLOW, ...(allow ?? {}) } as Allowables;
   // const R = calc(p, A);
@@ -173,21 +174,21 @@ export const LugSketch: React.FC<SketchProps> = ({
               height={params.D}
               fill={color.hole} />
 
-        <rect id="lug2_side"
-              x={params.t1 + params.g}
-              y={yTop}
-              width={params.t2}
-              height={yCenter + params.e2 - yTop}
-              fill={color.lug2} />
-        <rect id="lug2_hole_side"
-              x={params.t1 + params.g}
-              y={yCenter - params.D / 2}
-              width={params.t2}
-              height={params.D}
-              fill={color.hole} />
 
         {params.mode === LugMode.double ? (
           <>
+            <rect id="lug2_side"
+                  x={params.t1 + params.g}
+                  y={yTop}
+                  width={params.t2}
+                  height={yCenter + params.e2 - yTop}
+                  fill={color.lug2} />
+            <rect id="lug2_hole_side"
+                  x={params.t1 + params.g}
+                  y={yCenter - params.D / 2}
+                  width={params.t2}
+                  height={params.D}
+                  fill={color.hole} />
             <rect id="lug1_side_right"
                   x={params.t1 + params.t2 + params.g * 2}
                   y={yCenter - params.e1}
@@ -210,6 +211,18 @@ export const LugSketch: React.FC<SketchProps> = ({
           </>
         ) : (
           <>
+            <rect id="lug2_side"
+                  x={params.t1}
+                  y={yTop}
+                  width={params.t2}
+                  height={yCenter + params.e2 - yTop}
+                  fill={color.lug2} />
+            <rect id="lug2_hole_side"
+                  x={params.t1}
+                  y={yCenter - params.D / 2}
+                  width={params.t2}
+                  height={params.D}
+                  fill={color.hole} />
             <rect id="pin_side"
                   x={0}
                   y={yCenter - params.Dp / 2}
@@ -238,11 +251,6 @@ export const LugSketch: React.FC<SketchProps> = ({
               x2={totalThk}
               y1={yCenter}
               y2={yCenter} />
-        <line transform={'translate(' + xSideCenter + ', 0)'}
-              x1={0}
-              x2={0}
-              y1={yTop}
-              y2={yBottom} />
       </g>
 
       <g id="dims"
@@ -273,9 +281,9 @@ export const LugSketch: React.FC<SketchProps> = ({
           />
           <text
             x={0}
-            y={0}
+            y={-.1}
             textAnchor="middle"
-          >w1
+          >w1 ({params.w1.toFixed(3)})
           </text>
         </g>
         <g transform={'translate(' + xFrontCenter + ', ' + (yTop - vb.offsetY / 2) + ')'}>
@@ -303,25 +311,39 @@ export const LugSketch: React.FC<SketchProps> = ({
                 markerEnd="url(#arrow-end)"
           />
           <text x={0}
-                y={0}
+                y={-.1}
                 textAnchor="middle"
-          >w2
+          >w2 ({params.w2.toFixed(3)})
           </text>
         </g>
         <g transform={'translate(' + xFrontCenter + ', ' + (yCenter) + ')'}>
           <line x1={0}
                 y1={0}
-                x2={-Math.min(params.w1 / 2) * Math.cos(Math.PI / 4)}
-                y2={-Math.min(params.w1 / 2) * Math.sin(Math.PI / 4)}
+                x2={-params.e1 * Math.cos(Math.PI * .5)}
+                y2={-params.e1 * Math.sin(Math.PI * .5)}
                 stroke="black"
                 markerStart="url(#arrow-start)"
                 markerEnd="url(#arrow-end)"
           />
-          <text x={-Math.min(params.w1 / 2) * 1.1 * Math.cos(Math.PI / 4)}
-                y={-Math.min(params.w1 / 2) * 1.1 * Math.cos(Math.PI / 4)}
-                textAnchor="middle"
-          >e1
+          <text x={-params.e1 * 1.1 * Math.cos(Math.PI * .52)}
+                y={-params.e1 * 1.1 * Math.sin(Math.PI * .52)}
+          >e1 ({params.e1.toFixed(3)})
           </text>
+          <line x1={0}
+                y1={0}
+                x2={-params.e2 * Math.cos(Math.PI * -.5)}
+                y2={-params.e2 * Math.sin(Math.PI * -.5)}
+                stroke="black"
+                markerStart="url(#arrow-start)"
+                markerEnd="url(#arrow-end)"
+          />
+          <text x={-params.e2 * 1.1 * Math.cos(Math.PI * -.52)}
+                y={-params.e2 * 1.1 * Math.sin(Math.PI * -.52)}
+                textAnchor="start"
+          >e2 ({params.e2.toFixed(3)})
+          </text>
+
+
         </g>
         <g transform={'translate(' + xSideLeft + ', ' + yCenter + ')'}>
 
@@ -340,14 +362,14 @@ export const LugSketch: React.FC<SketchProps> = ({
             stroke="black"
           />
           <line
-            x1={-vb.offsetX * 7 / 8}
+            x1={-vb.offsetX}
             y1={-params.D / 2}
             x2={-vb.offsetX / 8}
             y2={-params.D / 2}
             stroke="black"
           />
           <line
-            x1={-vb.offsetX * 7 / 8}
+            x1={-vb.offsetX}
             y1={params.D / 2}
             x2={-vb.offsetX / 8}
             y2={params.D / 2}
@@ -364,63 +386,70 @@ export const LugSketch: React.FC<SketchProps> = ({
           />
           <text
             x={-vb.offsetX / 4}
-            y={0}
-            textAnchor="middle"
+            y={-.10}
+            textAnchor="end"
             markerStart="url(#arrow-start)"
             markerEnd="url(#arrow-end)"
-          >Dp
+          > Dp
           </text>
-
+          <text
+            x={-vb.offsetX / 4}
+            y={.1}
+            textAnchor="end"
+            markerStart="url(#arrow-start)"
+            markerEnd="url(#arrow-end)"
+          >({params.Dp.toFixed(3)})
+          </text>
           <line
-            x1={-vb.offsetX * 3 / 4}
+            x1={-vb.offsetX}
             y1={-params.D / 2}
-            x2={-vb.offsetX * 3 / 4}
+            x2={-vb.offsetX}
             y2={params.D / 2}
             stroke="black"
             markerStart="url(#arrow-start)"
             markerEnd="url(#arrow-end)"
           />
           <text
-            x={-vb.offsetX * 3 / 4}
-            y={0}
-            textAnchor="middle"
-          >D
+            x={-vb.offsetX}
+            y={-params.D * .65}
+            textAnchor="start"
+          >D ({params.D.toFixed(3)})
           </text>
         </g>
         <g transform={'translate(' + xSideLeft + ', 0)'}>
-
+          <line
+            x1={0}
+            y1={yTop + vb.offsetY * .5}
+            x2={0}
+            y2={yCenter - params.e1 - .1}
+            stroke="black"
+          />
+          <line
+            x1={params.t1}
+            y1={yTop + vb.offsetY * .5}
+            x2={params.t1}
+            y2={yCenter - params.e1 - .1}
+            stroke="black"
+          />
+          <line
+            x1={0}
+            y1={yTop + vb.offsetY * .6}
+            x2={params.t1}
+            y2={yTop + vb.offsetY * .6}
+            stroke="black"
+            markerStart="url(#arrow-start)"
+            markerEnd="url(#arrow-end)"
+          />
+          <text
+            x={-.1}
+            y={yTop + vb.offsetY * .7}
+            textAnchor="end"
+          >t1 ({params.t1.toFixed(3)})
+          </text>
           {/* thickness labels */}
           {params.mode === LugMode.double ? (
             <g>
-              <line
-                x1={0}
-                y1={yTop + vb.offsetY * .3}
-                x2={0}
-                y2={yCenter - params.e1 - .1}
-                stroke="black"
-              />
-              <line
-                x1={params.t1}
-                y1={yTop + vb.offsetY * .3}
-                x2={params.t1}
-                y2={yCenter - params.e1 - .1}
-                stroke="black"
-              />
-              <line
-                x1={0}
-                y1={yTop + vb.offsetY * .5}
-                x2={params.t1}
-                y2={yTop + vb.offsetY * .5}
-                stroke="black"
-                markerStart="url(#arrow-start)"
-                markerEnd="url(#arrow-end)"
-              />
-              <text
-                x={-.1}
-                y={yTop + vb.offsetY * .6}
-                textAnchor="end"
-              >t1
-              </text>
+
               <line
                 x1={params.t1 + params.g}
                 y1={yTop + vb.offsetY}
@@ -448,20 +477,20 @@ export const LugSketch: React.FC<SketchProps> = ({
                 x={params.t1 + params.g - .3}
                 y={yTop + vb.offsetY * .3}
                 textAnchor="end"
-              >t2
+              >t2 ({params.t2.toFixed(3)})
               </text>
               <line
                 x1={params.t1 + params.t2 + params.g}
-                y1={yTop + vb.offsetY / 4}
+                y1={yTop + vb.offsetY * .5}
                 x2={params.t1 + params.t2 + params.g}
                 y2={yTop}
                 stroke="black"
               />
               <line
                 x1={params.t1 + params.t2 + params.g * 2}
-                y1={yTop + vb.offsetY / 4}
+                y1={yTop + vb.offsetY * .5}
                 x2={params.t1 + params.t2 + params.g * 2}
-                y2={yCenter - params.w2 / 2}
+                y2={yCenter - params.e1 - .1}
                 stroke="black"
               />
               <line
@@ -476,37 +505,40 @@ export const LugSketch: React.FC<SketchProps> = ({
               <text
                 x={params.t1 + params.t2 + params.g * 2 + .3}
                 y={yTop + vb.offsetY * .75}
-                textAnchor="middle"
-              >g
+                textAnchor="start"
+              >g ({params.g.toFixed(3)})
               </text>
             </g>
           ) : (
             <g>
               <line
-                x1={0}
-                y1={yTop}
+                x1={params.t1}
+                y1={yTop + vb.offsetY}
                 x2={params.t1}
                 y2={yTop}
                 stroke="black"
               />
-              <text
-                x={params.t1 / 2}
-                y={yTop}
-                textAnchor="end"
-              >t1
-              </text>
               <line
-                x1={params.t1}
-                y1={yTop - vb.offsetY * .5}
+                x1={params.t1 + params.t2}
+                y1={yTop + vb.offsetY / 4}
                 x2={params.t1 + params.t2}
-                y2={yTop - vb.offsetY * .5}
+                y2={yTop}
                 stroke="black"
               />
+              <line
+                x1={params.t1}
+                y1={yTop + vb.offsetY * .25}
+                x2={params.t1 + params.t2}
+                y2={yTop + vb.offsetY * .25}
+                stroke="black"
+                markerStart="url(#arrow-end)"
+                markerEnd="url(#arrow-start)"
+              />
               <text
-                x={params.t1 + params.t2 / 2}
-                y={yTop - vb.offsetY * .5}
+                x={params.t1 - .3}
+                y={yTop + vb.offsetY * .3}
                 textAnchor="end"
-              >t2
+              >t2 ({params.t2.toFixed(3)})
               </text>
             </g>
           )}
@@ -516,40 +548,76 @@ export const LugSketch: React.FC<SketchProps> = ({
       <g id="forces" fontFamily="system-ui, sans-serif"
          fontSize={.35}
          fontWeight={700}>
-        <g transform={'translate(' + xSideCenter + ', ' + yTop + ')'}>
-          <line
-            strokeWidth={.04}
-            x1={0}
-            x2={0}
-            y1={-vb.offsetY * 3 / 4}
-            y2={0}
-            stroke={'red'}
-            markerStart="url(#arrow-force)"
-          ></line>
-          <text x={-.2} y={-vb.offsetY * .5} fill="red" textAnchor="middle">F</text>
-        </g>
-        <g transform={'translate(' + (xSideCenter + params.t2 / 2 + params.t1 / 2 + params.g) + ', ' + yBottom + ')'}>
-          <line strokeWidth={.04}
+
+
+        {params.mode === LugMode.double ? (
+          <>
+            <g transform={'translate(' + (xSideLeft + params.t1 / 2) + ', ' + yBottom + ')'}>
+              <line strokeWidth={.04}
+                    x1={0}
+                    x2={0}
+                    y1={vb.offsetY * 3 / 4}
+                    y2={0}
+                    stroke={'red'}
+                    markerStart="url(#arrow-force)"
+              ></line>
+              <text x={-.2} y={vb.offsetY * .75} fill="red" textAnchor="end">P/2</text>
+            </g>
+            <g transform={'translate(' + xSideCenter + ', ' + yTop + ')'}>
+              <line
+                strokeWidth={.04}
                 x1={0}
                 x2={0}
-                y1={vb.offsetY * 3 / 4}
+                y1={-vb.offsetY * 3 / 4}
                 y2={0}
                 stroke={'red'}
                 markerStart="url(#arrow-force)"
-          ></line>
-          <text x={.2} y={vb.offsetY * .75} fill="red" textAnchor="start">F/2</text>
-        </g>
-        <g transform={'translate(' + (xSideCenter - params.t2 / 2 - params.t1 / 2 - params.g) + ', ' + yBottom + ')'}>
-          <line strokeWidth={.04}
+              ></line>
+              <text x={-.2} y={-vb.offsetY * .5} fill="red" textAnchor="middle">P</text>
+            </g>
+            <g transform={'translate(' + (xSideCenter + params.t2 / 2 + params.t1 / 2 + params.g) + ', ' + yBottom +
+              ')'}>
+              <line strokeWidth={.04}
+                    x1={0}
+                    x2={0}
+                    y1={vb.offsetY * 3 / 4}
+                    y2={0}
+                    stroke={'red'}
+                    markerStart="url(#arrow-force)"
+              ></line>
+              <text x={.2} y={vb.offsetY * .75} fill="red" textAnchor="start">P/2</text>
+            </g>
+          </>
+        ) : (
+          <>
+            <g transform={'translate(' + (xSideLeft + params.t1 / 2) + ', ' + yBottom + ')'}>
+              <line strokeWidth={.04}
+                    x1={0}
+                    x2={0}
+                    y1={vb.offsetY * 3 / 4}
+                    y2={0}
+                    stroke={'red'}
+                    markerStart="url(#arrow-force)"
+              ></line>
+              <text x={-.2} y={vb.offsetY * .75} fill="red" textAnchor="end">P</text>
+            </g>
+            <g transform={'translate(' + (xSideLeft + params.t1 + params.t2 / 2) + ', ' + yTop + ')'}>
+              <line
+                strokeWidth={.04}
                 x1={0}
                 x2={0}
-                y1={vb.offsetY * 3 / 4}
+                y1={-vb.offsetY * 3 / 4}
                 y2={0}
                 stroke={'red'}
                 markerStart="url(#arrow-force)"
-          ></line>
-          <text x={-.2} y={vb.offsetY * .75} fill="red" textAnchor="end">F/2</text>
-        </g>
+              ></line>
+              <text x={-.2} y={-vb.offsetY * .5} fill="red" textAnchor="middle">P</text>
+            </g>
+
+          </>
+        )}
+
+
       </g>
     </svg>
   );

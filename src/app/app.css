@@ -5,3 +5,13 @@
 @import '@gfazioli/mantine-list-view-table/styles.css';
 @import '@mantine/charts/styles.css';
 @layer mantine, mantine-datatable;
+
+
+.mathline {
+    line-height: 2rem;
+}
+
+.mathblock {
+    align-content: flex-start;
+    justify-self: flex-start;
+}
