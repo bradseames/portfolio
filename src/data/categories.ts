@@ -1,5 +1,5 @@
 import images from './images';
-import { CategoriesGroup, Category } from './types';
+//import { CategoriesGroup, Category } from './types';
 
 export const CATEGORIES: CategoriesGroup[] = [
   {
@@ -17,7 +17,7 @@ export const CATEGORIES: CategoriesGroup[] = [
       { slug: 'app-cards', name: 'Application cards', images: images['app-cards'] },
       { slug: 'stats', name: 'Stats', images: images.stats },
       { slug: 'tables', name: 'Tables', images: images.tables },
-      { slug: 'dnd', name: "Drag'n'Drop", images: images.dnd },
+      { slug: 'dnd', name: 'Drag\'n\'Drop', images: images.dnd },
       { slug: 'carousels', name: 'Carousels', images: images.carousels },
     ],
   },

@@ -4,10 +4,8 @@ import { useRef } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel } from '@mantine/carousel';
 import { Progress, Image } from '@mantine/core';
-import classes from './CarouselCard/CarouselCard.module.css';
+import classes from '../../components/CarouselCard/CarouselCard.module.css';
 import Fade from 'embla-carousel-fade';
-import LugCalculator from '../components/LugCalculator/LugCalculator';
-import MyChart from '../components/Charts/MyChart';
 
 const data = [
   {
@@ -77,18 +75,18 @@ const data = [
   },
 ];
 
-export default function CarouselEmbla() {
+export default function CarouselComponent() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [embla, setEmbla] = useState<EmblaCarouselType | null>(null);
 
   const autoplay = useRef(Autoplay({ delay: 2000 }));
   const fade = useRef(Fade({}));
-  //const slides = data.map(image => (
-  //  <Carousel.Slide key={image.key}>
-  //    <Image src={image.src} fit="scale-down" height={500} />
-  //
-  //  </Carousel.Slide>
-  //));
+  const slides = data.map(image => (
+    <Carousel.Slide key={image.key}>
+
+
+    </Carousel.Slide>
+  ));
 
   const handleScroll = useCallback(() => {
     if (!embla) {
@@ -117,25 +115,16 @@ export default function CarouselEmbla() {
 
         getEmblaApi={setEmbla}
         initialSlide={1}
-        //plugins={[autoplay.current, fade.current]}
-        //onMouseEnter={autoplay.current.stop}
-        //onMouseLeave={() => autoplay.current.play()}
+        plugins={[autoplay.current, fade.current]}
+        onMouseEnter={autoplay.current.stop}
+        onMouseLeave={() => autoplay.current.play()}
         classNames={{
           root: classes.carousel,
           controls: classes.carouselControls,
           indicator: classes.carouselIndicator,
         }}
       >
-        {/*{slides}*/}
-        <Carousel.Slide key={1}>
-          <LugCalculator />
-
-        </Carousel.Slide>
-        <Carousel.Slide key={2}>
-          <MyChart />
-
-        </Carousel.Slide>
-
+        {slides}
       </Carousel>
       <Progress value={scrollProgress} maw={320} size="sm" mt="xl" mx="auto" />
     </>

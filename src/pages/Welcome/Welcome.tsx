@@ -3,6 +3,7 @@ import classes from './Welcome.module.css';
 import Skills from '../Experience/skills';
 import Experience from '../Experience/Experience';
 
+
 const skill_groups = [
   {
     category: 'Mechanical Design',
@@ -50,6 +51,7 @@ const skill_groups = [
     skills: ['Git', 'Jira', 'Jenkins', 'Airflow', 'SharePoint', 'Dynamics CRM'],
   },
 ];
+
 
 export function Welcome() {
   return (

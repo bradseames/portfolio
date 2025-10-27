@@ -1,5 +1,59 @@
-import { type LugParams, type Allowables, LugMode, UnitMode } from './types';
+import { type LugParams, type Allowables } from './types';
+import { type DataPoint } from '../../data/types';
+import { linearInterpolatedObject, findBoundingNumbers, linearInterpolate } from '../../data/data_functions';
+import { Kb_data, K_data } from '../../components/LugCalculator/coeff_data';
+
 // ---------- Defaults ----------
+interface lugProps {
+  t: number,
+  D: number,
+  e: number,
+  w: number,
+  w_t: number,
+  F_tu: number,
+  F_ty: number,
+  E: number,
+  e_u: number
+}
+
+interface pinProps {
+  Dp: number,
+  type: string,
+  t1: number,
+  t2: number,
+  g: number | null,
+  E: number,
+  Ftu: number,
+  Fty: number,
+  Fsu: number,
+}
+
+export interface Result {
+  Anet: number;           // net-tension area of the critical plate
+  Abearing_each: number;  // projected bearing area per interface (t * Dp)
+  Abearing_total: number; // sum over interfaces (depends on mode)
+  Apin_shear: number;     // pin shear area (single or double shear)
+  P_net_tension: number;
+  P_bearing_lug: number;
+  P_us_p: number;
+  P_governing: number;    // min of the above
+  warnings: string[];
+}
+
+export const DEFAULT_PARAMS: LugParams = {
+  mode: 'double',
+  units: 'in',
+  Dp: Number(1.00),
+  D: Number(1.00),
+  w1: Number(3.00),
+  w2: Number(3.50),
+  e1: Number(1.50),
+  e2: Number(1.75),
+  t1: Number(0.50),
+  t2: Number(0.75),
+  g: Number(0.010),
+};
+
 export const DEFAULT_ALLOW: Allowables = {
   // Female Lugs, 1 (Outer)   | Al 2024-T351 Plate
   units: 'psi',
@@ -23,181 +77,35 @@ export const DEFAULT_ALLOW: Allowables = {
   E_pin: 29000000,                 // psi
 };
 
-
-//const vars={
-//   FbruL:{
-//     latex:`\\text{F}_{bru_L}`,
-//     val:,
-//     descrption:
-//   }
-//
-//}
-//
-//{description: "",
-//
-//latex: "$\text{F}_{bru_L}$ = Lug ultimate bearing stress"},
-//{description: "",
-//
-//latex: "$\text{F}_{bry_L}$ = Lug yield bearing stress"},
-//{description: "",
-//
-//latex: "$\text{F}_{tux}$ = Cross-grain tensile ultimate stress of lug material
-//
-//          $\text{F}_{tyx}$ = Cross-grain tensile yield stress of lug material
-//
-//          $\text{F}_{bru}$ = Allowable ultimate bearing stress, MHB5
-//
-//          $\text{F}_{bry}$ = Allowable yield bearing stress, MHB5
-//
-//          $\text{F}_{tu}$ = Ultimate tensile stress
-//
-//          $\text{F}_{nu_L}$ = Allowable lug net-section tensile ultimate stress
-//
-//          $\text{F}_{ny_L}$ = Allowable lug net-section tensile yield stress
-//
-//          $\text{F}_{bry_B}$ = Allowable bearing yield stress for bushings
-//
-//          $\text{F}_{cy_B}$ = Bushing compressive yield stress
-//
-//          $\text{F}_{bru_B}$ = Allowable bearing ultimate stress for bushings
-//
-//          $\text{F}_{su_p}$ = Ultimate shear stress of the pin material
-//
-//          $\text{F}_{tu_p}$ = Pin ultimate tensile stress
-//
-//          $\text{F}_{tu_t}$ = Allowable ultimate tang stress
-//
-//          $\text{F}_{br\max_L}$ = Maximum lug bearing stress
-//
-//          $\text{F}_{br\max_B}$ = Maximum bushing bearing stress
-//
-//          $\text{F}_{s\max_p}$ = Maximum pin shear stress
-//
-//          $\text{F}_{b\max_p}$ = Maximum pin bending stress
-//
-//
-
-
-//function validate(p: LugParams): LugParams {
-//  const minThk = 0.1;
-//  const minDia = 0.5;
-//
-//  let D = Math.max(p.D, minDia);
-//  let Dp = clamp(p.Dp, minDia, D - 0.2);
-//
-//  let t1 = Math.max(p.t1, minThk);
-//  let t2 = p.mode === LugMode.double ? Math.max(p.t2, minThk) : 0;
-//
-//  let w1 = Math.max(p.w1, D + 2);
-//  let w2 = p.mode === LugMode.double ? Math.max(p.w2, D + 2) : 0;
-//
-//  let e1 = Math.max(p.e1, D * 0.6); // simplistic floor; adjust to your rule
-//  let g = p.mode === LugMode.double ? Math.max(p.g, Dp * 0.1) : 0;
-//
-//  return { ...p, D, Dp, t1, t2, w1, w2, e1, g };
-//}
-
-// ---------- Calculation core — lightweight, swappable ----------
-export interface Result {
-  Anet: number;           // net-tension area of the critical plate
-  Abearing_each: number;  // projected bearing area per interface (t * Dp)
-  Abearing_total: number; // sum over interfaces (depends on mode)
-  Apin_shear: number;     // pin shear area (single or double shear)
-  P_net_tension: number;
-  P_bearing_lug: number;
-  P_us_p: number;
-  P_governing: number;    // min of the above
-  warnings: string[];
+function Kn(D_w: number, F_ty_Ftu: number, Ftu_Eeu: number) {
 }
 
+function K(e_D: number, D_t: number, a_D: number) {
 
-function AreaNetSection(w: number, t: number, d: number) {
-  return t * (w - d);
+  if (D_t <= 5) {
+    return linearInterpolatedObject(K_data, 'eD', 'K', e_D);
+
+  } else {
+
+    let data = [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30];
+    let Dts = findBoundingNumbers(data, D_t);
+
+    let kb1 = linearInterpolatedObject(Kb_data, 'a_D', 'Dt_' + Dts[0], a_D);
+    let kb2 = linearInterpolatedObject(Kb_data, 'a_D', 'Dt_' + Dts[1], a_D);
+
+    return linearInterpolate(Dts[0], kb1, Dts[1], kb2, D_t);
+  }
 }
 
-function AreaBearing(t: number, d: number) {
-  return t * d;
-}
+function bushing_calcs()
 
-function AreaPinShear(d: number) {
-  return (Math.PI * (d ** 2)) / 4;
-}
+function lug_calcs(props: lugProps) {
 
-// function Kn(Fty: number, Ftu: number, E: number, eps_u: number, D: number, w: number) {
-//   const r_y_u = Fty / Ftu;
-//
-//   const r_u_Eeps = Ftu / (E * eps_u);
-//   const Dw = D / w;
-//
-//   return (Math.PI * (d ** 2)) / 4;
-// }
-
-const k_data = [
-  [0.50, 2.00],
-  [0.52, 1.98],
-  [0.56, 1.94],
-  [0.59, 1.91],
-  [0.62, 1.88],
-  [0.67, 1.85],
-  [0.71, 1.81],
-  [0.75, 1.78],
-  [0.80, 1.75],
-  [0.84, 1.72],
-  [0.88, 1.68],
-  [0.93, 1.65],
-  [0.98, 1.61],
-  [1.03, 1.58],
-  [1.08, 1.55],
-  [1.14, 1.52],
-  [1.19, 1.48],
-  [1.25, 1.45],
-  [1.31, 1.42],
-  [1.37, 1.39],
-  [1.44, 1.36],
-  [1.50, 1.33],
-  [1.55, 1.37],
-  [1.59, 1.40],
-  [1.63, 1.43],
-  [1.67, 1.47],
-  [1.72, 1.50],
-  [1.76, 1.53],
-  [1.80, 1.56],
-  [1.85, 1.60],
-  [1.90, 1.63],
-  [1.95, 1.67],
-  [2.00, 1.70],
-  [2.06, 1.73],
-  [2.11, 1.77],
-  [2.16, 1.80],
-  [2.22, 1.83],
-  [2.28, 1.87],
-  [2.34, 1.90],
-  [2.38, 1.93],
-];
-
-function lug_geometry(
-  thick: number,
-  diaHole: number,
-  edgeDist: number,
-  widthNet: number,
-  widthTang: number,
-  F_tu: number,
-  F_ty: number,
-  E: number,
-  e_u: number,
-  units: {
-    length: string,
-    F: string,
-    E: string,
-    P: string
-  },
-) {
-
-  const e = edgeDist;
-  const D = diaHole;
-  const w = widthNet;
-  const t = thick;
-  const w_t = widthTang;
+  const t = props.t;
+  const D = props.D;
+  const e = props.e;
+  const w = props.w;
+  const w_t = props.w_t;
 
   const a = e - D / 2;
   const e_D_ratio = e / D;
@@ -205,205 +113,154 @@ function lug_geometry(
   const a_D_ratio = a / D;
   const D_w_ratio = D / w;
 
+  const h1 = w / 2 - (D / 2) * (Math.sqrt(2) / 2);
+  const h2 = w / 2 - D / 2;
+  const h3 = a;
+  const h4 = h1;
 
-  const F_ty_Ftu_ratio = F_ty / F_tu;
-  const Ftu_Ee_ratio = F_tu / (E * e_u);
-  const F_ty_1_304 = F_ty * 1.304;
+  const h_av = 6 / (3 / h1 + 1 / h2 + 1 / h3 + 1 / h4);
+  const h_av_D = h_av / D;
 
-  let k_axial = 1.48;
-  let F_bry = k_axial * F_ty;
-  let F_bru = k_axial * F_tu;
-
-  if (e_D_ratio > 1.5) {
-    F_bry = k_axial * a / D * F_ty;
-    F_bru = k_axial * a / D * F_tu;
-  }
-  let P_bru = F_bry * t * (w - D);
-  if (F_ty_1_304 > F_tu) {
-    P_bru = 1.304 * P_bru;
-  }
   const area_net_section = (w - D) * t;
   const area_tang = w_t * t;
   const area_bearing = D * t;
 
+  // Material strengths
+  const F_tu = props.F_tu;
+  const F_ty = props.F_ty;
+  const E = props.E;
+  const e_u = props.e_u;
 
-  const unit_len = `\\text{${units.length}}`;
-  const unit_stress = `\\text{${units.F}}`;
+  const Fty_Ftu_ratio = F_ty / F_tu;
+  const Ftu_Eeu_ratio = F_tu / (E * e_u);
 
-  let documentation = {
-    e: `${e.toFixed(3)}`,
+  const k = K(e_D_ratio, D_t_ratio, a_D_ratio);
+  const k_n = 1.2; //Kn(D_w_ratio, Fty_Ftu_ratio, Ftu_Eeu_ratio);
+  //const k_tru;
+  //const k_try = linearInterpolatedObject();
+
+  let F_br_small_eD = ((e_D_ratio < 1.5) ? (a / D) : 1);
+
+  let F_bry_L = k * F_ty * F_br_small_eD;
+  let F_bru_L = k * F_tu * F_br_small_eD;
+  let F_ny_L = k_n * F_ty;
+  let F_nu_L = k_n * F_tu;
+
+  let P_bru_L;
+  let P_nu_L;
+  let P_T = F_tu * area_tang;
+
+
+  if (F_tu > 1.304 * F_ty) {
+    P_bru_L = 1.304 * F_bry_L * area_bearing;
+    P_nu_L = 1.304 * F_ny_L * area_net_section;
+  } else {
+    P_bru_L = F_bru_L * area_bearing;
+    P_nu_L = F_nu_L * area_net_section;
+  }
+
+  let P_u_L = Math.min(P_bru_L, P_nu_L);
+
+
+  //const unit_len = `\\text{${units.length}}`;
+  //const unit_stress = `\\text{${units.F}}`;
+
+  return {
+    t: `${t.toFixed(3)}`,
     D: `${D.toFixed(3)}`,
     w: `${w.toFixed(3)}`,
-    t: `${t.toFixed(3)}`,
+    w_t: `${w_t.toFixed(3)}`,
+    e: `${e.toFixed(3)}`,
     a: `${a.toFixed(3)}`,
     e_D_ratio: `${e_D_ratio.toFixed(3)}`,
     D_t_ratio: `${D_t_ratio.toFixed(3)}`,
     a_D_ratio: `${a_D_ratio.toFixed(3)}`,
     D_w_ratio: `${D_w_ratio.toFixed(3)}`,
-
-    k_axial: `${k_axial.toFixed(3)}`,
-
+    k: `${k.toFixed(2)}`,
+    k_n: `${k_n.toFixed(2)}`,
     Ftx: `${F_tu.toFixed(0)}`,
     Fty: `${F_ty.toFixed(0)}`,
     E: `${E.toFixed(0)}`,
     e_u: `${e_u.toFixed(3)}`,
-    F_ty_Ftu_ratio: `${F_ty_Ftu_ratio.toFixed(3)}`,
-    Ftu_Ee_ratio: `${Ftu_Ee_ratio.toFixed(3)}`,
-    //Kn: `${Kn.toFixed(3)}`,
-
-    F_bru: `${F_bru.toFixed(0)}`,
-    F_bry: `${F_bry.toFixed(3)}`,
-    P_bru: `${P_bru.toFixed(3)}`,
-
-    //Fsu: `${Fsu.toFixed(3)}`,
-    //Fnu: `${Fny.toFixed(3)}`,
-    //Psu: `${Psu.toFixed(3)}`,
-    //PuL: `${PuL.toFixed(3)}`,
+    Fty_Ftu_ratio: `${Fty_Ftu_ratio.toFixed(3)}`,
+    Ftu_Eeu_ratio: `${Ftu_Eeu_ratio.toFixed(3)}`,
+    F_bru_L: `${F_bru_L.toFixed(0)}`,
+    F_bry_L: `${F_bry_L.toFixed(0)}`,
+    F_ny_L: `${F_ny_L.toFixed(0)}`,
+    F_nu_L: `${F_nu_L.toFixed(0)}`,
+    P_bru_L: `${P_bru_L.toLocaleString('en-US').split('.', 1)}`,
+    P_nu_L: `${P_nu_L.toLocaleString('en-US').split('.', 1)}`,
+    P_T_L: `${P_T.toLocaleString('en-US').split('.', 1)}`,
+    P_u_L: `${P_u_L.toLocaleString('en-US').split('.', 1)}`,
   };
+}
 
+function pin_calcs(props: pinProps) {
+  let Dp = props.Dp;
+  let type = props.type;
+  let t1 = props.t1;
+  let t2 = props.t2;
+  let g = props.g;
+  let E = props.E;
+  let Ftu = props.Ftu;
+  let Fty = props.Fty;
+  let Fsu = props.Fsu;
+
+  let Psu = 1.571 * Dp ^ 2 * Fsu;
+  let kbp = 1.5;
+  let Mup = 0.0982 * kbp * Dp ^ 3 * Ftu;
+
+  let Marm = t1 / 2 + t2 / 4 + g;
+  let Pubp = (0.1963 * kbp * Dp ^ 3 * Ftu) / Marm;
 
 }
 
+export function calcs(params: LugParams, allow: Allowables) {
+  let p = params;
+  let all = allow;
 
-//export function calc(params: LugParams, allow: Allowables): Result {
-//const p = validate(params);
-//const warnings: string[] = [];
+  let lug1 = lug_calcs({
+    t: p.t1,
+    D: p.D,
+    e: p.e1,
+    w: p.w1,
+    w_t: p.w1,
+    F_tu: all.F_tux_1,
+    F_ty: all.F_tyx_1,
+    E: all.E_1,
+    e_u: all.e_u_1,
+  });
 
-// Critical plate (outer plate used for net tension in double-shear lug)
-//const tcrit = p.t1;
-//const wcrit = p.w1;
+  let lug2 = lug_calcs({
+    t: p.t2,
+    D: p.D,
+    e: p.e2,
+    w: p.w2,
+    w_t: p.w2,
+    F_tu: all.F_tux_2,
+    F_ty: all.F_tyx_2,
+    E: all.E_2,
+    e_u: all.e_u_2,
+  });
 
-//const Anet = tcrit * (wcrit - p.D); // simple subtract-through-hole
-//if (Anet <= 0) warnings.push('Net area <= 0 (w <= D)');
-
-// Bearing area
-//const nInterfaces = p.mode === LugMode.double ? 2 : 1; // lug-to-pin interfaces in outer plates
-//const Abearing_each = tcrit * p.Dp;
-//const Abearing_total = Abearing_each * nInterfaces;
-
-// Pin shear area
-//const nShearPlanes = p.mode === LugMode.double ? 2 : 1;
-//const Apin_shear = nShearPlanes * (Math.PI * (p.Dp ** 2)) / 4;
-
-// Nominal capacities (illustrative)
-//const P_net_tension = allow.F_tux_1 * Anet;
-//const P_bearing_lug = allow.F_tux_1 * Abearing_total;
-
-//const P_us_p = allow.F_su_pin * Apin_shear;
-
-// Simple geometric checks (illustrative thresholds)
-//if (p.e1 < 1.5 * p.D) warnings.push(`Edge distance e < 1.5D(e = $ {p.e1.toFixed(1);}, D = $
-//{p.D.toFixed(1);}
-//)
-//  `);
-//if (p.Dp >= p.D) warnings.push('Pin >= hole (Dp >= D)');
-//if (p.t1 <= 0) warnings.push('t1 <= 0');
-//if (p.mode === LugMode.double && p.t2 <= 0) warnings.push('t2 <= 0');
-
-//const P_governing = Math.min(P_net_tension, P_bearing_lug, P_us_p);
-
-//return {
-//  Anet, Abearing_each, Abearing_total, Apin_shear, P_net_tension, P_bearing_lug, P_us_p, P_governing, warnings,
-//};
-//}
-
-
-// 9.3 Lug and Bushing Strength Under Uniform Axial Load
-//
-// 9.3.1 Lug Bearing Strength Under Uniform Axial Load
-// 9.3.2 Lug Net-Section Strength Under Uniform Axial Load.
-// 9.3.3 Lug Design Strength Under Uniform Axial Load
-// 9.3.4 Bushing Bearing Strength Under Uniform Axial Load
-// 9.3.5 Combined Lug-Bushing Design Strength Under Uniform Axial Load
-//
-// 9.4 Double Shear Joint Strength Under Uniform Axial Load
-// 9.4.1 Lug-Bushing Design Strength for Double Shear Joints Under Uniform Axial Load
-// 9.4.2 Pin Shear Strength for Double Shear Joints Under Uniform Axial Load
-// 9.4.3 Pin Bending Strength for Double Shear Joints Under Uniform Axial Load
-// 9.4..4 Lug Tang Strength for Double Shear Joints Under Uniform Axial Load
-// 9. 5 Single-Shear Joint Strength Under Uniform Axial Load
-// 9. 5. 1 Lug Bearing Strength for Single Shear Joints Under Uniform Axial Loads
-// 9. 5. Z Lug.Net-Section Strength for Single Shear Joints Under Uniform Axial Load
-// 9. 5. 3 Bushing Strength for Single Shear Joints Under Uniform Axial Load
-// 9.5.4 Pin Shear Strength for Single Shear Joints Under Uniform Axial Load
-// 9. 5. 5 Pin Bending Strength for Single Shear Joints Under Uniform Axial Load
-//
-// 9. 6 Example of Uniform Axially Loaded Lug Analysis
-//
-// (1) Female Lugs and Bushings
-// a) Lug Bearing Strength (Equations (9-2a) and (9-3b))
-// b) Lug Net-Section Tension Strength (Equations (9-5) and (9-6b))
-// c) Lug Design Strength (Equation (9-7))
-// d) Bushing Bearing Strength (Equation (9-9))
-// e) Combined Lug-Bushing Design Strength (Equation (9-10))
-//
-// (2) Male Lug and Bushing
-// a) Lug Bearing Strength (Equations (9-1b) and (9-3a))
-// b) Lug Net-Section Tension Strength (Equations (9-4) and (9-6a))
-// c) Lug Design Strength (Equation (9-7))
-// d) Bushing Bearing Strength (Equation (9-9))
-// e) Combined Lug-Bushing Design Strength (Equation (9-10
-//
-// (3) Joint Analysis
-// a) Lug-Bushing Strength (Equation (9-11))
-// b) Pin Shear Strength (Equation (9-12))
-// c) Pin Bending Strenigth (Equation (9-15))
-// d) Joint Strength (Equation (9-19b))
-//
-// (4) Lug Tang Analysis
-//
-// 9.7 Lug and Bushing Strength Under Transverse Load
-// 9. 7. 1 Lug Strength Under Transverse Load
-// 9.7. 2 Bushing Strength Under Transverse Load
-// 9.8 Double Shear Joints Under Transverse Load
-// 9.9 Single Shear Joints Under Transverse Load
-// 9. 10 Lug and Bushing Strength Under Oblique Load
-// 9. 10. 1 Lug Strength Under Oblique Load
-// 9.10. 2 Bushing Strength Under Oblique Load
-// 9.11 Double Shear Joints Under Oblique Load
-// 9. 12 Single Shear Joints Under Oblique Load
-// 9. 13 Multiple Shear and Single Shear Connecti
-//
-//9. 14 Axially Loaded Lug Design
-
-
-//              <MathBlock
-//tex={'A_{pin} = n_{s}\\, \\frac{\\pi D_p^2}{4} = ' + R.Apin_shear.toFixed(2) + '\\ in^2'} />
-//<MathBlock tex={'A_{net_1} = n_{s}\\, t_{1}\\,(w_{1}-D) = ' + R.Anet.toFixed(2)} />
-//<MathBlock tex={'A_{net_2} = t_{2}\\,(w_{2}-D) = ' + R.Anet.toFixed(2)} />
-//<MathBlock tex={'A_{b,\\,each} = t_{crit}\\, D_p = ' + R.Abearing_each.toFixed(2)} />
-//<MathBlock tex={'A_{b,\\,total} = n_{if}\\, t_{crit}\\, D_p'} />
-//<MathBlock tex={'A_{b_{total}} = n_{if}\\, t_{crit}\\, D_p'} />
-//<div className="text-sm">A_bear(total) = {R.Abearing_total.toFixed(2)}</div>
-//<div className="mt-2 text-sm">P_net = {R.P_net_tension.toFixed(1)}</div>
-//<div className="text-sm">P_bearing = {R.P_bearing_lug.toFixed(1)}</div>
-//<div className="text-sm">P_pin(shear) = {R.P_us_p.toFixed(1)}</div>
-//<div className="font-semibold">P_governing = {R.P_governing.toFixed(1)}</div>
-//
-//    9. 6 Example of Uniform Axially Loaded Lug Analysis
-//
-//    (1) Female Lugs and Bushings
-//    Equations (9-3a) a•nd (9-3b) apply only if the load is uniformly distributed across the lug thickness.
-//    Ftux. = 64, 000 psi;
-//    Ftux. = 40, 000 psi;
-//
-//
-//  if Ftux, <= 1.304 Ftyx)
-//  PbruL=FbruL*D*t
-//  else
-//  PbruL=1.304*FbryL*D*t
-//
-//  1.304 Ft, = 1.304 x 40000 = 52160 psi.
-//
-//  a) Lug Bearing Strength (Equations (9-2a) and (9-3b))
-//  e1/D _ 1 25 /1.00= 1.25; therefore K 1 = 1.46 (from Figure 9-2)
-//
-//      Pbru = 1.304 x 1.46 x 0.75 x 40000 x 1.00 x 0. 50 = 28600 lbs
-//
-//  b) Lug Net-Section Tension Strength (.Equations (9-5) and (9-6b))
-//  D _ 1.00 -040; -= 4 0.625
-//  wI 2. 50 Ftu 64000
-
-
-
-
+  let pin = pin_calcs({
+    Dp: p.Dp,
+    type: p.mode,
+    t1: p.t1,
+    t2: p.t2,
+    g: p.g,
+    E: all.E_pin,
+    Ftu: all.F_tu_pin,
+    Fty: all.F_ty_pin,
+    Fsu: all.F_su_pin,
+  });
+  const nInterfaces = p.mode === 'double' ? 2 : 1;
+  const warnings: string[] = [];
+  //if (Anet <= 0) warnings.push('Net area <= 0 (w <= D)');
+  //if (p.e1 < 1.5 * p.D) warnings.push(`Edge distance e < 1.5D(e = $ {p.e1.toFixed(1);}, D = $
+  //if (p.Dp >= p.D) warnings.push('Pin >= hole (Dp >= D)');
+  //if (p.t1 <= 0) warnings.push('t1 <= 0');
+  //if (p.mode === LugMode.double && p.t2 <= 0) warnings.push('t2 <= 0')
+  //P_governing = Math.min(P_net_tension, P_bearing_lug, P_us_p);
+  return lug1;
+}

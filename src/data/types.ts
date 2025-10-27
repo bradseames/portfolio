@@ -1,3 +1,8 @@
+export interface DataPoint {
+  [key: string]: number;
+}
+
+
 export interface PageLinks {
   icon: string;
   title: string;

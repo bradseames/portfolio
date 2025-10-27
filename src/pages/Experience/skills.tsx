@@ -1,6 +1,5 @@
 import { Group, Container, Stack } from '@mantine/core';
 import { skill_groups } from './data';
-// import Carousel from '../../components/Carousel'
 import CarouselEmbla from '../../components/CarouselEmbla';
 
 export default function Skills() {
@@ -23,8 +22,8 @@ export default function Skills() {
   return (
     <Container>
       <CarouselEmbla></CarouselEmbla>
-      <h4>Skills</h4>
-      {skill_cats}
+      {/*<h4>Skills</h4>*/}
+      {/*{skill_cats}*/}
     </Container>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useElementSize } from '@mantine/hooks';
 import { type LugParams, type Allowables, type SketchProps, LugMode, UnitMode } from './types';
+import { calcs } from './Calcs';
 
 // ---------- Fit into viewBox ----------
 function useFit(dim: { width: number; height: number }) {
@@ -22,8 +23,10 @@ export const LugSketch: React.FC<SketchProps> = ({
   // const p = params;
   // const A = { ...DEFAULT_ALLOW, ...(allow ?? {}) } as Allowables;
   // const R = calc(p, A);
+  const results = calcs(params, allow);
+  console.log(results);
+
   const { ref, width, height } = useElementSize();
-  console.log(`Width: ${width}, height: ${height}`);
 
   const maxWidth = Math.max(params.w1, params.w2);
   const totalThk = params.mode === LugMode.double ? (params.t1 * 2 + params.g * 2 + params.t2) :
@@ -53,9 +56,9 @@ export const LugSketch: React.FC<SketchProps> = ({
   const color = {
     hole: 'white',
     pin: 'teal',
-    lug1: 'grey',
-    lug2: 'blue',
-    dim: 'black',
+    lug1: 'cyan',
+    lug2: 'lime',
+    dim: 'silver',
   };
 
   return (
@@ -110,7 +113,13 @@ export const LugSketch: React.FC<SketchProps> = ({
             fill="red" />
         </marker>
       </defs>
-
+      <g transform={'translate(' + (vb.W / 2) + ', ' + vb.offsetY / 4 + ')'}>
+        <text>{'PuL1: ' + `${results.P_u_L}` + ' lbf'}</text>
+        <text y={vb.offsetY / 4}>{'PbruL1: ' + `${results.P_bru_L}` + ' lbf'}</text>
+        <text y={vb.offsetY / 2}>{'PnuL1: ' + `${results.P_nu_L}` + ' lbf'}</text>
+        <text y={vb.offsetY * .75}>{'eD: ' + `${results.e_D_ratio}`}</text>
+        <text y={vb.offsetY}>{'k: ' + `${results.k}`}</text>
+      </g>
       <g id="front_view" transform={'translate(' + xFrontCenter + ', 0)'}>
         <path
           id="lug2"
@@ -119,6 +128,7 @@ export const LugSketch: React.FC<SketchProps> = ({
             A ${params.w2 / 2} ${params.e2} 1 0 0 ${params.w2 / 2} ${yCenter} 
             V ${yTop} H ${-params.w2 / 2}`}
           fill={color.lug2}
+          opacity={0.7}
           stroke={color.dim}></path>
 
         <path
@@ -128,6 +138,7 @@ export const LugSketch: React.FC<SketchProps> = ({
             A ${params.w1 / 2} ${params.e1} 0 0 1 ${params.w1 / 2} ${yCenter} 
             V ${yBottom} H ${-params.w1 / 2}`}
           fill={color.lug1}
+          opacity={0.7}
           stroke={color.dim}></path>
 
         <path id="lug2_outline"
@@ -254,28 +265,28 @@ export const LugSketch: React.FC<SketchProps> = ({
       </g>
 
       <g id="dims"
-         fill="black">
+         fill={color.dim}>
         <g transform={'translate(' + xFrontCenter + ', ' + (yBottom + vb.offsetY / 2) + ')'}>
           <line
             x1={-params.w1 / 2}
             y1={-vb.offsetY * 3 / 8}
             x2={-params.w1 / 2}
             y2={vb.offsetY / 4}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={params.w1 / 2}
             y1={-vb.offsetY * 3 / 8}
             x2={params.w1 / 2}
             y2={vb.offsetY / 4}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={-params.w1 / 2}
             y1={0}
             x2={params.w1 / 2}
             y2={0}
-            stroke="black"
+            stroke={color.dim}
             markerStart="url(#arrow-start)"
             markerEnd="url(#arrow-end)"
           />
@@ -292,21 +303,21 @@ export const LugSketch: React.FC<SketchProps> = ({
             y1={vb.offsetY * 3 / 8}
             x2={-params.w2 / 2}
             y2={-vb.offsetY / 4}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={params.w2 / 2}
             y1={vb.offsetY * 3 / 8}
             x2={params.w2 / 2}
             y2={-vb.offsetY / 4}
-            stroke="black"
+            stroke={color.dim}
           />
 
           <line x1={-params.w2 / 2}
                 y1={0}
                 x2={params.w2 / 2}
                 y2={0}
-                stroke="black"
+                stroke={color.dim}
                 markerStart="url(#arrow-start)"
                 markerEnd="url(#arrow-end)"
           />
@@ -352,35 +363,35 @@ export const LugSketch: React.FC<SketchProps> = ({
             y1={-params.Dp / 2}
             x2={-vb.offsetX / 8}
             y2={-params.Dp / 2}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={-vb.offsetX / 2}
             y1={params.Dp / 2}
             x2={-vb.offsetX / 8}
             y2={params.Dp / 2}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={-vb.offsetX}
             y1={-params.D / 2}
             x2={-vb.offsetX / 8}
             y2={-params.D / 2}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={-vb.offsetX}
             y1={params.D / 2}
             x2={-vb.offsetX / 8}
             y2={params.D / 2}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={-vb.offsetX / 4}
             y1={-params.Dp / 2}
             x2={-vb.offsetX / 4}
             y2={params.Dp / 2}
-            stroke="black"
+            stroke={color.dim}
             markerStart="url(#arrow-start)"
             markerEnd="url(#arrow-end)"
           />
@@ -405,7 +416,7 @@ export const LugSketch: React.FC<SketchProps> = ({
             y1={-params.D / 2}
             x2={-vb.offsetX}
             y2={params.D / 2}
-            stroke="black"
+            stroke={color.dim}
             markerStart="url(#arrow-start)"
             markerEnd="url(#arrow-end)"
           />
@@ -422,21 +433,21 @@ export const LugSketch: React.FC<SketchProps> = ({
             y1={yTop + vb.offsetY * .5}
             x2={0}
             y2={yCenter - params.e1 - .1}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={params.t1}
             y1={yTop + vb.offsetY * .5}
             x2={params.t1}
             y2={yCenter - params.e1 - .1}
-            stroke="black"
+            stroke={color.dim}
           />
           <line
             x1={0}
             y1={yTop + vb.offsetY * .6}
             x2={params.t1}
             y2={yTop + vb.offsetY * .6}
-            stroke="black"
+            stroke={color.dim}
             markerStart="url(#arrow-start)"
             markerEnd="url(#arrow-end)"
           />
@@ -455,21 +466,21 @@ export const LugSketch: React.FC<SketchProps> = ({
                 y1={yTop + vb.offsetY}
                 x2={params.t1 + params.g}
                 y2={yTop}
-                stroke="black"
+                stroke={color.dim}
               />
               <line
                 x1={params.t1 + params.g + params.t2}
                 y1={yTop + vb.offsetY / 4}
                 x2={params.t1 + params.g + params.t2}
                 y2={yTop}
-                stroke="black"
+                stroke={color.dim}
               />
               <line
                 x1={params.t1 + params.g}
                 y1={yTop + vb.offsetY * .25}
                 x2={params.t1 + params.g + params.t2}
                 y2={yTop + vb.offsetY * .25}
-                stroke="black"
+                stroke={color.dim}
                 markerStart="url(#arrow-end)"
                 markerEnd="url(#arrow-start)"
               />
@@ -484,21 +495,21 @@ export const LugSketch: React.FC<SketchProps> = ({
                 y1={yTop + vb.offsetY * .5}
                 x2={params.t1 + params.t2 + params.g}
                 y2={yTop}
-                stroke="black"
+                stroke={color.dim}
               />
               <line
                 x1={params.t1 + params.t2 + params.g * 2}
                 y1={yTop + vb.offsetY * .5}
                 x2={params.t1 + params.t2 + params.g * 2}
                 y2={yCenter - params.e1 - .1}
-                stroke="black"
+                stroke={color.dim}
               />
               <line
                 x1={params.t1 + params.t2 + params.g}
                 y1={yTop + vb.offsetY * .75}
                 x2={params.t1 + params.t2 + params.g * 2}
                 y2={yTop + vb.offsetY * .75}
-                stroke="black"
+                stroke={color.dim}
                 markerStart="url(#arrow-end)"
                 markerEnd="url(#arrow-start)"
               />
@@ -516,21 +527,21 @@ export const LugSketch: React.FC<SketchProps> = ({
                 y1={yTop + vb.offsetY}
                 x2={params.t1}
                 y2={yTop}
-                stroke="black"
+                stroke={color.dim}
               />
               <line
                 x1={params.t1 + params.t2}
                 y1={yTop + vb.offsetY / 4}
                 x2={params.t1 + params.t2}
                 y2={yTop}
-                stroke="black"
+                stroke={color.dim}
               />
               <line
                 x1={params.t1}
                 y1={yTop + vb.offsetY * .25}
                 x2={params.t1 + params.t2}
                 y2={yTop + vb.offsetY * .25}
-                stroke="black"
+                stroke={color.dim}
                 markerStart="url(#arrow-end)"
                 markerEnd="url(#arrow-start)"
               />
