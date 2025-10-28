@@ -2,7 +2,6 @@ export enum LugMode {single = 'single', double = 'double'}
 
 export enum UnitMode {english = 'english', metric = 'metric'}
 
-
 export interface LugParams {
   mode: LugMode | string;      // single or double shear
   units: UnitMode | string;

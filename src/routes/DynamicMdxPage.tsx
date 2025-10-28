@@ -1,33 +1,42 @@
 import type { Route } from './+types/DynamicMdxPage';
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
+import { MDXProvider } from '@mdx-js/react';
+import { MathJaxContext } from 'better-react-mathjax/MathJaxContext';
+import { mathJaxConfig } from '../components/MathJaxProvider';
 import { components } from '../components/MDXProvider';
 
-// A utility function to load the correct MDX file.
-// The path here assumes your MDX files are in src/content.
 const importMdx = (
   category: string | undefined,
-  name: string | undefined) => lazy(
-  () => import(`../content/${category}/${name}.mdx`));
+  name: string | undefined,
+) =>
+  lazy((): Promise<any> =>
+    import(`../content/${category}/${name}.mdx`));
 
-const Loading = () => <div>Loading content...</div>;
-const NotFound = () => <div>Content not found.</div>;
 
-export async function clientLoader({ params }: Route.ComponentProps) {
-  let mdxContent = importMdx(params.category, params.name);
-
-  return mdxContent;
+export async function clientLoader({ params }: Route.ComponentProps,
+) {
+  return importMdx(params.category, params.name);
 }
 
-export default function DynamicMdxPage({
-  loaderData,
-}: Route.ComponentProps) {
 
+const Loading = () => (
+  <div>Loading content...</div>
+);
+
+
+export default function DynamicMdxPage({ loaderData }: Route.ComponentProps,
+) {
   const MdxContent = loaderData;
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <MdxContent components={components} />
+        <MDXProvider components={components}>
+          <MathJaxContext config={mathJaxConfig}>
+            <MdxContent />
+          </MathJaxContext>
+        </MDXProvider>
       </Suspense>
     </>
   );
 }
+

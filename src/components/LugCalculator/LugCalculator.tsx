@@ -20,6 +20,20 @@ import { LugSketch } from './parametric_lug';
 import classes from './lug.module.css';
 import { calcs } from './Calcs';
 import { MathLine, MathBlock } from '../MathJaxProvider';
+import CarouselEmbla from '../../components/CarouselEmbla';
+
+interface NumberSlideSetProps {
+  label?: string;
+  value: number;
+  onChange: (e: string | number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  suffix?: string;
+  decimalScale?: number;
+  allowNegative?: boolean;
+  fixedDecimalScale?: boolean;
+}
 
 function NumberSlideSet({
   label,
@@ -32,18 +46,7 @@ function NumberSlideSet({
   decimalScale,
   allowNegative = false,
   fixedDecimalScale = false,
-}: {
-  label?: string;
-  value: number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  min?: number;
-  max?: number;
-  step?: number;
-  suffix?: string;
-  decimalScale?: number;
-  allowNegative?: boolean;
-  fixedDecimalScale?: boolean;
-}) {
+}: NumberSlideSetProps) {
 
   return (
     <Fieldset p="xs">
@@ -279,11 +282,11 @@ export default function LugCalculator() {
             <Accordion.Control>{'Results'}</Accordion.Control>
 
             <Accordion.Panel>
-              <MathLine tex={`Pnu = ${results.P_nu}`}></MathLine>
-              <MathLine tex={`Pbru = ${results.P_bru}`}></MathLine>
-              <MathLine tex={`Pnu = ${results.P_nu}`}></MathLine>
-              <MathLine tex={`P_T = ${results.P_T}`}></MathLine>
-              <MathLine tex={`P_u = ${results.P_u}`}></MathLine>
+              {/*<MathLine tex={`Pnu = ${results.P_nu}`}></MathLine>*/}
+              {/*<MathLine tex={`Pbru = ${results.P_bru}`}></MathLine>*/}
+              {/*<MathLine tex={`Pnu = ${results.P_nu}`}></MathLine>*/}
+              {/*<MathLine tex={`P_T = ${results.P_T}`}></MathLine>*/}
+              {/*<MathLine tex={`P_u = ${results.P_u}`}></MathLine>*/}
 
 
             </Accordion.Panel>
@@ -294,9 +297,26 @@ export default function LugCalculator() {
 
       <Container bg="lime" w="100%" h="calc(100dvh - var(--app-shell-header-height))">
         <Card ref={ref} h="calc(100dvh - var(--app-shell-header-height))">
-          <Tabs>
-            <LugSketch params={{ ...params }} allow={{ ...allow }} />
+          {/*<Tabs>*/}
+          {/*<CarouselEmbla></CarouselEmbla>*/}
+
+          <Tabs color="teal" defaultValue="first">
+            <Tabs.List>
+              <Tabs.Tab value="first">Lug Geometry</Tabs.Tab>
+              <Tabs.Tab value="second" color="blue">Results</Tabs.Tab>
+            </Tabs.List>
+
+            <Tabs.Panel value="first" pt="xs">
+              <LugSketch params={{ ...params }} allow={{ ...allow }} />
+            </Tabs.Panel>
+
+            <Tabs.Panel value="second" pt="xs">
+              Second tab color is blue, it gets this value from props, props have the priority and will
+              override context value
+            </Tabs.Panel>
           </Tabs>
+
+          {/*</Tabs>*/}
 
         </Card>
       </Container>;

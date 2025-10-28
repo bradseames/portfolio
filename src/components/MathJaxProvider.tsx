@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 
-// You could also configure MathJax manually, but a wrapper component is simpler.
 export const mathJaxConfig = {
   loader: {
     load: ['input/tex', 'output/chtml'],

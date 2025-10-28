@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useElementSize } from '@mantine/hooks';
 import { type LugParams, type Allowables, type SketchProps, LugMode, UnitMode } from './types';
-import { calcs } from './Calcs';
+//import { calcs } from './Calcs';
 
 // ---------- Fit into viewBox ----------
 function useFit(dim: { width: number; height: number }) {
@@ -23,8 +23,8 @@ export const LugSketch: React.FC<SketchProps> = ({
   // const p = params;
   // const A = { ...DEFAULT_ALLOW, ...(allow ?? {}) } as Allowables;
   // const R = calc(p, A);
-  const results = calcs(params, allow);
-  console.log(results);
+  //const results = calcs(params, allow);
+  //console.log(results);
 
   const { ref, width, height } = useElementSize();
 
@@ -114,11 +114,11 @@ export const LugSketch: React.FC<SketchProps> = ({
         </marker>
       </defs>
       <g transform={'translate(' + (vb.W / 2) + ', ' + vb.offsetY / 4 + ')'}>
-        <text>{'PuL1: ' + `${results.P_u_L}` + ' lbf'}</text>
-        <text y={vb.offsetY / 4}>{'PbruL1: ' + `${results.P_bru_L}` + ' lbf'}</text>
-        <text y={vb.offsetY / 2}>{'PnuL1: ' + `${results.P_nu_L}` + ' lbf'}</text>
-        <text y={vb.offsetY * .75}>{'eD: ' + `${results.e_D_ratio}`}</text>
-        <text y={vb.offsetY}>{'k: ' + `${results.k}`}</text>
+        {/*<text>{'PuL1: ' + `${results.P_u_L}` + ' lbf'}</text>*/}
+        {/*<text y={vb.offsetY / 4}>{'PbruL1: ' + `${results.P_bru_L}` + ' lbf'}</text>*/}
+        {/*<text y={vb.offsetY / 2}>{'PnuL1: ' + `${results.P_nu_L}` + ' lbf'}</text>*/}
+        {/*<text y={vb.offsetY * .75}>{'eD: ' + `${results.e_D_ratio}`}</text>*/}
+        {/*<text y={vb.offsetY}>{'k: ' + `${results.k}`}</text>*/}
       </g>
       <g id="front_view" transform={'translate(' + xFrontCenter + ', 0)'}>
         <path
@@ -186,7 +186,7 @@ export const LugSketch: React.FC<SketchProps> = ({
               fill={color.hole} />
 
 
-        {params.mode === LugMode.double ? (
+        {params.mode === 'double' ? (
           <>
             <rect id="lug2_side"
                   x={params.t1 + params.g}
@@ -627,7 +627,6 @@ export const LugSketch: React.FC<SketchProps> = ({
 
           </>
         )}
-
 
       </g>
     </svg>

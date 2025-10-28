@@ -1,7 +1,12 @@
 import { type LugParams, type Allowables } from './types';
 import { type DataPoint } from '../../data/types';
-import { linearInterpolatedObject, findBoundingNumbers, linearInterpolate } from '../../data/data_functions';
+import {
+  linearInterpolatedObject,
+  findBoundingNumbers,
+  linearInterpolate,
+} from '../../data/data_functions';
 import { Kb_data, K_data } from '../../components/LugCalculator/coeff_data';
+import * as d3 from 'd3';
 
 // ---------- Defaults ----------
 interface lugProps {
@@ -84,20 +89,38 @@ function K(e_D: number, D_t: number, a_D: number) {
 
   if (D_t <= 5) {
     return linearInterpolatedObject(K_data, 'eD', 'K', e_D);
-
   } else {
+    let Kb_series = [
+      { Dt: 2, series: 'Dt_2' },
+      { Dt: 3, series: 'Dt_3' },
+      { Dt: 4, series: 'Dt_4' },
+      { Dt: 5, series: 'Dt_5' },
+      { Dt: 6, series: 'Dt_6' },
+      { Dt: 7, series: 'Dt_7' },
+      { Dt: 8, series: 'Dt_8' },
+      { Dt: 9, series: 'Dt_9' },
+      { Dt: 10, series: 'Dt_10' },
+      { Dt: 15, series: 'Dt_15' },
+      { Dt: 20, series: 'Dt_20' },
+      { Dt: 25, series: 'Dt_25' },
+      { Dt: 30, series: 'Dt_30' },
+    ];
 
-    let data = [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30];
-    let Dts = findBoundingNumbers(data, D_t);
+    let bounding_data = [
+      Kb_series[d3.bisectLeft(Kb_series.map((d) => d.Dt), D_t)],
+      Kb_series[d3.bisectRight(Kb_series.map((d) => d.Dt), D_t)],
+    ];
 
-    let kb1 = linearInterpolatedObject(Kb_data, 'a_D', 'Dt_' + Dts[0], a_D);
-    let kb2 = linearInterpolatedObject(Kb_data, 'a_D', 'Dt_' + Dts[1], a_D);
+    let kb1 = linearInterpolatedObject(Kb_data, 'a_D', bounding_data[0]['series'], a_D);
+    let kb2 = linearInterpolatedObject(Kb_data, 'a_D', bounding_data[1]['series'], a_D);
 
-    return linearInterpolate(Dts[0], kb1, Dts[1], kb2, D_t);
+    return linearInterpolate(bounding_data[0]['Dt'], kb1, bounding_data[1]['Dt'], kb2, D_t);
   }
 }
 
-function bushing_calcs()
+function bushing_calcs() {
+
+}
 
 function lug_calcs(props: lugProps) {
 
@@ -135,7 +158,8 @@ function lug_calcs(props: lugProps) {
   const Ftu_Eeu_ratio = F_tu / (E * e_u);
 
   const k = K(e_D_ratio, D_t_ratio, a_D_ratio);
-  const k_n = 1.2; //Kn(D_w_ratio, Fty_Ftu_ratio, Ftu_Eeu_ratio);
+  const k_n = 1.2;
+  //Kn(D_w_ratio, Fty_Ftu_ratio, Ftu_Eeu_ratio);
   //const k_tru;
   //const k_try = linearInterpolatedObject();
 
@@ -150,7 +174,6 @@ function lug_calcs(props: lugProps) {
   let P_nu_L;
   let P_T = F_tu * area_tang;
 
-
   if (F_tu > 1.304 * F_ty) {
     P_bru_L = 1.304 * F_bry_L * area_bearing;
     P_nu_L = 1.304 * F_ny_L * area_net_section;
@@ -160,7 +183,6 @@ function lug_calcs(props: lugProps) {
   }
 
   let P_u_L = Math.min(P_bru_L, P_nu_L);
-
 
   //const unit_len = `\\text{${units.length}}`;
   //const unit_stress = `\\text{${units.F}}`;
@@ -210,8 +232,8 @@ function pin_calcs(props: pinProps) {
   let kbp = 1.5;
   let Mup = 0.0982 * kbp * Dp ^ 3 * Ftu;
 
-  let Marm = t1 / 2 + t2 / 4 + g;
-  let Pubp = (0.1963 * kbp * Dp ^ 3 * Ftu) / Marm;
+  //let Marm = t1 / 2 + t2 / 4\\+ g;
+  //let Pubp = (0.1963 * kbp * Dp ^ 3 * Ftu) / Marm;
 
 }
 
@@ -254,8 +276,9 @@ export function calcs(params: LugParams, allow: Allowables) {
     Fty: all.F_ty_pin,
     Fsu: all.F_su_pin,
   });
-  const nInterfaces = p.mode === 'double' ? 2 : 1;
-  const warnings: string[] = [];
+
+  //const nInterfaces = p.mode === 'double' ? 2 : 1;
+  //const warnings: string[] = [];
   //if (Anet <= 0) warnings.push('Net area <= 0 (w <= D)');
   //if (p.e1 < 1.5 * p.D) warnings.push(`Edge distance e < 1.5D(e = $ {p.e1.toFixed(1);}, D = $
   //if (p.Dp >= p.D) warnings.push('Pin >= hole (Dp >= D)');
@@ -264,3 +287,5 @@ export function calcs(params: LugParams, allow: Allowables) {
   //P_governing = Math.min(P_net_tension, P_bearing_lug, P_us_p);
   return lug1;
 }
+
+

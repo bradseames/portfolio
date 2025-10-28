@@ -1,12 +1,28 @@
 import { Outlet } from 'react-router';
-import { AppShell, Text, Group, Container, ScrollArea, Burger, ActionIcon, NavLink } from '@mantine/core';
+import {
+  AppShell,
+  Text,
+  Group,
+  Container,
+  ScrollArea,
+  Burger,
+  ActionIcon,
+  NavLink,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 // import {IconMail, IconFileTypePdf} from '@tabler/icons-react';
 import ColorToggle from '../components/Themes/ColorToggle/ColorToggle';
 // import { useHeadroom } from '@mantine/hooks';
-import classes from './PageShell.module.css';
+import Classes from './ShellLayout.module.css';
 // import NavbarNested from '../components/Layouts/NavBarNested';
-import { IconHome2, IconGauge, IconChevronRight, IconActivity, IconCircleOff } from '@tabler/icons-react';
+import {
+  IconHome2,
+  IconGauge,
+  IconChevronRight,
+  IconActivity,
+  IconCircleOff,
+} from '@tabler/icons-react';
+import classes from './ShellLayout.module.css';
 
 const navLinkData = [
   { href: '/form', label: 'Form' },
@@ -16,11 +32,15 @@ const navLinkData = [
   { href: '/lug', label: 'Lug' },
   { href: '/table', label: 'Select Table' },
   { href: '/user_table', label: 'User Table' },
+  { href: '/docs/analysis/lug-analysis', label: 'Lug Design' },
 ];
 
 const navLinkDoc = [
   { href: '/docs/analysis/lug-allowables', label: 'Lugs' },
-  { href: '/docs/analysis/shear-force-and-bending-moments-in-beams', label: 'Beams' },
+  {
+    href: '/docs/analysis/shear-force-and-bending-moments-in-beams',
+    label: 'Beams',
+  },
   { href: '/docs/charts/samples', label: 'Chart' },
   { href: '/docs/math/math-example', label: 'Math Example' },
   { href: '/docs/math/quadratic-formula', label: 'Quadratic' },
@@ -116,7 +136,9 @@ const docLinks = navLinkDoc.map((link) => {
   },
 );
 
-export default function ShellLayout({ children }: { children: React.ReactNode }) {
+export default function ShellLayout({ children }: {
+  children: React.ReactNode
+}) {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   // const pinned = useHeadroom({ fixedAt: 120 });
@@ -136,8 +158,10 @@ export default function ShellLayout({ children }: { children: React.ReactNode })
       <AppShell.Header py="md" className={classes.header}>
         <Group h="100%" px="md" justify="space-between" align="stretch">
           <Group justify="flex-start" align="center">
-            <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
-            <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
+            <Burger opened={desktopOpened} onClick={toggleDesktop}
+                    visibleFrom="sm" size="sm" />
+            <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm"
+                    size="sm" />
             <Text size="xl">Brad Seames</Text>
           </Group>
           <Group grow justify="flex-end" align="center">
@@ -150,8 +174,6 @@ export default function ShellLayout({ children }: { children: React.ReactNode })
         {/*  <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />*/}
         {/*  <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />*/}
         {/*</Group>*/}
-
-
         <AppShell.Section>
           <NavLink
             href="  /"
@@ -168,7 +190,8 @@ export default function ShellLayout({ children }: { children: React.ReactNode })
             label="Docs"
             leftSection={<IconGauge size={16} stroke={1.5} />}
             rightSection={
-              <IconChevronRight size={12} stroke={1.5} className="mantine-rotate-rtl" />
+              <IconChevronRight size={12} stroke={1.5}
+                                className="mantine-rotate-rtl" />
             }
           >
             {docLinks}

@@ -1,0 +1,393 @@
+export const geom = {
+  mode: 'double',
+  units: 'in',
+  Dp: 0.75,
+  D: 1.00,
+  w1: 2.50,
+  e1: 1.25,
+  t1: 0.50,
+  w2: 3.00,
+  e2: 1.50,
+  t2: 0.75,
+  g: 0.010,
+};
+
+export const matProps = {
+  units: {
+    F: 'psi',
+    E: 'psi',
+    e: 'in/in',
+  },
+  // Female Lugs, 1 (Outer)   | Al 2024-T351 Plate
+  F_tux_1: 64,                  // ksi
+  F_tyx_1: 40,                  // ksi
+  E_1: 10500,                   // ksi
+  e_u_1: 0.12,                  // in/in
+  // Male Lug, 2 (Inner)      | Al 7075-T651 Plate
+  F_tux_2: 77,                   // ksi
+  F_tyx_2: 66,                   // ksi
+  E_2: 10300,                    // ksi
+  e_u_2: 0.06,                  // in/in
+  // Bushings, 1 and 2        | Al Bronze
+  F_tu_bush: 110,               // ksi
+  F_ty_bush: 60,                // ksi
+  F_cy_bush: 60,                // ksi
+  // Pin                      | 4130 Steel
+  F_tu_pin: 125,                // ksi
+  F_ty_pin: 103,                // ksi
+  F_su_pin: 82,                 // ksi
+  E_pin: 29000,                 // ksi
+};
+
+export const geomUnits = `\\text{ ${geom.units}}`;
+
+export const stressUnits = `\\text{ ${matProps.units.F}}`;
+
+export const k_axial = 1.46;
+
+export const vars = {
+  F_tux: `\\text{F}_\\text{tux}`,
+  F_tyx: `\\text{F}_\\text{tuy}`,
+  F_bruL: `\\text{F}_\\text{bruL}`,
+  F_bryL: `\\text{F}_\\text{bryL}`,
+  P_tux: `\\text{P}_\\text{tux}`,
+  P_tuy: `\\text{P}_\\text{tuy}`,
+  P_bruL: `\\text{P}_\\text{bruL}`,
+  P_bryL: `\\text{P}_\\text{bryL}`,
+};
+
+<Card maw={700} mx="auto" my={30}>
+  <Flex direction="row" justify="space-between" p="md">
+    <div>
+      <MathLine tex={`e_{1} = ${geom.e1.toFixed(2)} ${geomUnits}`} />
+      <MathLine tex={`D_{1} = ${geom.D.toFixed(2)} ${geomUnits}`} />
+      <MathLine tex={`w_{1} = ${geom.w1.toFixed(2)} ${geomUnits}`} />
+      <MathLine tex={`t_{1} = ${geom.t1.toFixed(2)} ${geomUnits}`} />
+      <MathLine tex={`a_{1} = ${(geom.e1 - geom.D / 2).toFixed(3)} ${geomUnits}`} />
+    </div>
+    <div>
+      <MathLine tex={`\\text{F}_\\text{tux1} = ${matProps.F_tux_1.toFixed(3)} ${stressUnits}`} />
+      <MathLine tex={`\\text{F}_\\text{tyx1}= ${matProps.F_tyx_1.toFixed(3)} ${stressUnits}`} />
+      <MathLine tex={`\\text{E}_{1} = ${matProps.E_1} ${stressUnits}`} />
+      <MathLine tex={`\\varepsilon_{u_{1}} = ${matProps.e_u_1}`} />
+      <MathLine tex={`1.304 \\ \\text{F}_\\text{tyx1} = ${(1.304 * matProps.F_tyx_1).toFixed(3)} ${stressUnits}`} />
+    </div>
+  </Flex>
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Paper maw={800} p="sm" withBorder shadow="sm" radius="md" m="auto" py={10}>
+
+  <Accordion>
+    <AccordionItem key={'931'} value={'931'}>
+      <AccordionControl>{'9.3.1 Lug Bearing Strength Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+        <ScrollArea h={500}>
+          <Card maw={700} mx="auto" my={30}>
+
+          </Card>
+        </ScrollArea>
+      </AccordionPanel>
+    </AccordionItem>
+
+    <AccordionItem key={'932'} value={'932'}>
+      <AccordionControl>{'9.3.2 Lug Net-Section Strength Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+        <ScrollArea h={500}>
+          <Card maw={700} mx="auto" my={30}>
+
+            ### 9.3.2 Lug Net-Section Strength Under Uniform Axial Load
+
+            The allowable lug net-section tensile ultimate stress (FnuL) on Section 1-1 in Figure 9-4a is affected by
+            the ability of the lug material to yield and thereby relieve the stress concentration at the edge of the
+            hole.
+
+            $$
+            \text{F}_{nu_L} = \text{K}_\text{n} \ \text{F}_\text{tu}
+            $$
+
+            <MathBlock tex={`\\text{F}_\\text{suL} = K_{n1} \\ \\text{F}_\\text{tu}`} />
+
+            Kn, the net-tension stress coefficient, is obtained, from the graphs shown in Figure 9-4 as a function of
+            the ultimate and yield stress and strains of the lug material in the direction of the applied load. The
+            ultimate strain (E,!!!) can be obtained from MIL-HDBK-5.
+
+            <Flex direction="row" justify="space-between" p="md">
+              <MathBlock tex={`\\frac{D}{w1} = \\frac{${geom.D}}{${geom.w1}} = ${geom.D / geom.w1}`} />
+              <MathBlock
+                tex={`\\frac{F_{ty}}{F_{tu}} = \\frac{${matProps.F_tyx_1}}{${matProps.F_tux_1}} = ${matProps.F_tyx_1 / matProps.F_tux_1}`} />
+              <MathBlock
+                tex={`\\frac{F_{tu}}{E \\ \\varepsilon_{u}} = \\frac{${matProps.F_tux_1}}{${matProps.E_1} \\ ${matProps.e_u_1}} = ${(matProps.F_tux_1 / (matProps.E_1 * matProps.e_u_1)).toFixed(3)} `} />
+            </Flex>
+
+
+            <LineChart
+              h={300}
+              w={600}
+              dataKey="a_D"
+              tickLine="y"
+              gridAxis="xy"
+              xAxisLabel="a/D"
+              yAxisLabel="K_br"
+              yAxisProps={{ domain: [1.0, 3.0] }}
+              curveType="linear"
+              activeDotProps={true}
+              withDots={true}
+              withLegend={true}
+              legendProps={{ align: 'center', height: 100, verticalAlign: 'bottom', iconSize: 6, iconType: 'line' }}
+              valueFormatter={(value) => `${value.toFixed(2)}`}
+              series={[
+                { name: 'Dt_2', label: 'D/t<=2', color: 'blue.2' },
+                { name: 'Dt_3', label: 'D/t=3', color: 'blue.4' },
+                { name: 'Dt_4', label: 'D/t=4', color: 'blue.6' },
+                { name: 'Dt_5', label: 'D/t=5', color: 'blue.8' },
+                { name: 'Dt_6', label: 'D/t=6', color: 'blue.9' },
+                { name: 'Dt_7', label: 'D/t=7', color: 'green.9' },
+                { name: 'Dt_8', label: 'D/t=8', color: 'green.8' },
+                { name: 'Dt_9', label: 'D/t=9', color: 'green.6' },
+                { name: 'Dt_10', label: 'D/t=10', color: 'green.4' },
+                { name: 'Dt_15', label: 'D/t=15', color: 'red.4' },
+                { name: 'Dt_20', label: 'D/t=20', color: 'red.5' },
+                { name: 'Dt_25', label: 'D/t=25', color: 'red.7' },
+                { name: 'Dt_30', label: 'D/t=30', color: 'red.9' }
+              ]}
+            />
+
+            $$
+            \text{F}_{ny_L} = \text{K}_{n} \text{F}_\text{ty}
+            $$
+
+
+            <MathLine tex={`k_{n1} = 0.74`} />
+
+            <MathLine tex={`\\text{F}_\\text{syL} =  K_{n1} \\ \\text{F}_\\text{ty}`} />
+            <MathLine
+              tex={`\\text{P}_\\text{suL} = n_{s} \\ 1.304 \\ k_{n1} \\ \\text{F}_\\text{ty} t_{1} \\ (w_{1}-D)`} />
+            <MathLine
+              tex={`\\text{P}_\\text{suL} = ${2} \\ 1.304 \\ ${0.74} \\ ${matProps.F_tyx_1} \\ ${geom.t1} \\ (${geom.w1}-${geom.D})`} />
+            <MathLine
+              tex={`\\text{P}_\\text{suL} = ${(2 * 1.304 * 0.74 * matProps.F_tyx_1 * geom.t1 * (geom.w1 - geom.D)).toFixed(3)}`} />
+            <MathLine tex={`\\text{P}_\\text{suL} = n_{s}\\, t_{1}\\,(w_{1}-D)`} />
+            <MathLine tex={`\\text{F}_\\text{suL} = k_{n1} \\ \\text{F}_\\text{tu}`} />
+            <MathLine tex={`\\text{F}_\\text{suL} = k_{n1} \\ \\text{F}_\\text{tu}`} />
+          </Card>
+        </ScrollArea>
+      </AccordionPanel>
+    </AccordionItem>
+
+    <AccordionItem key={'933'} value={'933'}>
+      <AccordionControl>{'9.3.3 Lug Design Strength Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+        <Card maw={700} mx="auto" my={30}>
+
+        </Card>
+      </AccordionPanel>
+    </AccordionItem>
+
+    <AccordionItem key={'934'} value={'934'}>
+      <AccordionControl>{'9.3.4 Bushing Bearing Strength Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+
+        <Card maw={700} mx="auto" my={30}>
+
+        </Card>
+
+      </AccordionPanel>
+    </AccordionItem>
+
+    <AccordionItem key={'935'} value={'935'}>
+      <AccordionControl>{'9.3.5 Combined Lug-Bushing Design Strength Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+        <Card maw={700} mx="auto" my={30}>
+
+
+        </Card>
+      </AccordionPanel>
+    </AccordionItem>
+  </Accordion>
+
+</Paper>
+
+
+<Paper maw={800} p="sm" withBorder shadow="sm" radius="md" m="auto" my={10}>
+
+
+  <Accordion>
+    <AccordionItem key={'941'} value={'941'}>
+      <AccordionControl>{'9.4.1 Lug-Bushing Design Strength for Double Shear Joints Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+
+        <Card maw={700} mx="auto" my={10}>
+
+
+        </Card>
+
+      </AccordionPanel>
+    </AccordionItem>
+
+    <AccordionItem key={'942'} value={'942'}>
+      <AccordionControl>{'9.4.2 Pin Shear Strength for Double Shear Joints Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+
+        <Card maw={700} mx="auto" my={30}>
+
+
+        </Card>
+
+      </AccordionPanel>
+    </AccordionItem>
+
+    <AccordionItem key={'943'} value={'943'}>
+      <AccordionControl>{'9.4.3 Pin Bending Strength for Double Shear Joints Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+        <ScrollArea h={500}>
+          <Card maw={700} mx="auto" my={30}>
+
+          </Card>
+        </ScrollArea>
+      </AccordionPanel>
+    </AccordionItem>
+
+    <AccordionItem key={'944'} value={'94'}>
+      <AccordionControl>{'9.4.4 Lug Tang Strength for Double Shear Joints Under Uniform Axial Load'}</AccordionControl>
+      <AccordionPanel>
+        <ScrollArea h={500}>
+          <Card maw={700} mx="auto" my={30}>
+
+
+          </Card>
+        </ScrollArea>
+      </AccordionPanel>
+    </AccordionItem>
+  </Accordion>
+</Paper>
+
+
+<Paper maw={800} p="sm" withBorder shadow="sm" radius="md" m="auto" my={10}>
+
+  <Card maw={700} mx="auto" my={30}>
+
+
+  </Card>
+
+  <Card maw={700} mx="auto" my={30}>
+
+
+  </Card>
+
+  <Card maw={700} mx="auto" my={30}>
+
+  </Card>
+
+  <Card maw={700} mx="auto" my={30}>
+
+
+  </Card>
+
+  <Card maw={700} mx="auto" my={30}>
+
+
+  </Card>
+
+  <Card maw={700} mx="auto" my={30}>
+
+  </Card>
+
+  <Card maw={700} mx="auto" my={30}>
+
+
+  </Card>
+
+  <Card maw={700} mx="auto" my={30}>
+
+  </Card>
+
+
+</Paper>
+
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+
+  <Card.Section>
+
+  </Card.Section>
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+
+</Card>
+
+<Card maw={700} mx="auto" my={30}>
+  <Flex direction="column" align="flex-start" mx="auto">
+    <MathBlock tex={`A_{pin} = n_{s}\\, \\frac{\\pi D_p^2}{4}`} />
+    <MathBlock tex={'A_{net_1} = n_{s}\\, t_{1}\\,(w_{1}-D)'} />
+    <MathBlock tex={'A_{net_2} = t_{2}\\,(w_{2}-D)'} />
+    <MathBlock tex={'A_{net_1} = n_{s}\\, t_{1}\\,(w_{1}-D)'} />
+    <MathBlock tex={'A_{b_{total}} = n_{if}\\, t_{crit}\\, D_p'} />
+  </Flex>
+</Card>
+
+
+<div>
+  {((geom.e1 / geom.D) < 1.5) ? (
+    <div>
+      <MathLine tex={`e/D \\lt 1.5:`} />
+      <MathLine tex={`\\quad ${vars.F_bruL} = \\text{K} \\ \\frac{a}{D} \\ ${vars.F_tux}`} />
+      <MathLine tex={`\\quad ${vars.F_bryL} = \\text{K} \\ \\frac{a}{D} \\ ${vars.F_tyx}`} />
+      <MathLine
+        tex={`\\quad ${vars.F_bryL} = ${1.48} \\ \\frac{${(geom.e1 - geom.D / 2)}}{${geom.D}} \\ ${matProps.F_tyx_1}`} />
+      <MathLine
+        tex={`\\quad ${vars.F_bryL} = ${(1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tyx_1).toFixed(3)}`} />
+      <MathLine
+        tex={`\\quad ${vars.F_bruL} = ${(1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tux_1).toFixed(3)}`} />
+    </div>
+  ) : (
+    <div>
+      <MathLine tex={`e/D \\geq 1.5:`} />
+      <MathLine tex={`\\quad ${vars.F_bruL} = \\text{K} \\ ${vars.F_tux}`} />
+      <MathLine tex={`\\quad ${vars.F_bryL} = \\text{K} \\ ${vars.F_tyx}`} />
+    </div>
+  )}
+</div>
+
+

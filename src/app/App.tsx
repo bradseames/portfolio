@@ -1,15 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router';
 import { type MantineProviderProps, MantineProvider } from '@mantine/core';
-import { AppShell, NavLink, ScrollArea, Text } from '@mantine/core';
-import { MDXProvider } from '@mdx-js/react';
-import MathJaxContext from 'better-react-mathjax/MathJaxContext';
-import { mathJaxConfig } from '../components/MathJaxProvider';
-import './app.css';
-import { appTheme } from './app-theme';
-import ShellLayout from './PageShell';
-import { components } from '../components/MDXProvider';
+//import { AppShell, NavLink, ScrollArea, Text } from '@mantine/core';
 
+import { appTheme } from './app-theme';
+import ShellLayout from './ShellLayout';
+import './app.css';
 
 function Providers({
   children,
@@ -22,11 +18,7 @@ function Providers({
       defaultColorScheme="dark"
       {...props}
     >
-      <MDXProvider components={components}>
-        <MathJaxContext config={mathJaxConfig}>
-          {children}
-        </MathJaxContext>
-      </MDXProvider>
+      {children}
     </MantineProvider>
   );
 }
@@ -57,52 +49,52 @@ export default function App() {
 //     {/*// </MantineProvider>*/}
 //   );
 // }
-
-function MyAppShell({ children }: { children: React.ReactNode }) {
-  return (
-    <AppShell header={{ height: 60 }}
-              navbar={{
-                width: { base: 200, md: 200, lg: 200 },
-                breakpoint: 'sm',
-                // collapsed: {mobile: !mobileOpened, desktop: !desktopOpened}
-              }}
-              padding="md">
-      <AppShell.Header>
-        Header
-      </AppShell.Header>
-      <AppShell.Main>{children}</AppShell.Main>
-      <AppShell.Navbar p="md">
-        <AppShell.Section>
-          <NavLink href="/" label="Home" />
-        </AppShell.Section>
-        <AppShell.Section grow component={ScrollArea}>
-          <Text>Docs</Text>
-          {/*{navLinks}*/}
-        </AppShell.Section>
-
-        {/*<Container>*/}
-        {/*  <div>Resume</div>*/}
-        {/*  <div>*/}
-        {/*    <ActionIcon*/}
-        {/*      component="a"*/}
-        {/*      href="/app/assets/resume.pdf"*/}
-        {/*      target="_blank"*/}
-        {/*      size="xl"*/}
-        {/*      aria-label="pdf Resume"*/}
-        {/*      // onClick={(event: { preventDefault: () => any; }) => event.preventDefault()}*/}
-        {/*    >*/}
-        {/*      <IconFileTypePdf/>*/}
-        {/*    </ActionIcon>*/}
-        {/*  </div>*/}
-        {/*</Container>*/}
-
-      </AppShell.Navbar>
-    </AppShell>
-  );
-}
-
-
-// const navLinkData = [
+//
+//function MyAppShell({ children }: { children: React.ReactNode }) {
+//  return (
+//    <AppShell header={{ height: 60 }}
+//              navbar={{
+//                width: { base: 200, md: 200, lg: 200 },
+//                breakpoint: 'sm',
+//                // collapsed: {mobile: !mobileOpened, desktop: !desktopOpened}
+//              }}
+//              padding="md">
+//      <AppShell.Header>
+//        Header
+//      </AppShell.Header>
+//      <AppShell.Main>{children}</AppShell.Main>
+//      <AppShell.Navbar p="md">
+//        <AppShell.Section>
+//          <NavLink href="/" label="Home" />
+//        </AppShell.Section>
+//        <AppShell.Section grow component={ScrollArea}>
+//          <Text>Docs</Text>
+//          {/*{navLinks}*/}
+//        </AppShell.Section>
+//
+//        {/*<Container>*/}
+//        {/*  <div>Resume</div>*/}
+//        {/*  <div>*/}
+//        {/*    <ActionIcon*/}
+//        {/*      component="a"*/}
+//        {/*      href="/app/assets/resume.pdf"*/}
+//        {/*      target="_blank"*/}
+//        {/*      size="xl"*/}
+//        {/*      aria-label="pdf Resume"*/}
+//        {/*      // onClick={(event: { preventDefault: () => any; }) => event.preventDefault()}*/}
+//        {/*    >*/}
+//        {/*      <IconFileTypePdf/>*/}
+//        {/*    </ActionIcon>*/}
+//        {/*  </div>*/}
+//        {/*</Container>*/}
+//
+//      </AppShell.Navbar>
+//    </AppShell>
+//  );
+//}
+//
+//
+//// const navLinkData = [
 //   { href: '/', label: 'Home' },
 //   { href: '/form', label: 'Form' },
 //   { href: '/chart', label: 'My Chart' },

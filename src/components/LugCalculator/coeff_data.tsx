@@ -350,3 +350,202 @@ export const Kb_data: DataPoint[] = [
   },
 ];
 
+export const Kn_data: DataPoint[] = [
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0,
+    Fty_E_eu_0: 0,
+    Fty_E_eu_1: 0,
+    Fty_E_eu_2: 0,
+    Fty_E_eu_4: 0,
+    Fty_E_eu_6: 0,
+    Fty_E_eu_8: 0,
+    Fty_E_eu_10: 0,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.05, Fty_E_eu_0: 0.33, Fty_E_eu_1: 0.33, Fty_E_eu_2: 0.26, Fty_E_eu_4: 0.15, Fty_E_eu_6: 0.09,
+    Fty_E_eu_8: 0.07, Fty_E_eu_10: 0.06,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.1, Fty_E_eu_0: 0.5, Fty_E_eu_1: 0.49, Fty_E_eu_2: 0.41, Fty_E_eu_4: 0.24, Fty_E_eu_6: 0.16,
+    Fty_E_eu_8: 0.12, Fty_E_eu_10: 0.1,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.15, Fty_E_eu_0: 0.61, Fty_E_eu_1: 0.58, Fty_E_eu_2: 0.52, Fty_E_eu_4: 0.32, Fty_E_eu_6: 0.22,
+    Fty_E_eu_8: 0.18, Fty_E_eu_10: 0.15,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.2, Fty_E_eu_0: 0.67, Fty_E_eu_1: 0.65, Fty_E_eu_2: 0.59, Fty_E_eu_4: 0.4, Fty_E_eu_6: 0.3,
+    Fty_E_eu_8: 0.24, Fty_E_eu_10: 0.19,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.25, Fty_E_eu_0: 0.7, Fty_E_eu_1: 0.68, Fty_E_eu_2: 0.63, Fty_E_eu_4: 0.47, Fty_E_eu_6: 0.36,
+    Fty_E_eu_8: 0.29, Fty_E_eu_10: 0.24,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.3, Fty_E_eu_0: 0.71, Fty_E_eu_1: 0.69, Fty_E_eu_2: 0.66, Fty_E_eu_4: 0.53, Fty_E_eu_6: 0.41,
+    Fty_E_eu_8: 0.33, Fty_E_eu_10: 0.27,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.35, Fty_E_eu_0: 0.72, Fty_E_eu_1: 0.7, Fty_E_eu_2: 0.68, Fty_E_eu_4: 0.57, Fty_E_eu_6: 0.45,
+    Fty_E_eu_8: 0.37, Fty_E_eu_10: 0.31,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.4, Fty_E_eu_0: 0.73, Fty_E_eu_1: 0.71, Fty_E_eu_2: 0.69, Fty_E_eu_4: 0.61, Fty_E_eu_6: 0.49,
+    Fty_E_eu_8: 0.4, Fty_E_eu_10: 0.34,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.45, Fty_E_eu_0: 0.74, Fty_E_eu_1: 0.72, Fty_E_eu_2: 0.7, Fty_E_eu_4: 0.63, Fty_E_eu_6: 0.53,
+    Fty_E_eu_8: 0.43, Fty_E_eu_10: 0.36,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.5, Fty_E_eu_0: 0.76, Fty_E_eu_1: 0.74, Fty_E_eu_2: 0.72, Fty_E_eu_4: 0.64, Fty_E_eu_6: 0.56,
+    Fty_E_eu_8: 0.46, Fty_E_eu_10: 0.4,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.55, Fty_E_eu_0: 0.77, Fty_E_eu_1: 0.76, Fty_E_eu_2: 0.73, Fty_E_eu_4: 0.66, Fty_E_eu_6: 0.59,
+    Fty_E_eu_8: 0.5, Fty_E_eu_10: 0.43,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.6, Fty_E_eu_0: 0.78, Fty_E_eu_1: 0.77, Fty_E_eu_2: 0.74, Fty_E_eu_4: 0.68, Fty_E_eu_6: 0.62,
+    Fty_E_eu_8: 0.53, Fty_E_eu_10: 0.45,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.65, Fty_E_eu_0: 0.8, Fty_E_eu_1: 0.79, Fty_E_eu_2: 0.77, Fty_E_eu_4: 0.7, Fty_E_eu_6: 0.64,
+    Fty_E_eu_8: 0.57, Fty_E_eu_10: 0.49,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.7, Fty_E_eu_0: 0.82, Fty_E_eu_1: 0.81, Fty_E_eu_2: 0.78, Fty_E_eu_4: 0.73, Fty_E_eu_6: 0.68,
+    Fty_E_eu_8: 0.61, Fty_E_eu_10: 0.53,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.75, Fty_E_eu_0: 0.84, Fty_E_eu_1: 0.82, Fty_E_eu_2: 0.81, Fty_E_eu_4: 0.77, Fty_E_eu_6: 0.72,
+    Fty_E_eu_8: 0.66, Fty_E_eu_10: 0.58,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.8, Fty_E_eu_0: 0.86, Fty_E_eu_1: 0.84, Fty_E_eu_2: 0.84, Fty_E_eu_4: 0.8, Fty_E_eu_6: 0.76,
+    Fty_E_eu_8: 0.71, Fty_E_eu_10: 0.64,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.85, Fty_E_eu_0: 0.88, Fty_E_eu_1: 0.87, Fty_E_eu_2: 0.87, Fty_E_eu_4: 0.84, Fty_E_eu_6: 0.81,
+    Fty_E_eu_8: 0.77, Fty_E_eu_10: 0.71,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.9, Fty_E_eu_0: 0.91, Fty_E_eu_1: 0.9, Fty_E_eu_2: 0.9, Fty_E_eu_4: 0.88, Fty_E_eu_6: 0.86,
+    Fty_E_eu_8: 0.83, Fty_E_eu_10: 0.79,
+  }, {
+    Fty_Ftu: 0.6, Dw: 0.95, Fty_E_eu_0: 0.95, Fty_E_eu_1: 0.95, Fty_E_eu_2: 0.95, Fty_E_eu_4: 0.94, Fty_E_eu_6: 0.94,
+    Fty_E_eu_8: 0.92, Fty_E_eu_10: 0.89,
+  }, {
+    Fty_Ftu: 0.6, Dw: 1, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1, Fty_E_eu_6: 1, Fty_E_eu_8: 1,
+    Fty_E_eu_10: 1,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0, Fty_E_eu_0: 0, Fty_E_eu_1: 0, Fty_E_eu_2: 0, Fty_E_eu_4: 0, Fty_E_eu_6: 0, Fty_E_eu_8: 0,
+    Fty_E_eu_10: 0,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.05, Fty_E_eu_0: 0.4, Fty_E_eu_1: 0.38, Fty_E_eu_2: 0.24, Fty_E_eu_4: 0.14, Fty_E_eu_6: 0.08,
+    Fty_E_eu_8: 0.07, Fty_E_eu_10: 0.05,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.1, Fty_E_eu_0: 0.66, Fty_E_eu_1: 0.59, Fty_E_eu_2: 0.42, Fty_E_eu_4: 0.25, Fty_E_eu_6: 0.15,
+    Fty_E_eu_8: 0.12, Fty_E_eu_10: 0.1,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.15, Fty_E_eu_0: 0.79, Fty_E_eu_1: 0.73, Fty_E_eu_2: 0.56, Fty_E_eu_4: 0.35, Fty_E_eu_6: 0.22,
+    Fty_E_eu_8: 0.18, Fty_E_eu_10: 0.15,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.2, Fty_E_eu_0: 0.83, Fty_E_eu_1: 0.81, Fty_E_eu_2: 0.67, Fty_E_eu_4: 0.43, Fty_E_eu_6: 0.29,
+    Fty_E_eu_8: 0.23, Fty_E_eu_10: 0.19,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.25, Fty_E_eu_0: 0.84, Fty_E_eu_1: 0.83, Fty_E_eu_2: 0.74, Fty_E_eu_4: 0.5, Fty_E_eu_6: 0.36,
+    Fty_E_eu_8: 0.28, Fty_E_eu_10: 0.24,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.3, Fty_E_eu_0: 0.85, Fty_E_eu_1: 0.84, Fty_E_eu_2: 0.77, Fty_E_eu_4: 0.56, Fty_E_eu_6: 0.42,
+    Fty_E_eu_8: 0.33, Fty_E_eu_10: 0.28,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.35, Fty_E_eu_0: 0.85, Fty_E_eu_1: 0.85, Fty_E_eu_2: 0.8, Fty_E_eu_4: 0.62, Fty_E_eu_6: 0.48,
+    Fty_E_eu_8: 0.37, Fty_E_eu_10: 0.31,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.4, Fty_E_eu_0: 0.86, Fty_E_eu_1: 0.86, Fty_E_eu_2: 0.81, Fty_E_eu_4: 0.66, Fty_E_eu_6: 0.52,
+    Fty_E_eu_8: 0.41, Fty_E_eu_10: 0.34,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.45, Fty_E_eu_0: 0.86, Fty_E_eu_1: 0.86, Fty_E_eu_2: 0.83, Fty_E_eu_4: 0.69, Fty_E_eu_6: 0.56,
+    Fty_E_eu_8: 0.44, Fty_E_eu_10: 0.37,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.5, Fty_E_eu_0: 0.87, Fty_E_eu_1: 0.87, Fty_E_eu_2: 0.84, Fty_E_eu_4: 0.72, Fty_E_eu_6: 0.59,
+    Fty_E_eu_8: 0.47, Fty_E_eu_10: 0.4,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.55, Fty_E_eu_0: 0.88, Fty_E_eu_1: 0.88, Fty_E_eu_2: 0.84, Fty_E_eu_4: 0.74, Fty_E_eu_6: 0.62,
+    Fty_E_eu_8: 0.51, Fty_E_eu_10: 0.44,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.6, Fty_E_eu_0: 0.89, Fty_E_eu_1: 0.89, Fty_E_eu_2: 0.85, Fty_E_eu_4: 0.76, Fty_E_eu_6: 0.65,
+    Fty_E_eu_8: 0.55, Fty_E_eu_10: 0.47,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.65, Fty_E_eu_0: 0.9, Fty_E_eu_1: 0.9, Fty_E_eu_2: 0.86, Fty_E_eu_4: 0.79, Fty_E_eu_6: 0.68,
+    Fty_E_eu_8: 0.58, Fty_E_eu_10: 0.5,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.7, Fty_E_eu_0: 0.9, Fty_E_eu_1: 0.9, Fty_E_eu_2: 0.87, Fty_E_eu_4: 0.82, Fty_E_eu_6: 0.72,
+    Fty_E_eu_8: 0.63, Fty_E_eu_10: 0.53,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.75, Fty_E_eu_0: 0.91, Fty_E_eu_1: 0.91, Fty_E_eu_2: 0.89, Fty_E_eu_4: 0.84, Fty_E_eu_6: 0.77,
+    Fty_E_eu_8: 0.69, Fty_E_eu_10: 0.58,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.8, Fty_E_eu_0: 0.92, Fty_E_eu_1: 0.92, Fty_E_eu_2: 0.92, Fty_E_eu_4: 0.88, Fty_E_eu_6: 0.83,
+    Fty_E_eu_8: 0.74, Fty_E_eu_10: 0.64,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.85, Fty_E_eu_0: 0.94, Fty_E_eu_1: 0.94, Fty_E_eu_2: 0.94, Fty_E_eu_4: 0.91, Fty_E_eu_6: 0.87,
+    Fty_E_eu_8: 0.79, Fty_E_eu_10: 0.71,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.9, Fty_E_eu_0: 0.96, Fty_E_eu_1: 0.96, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.94, Fty_E_eu_6: 0.91,
+    Fty_E_eu_8: 0.85, Fty_E_eu_10: 0.79,
+  }, {
+    Fty_Ftu: 0.8, Dw: 0.95, Fty_E_eu_0: 0.97, Fty_E_eu_1: 0.97, Fty_E_eu_2: 0.97, Fty_E_eu_4: 0.97, Fty_E_eu_6: 0.95,
+    Fty_E_eu_8: 0.92, Fty_E_eu_10: 0.88,
+  }, {
+    Fty_Ftu: 0.8, Dw: 1, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1, Fty_E_eu_6: 1, Fty_E_eu_8: 1,
+    Fty_E_eu_10: 1,
+  }, {
+    Fty_Ftu: 1, Dw: 0, Fty_E_eu_0: 0, Fty_E_eu_1: 0, Fty_E_eu_2: 0, Fty_E_eu_4: 0, Fty_E_eu_6: 0, Fty_E_eu_8: 0,
+    Fty_E_eu_10: 0,
+  }, {
+    Fty_Ftu: 1, Dw: 0.05, Fty_E_eu_0: 0.54, Fty_E_eu_1: 0.44, Fty_E_eu_2: 0.26, Fty_E_eu_4: 0.13, Fty_E_eu_6: 0.09,
+    Fty_E_eu_8: 0.07, Fty_E_eu_10: 0.06,
+  }, {
+    Fty_Ftu: 1, Dw: 0.1, Fty_E_eu_0: 0.78, Fty_E_eu_1: 0.69, Fty_E_eu_2: 0.44, Fty_E_eu_4: 0.22, Fty_E_eu_6: 0.16,
+    Fty_E_eu_8: 0.13, Fty_E_eu_10: 0.12,
+  }, {
+    Fty_Ftu: 1, Dw: 0.15, Fty_E_eu_0: 0.93, Fty_E_eu_1: 0.86, Fty_E_eu_2: 0.58, Fty_E_eu_4: 0.31, Fty_E_eu_6: 0.23,
+    Fty_E_eu_8: 0.18, Fty_E_eu_10: 0.16,
+  }, {
+    Fty_Ftu: 1, Dw: 0.2, Fty_E_eu_0: 1, Fty_E_eu_1: 0.96, Fty_E_eu_2: 0.71, Fty_E_eu_4: 0.42, Fty_E_eu_6: 0.3,
+    Fty_E_eu_8: 0.23, Fty_E_eu_10: 0.2,
+  }, {
+    Fty_Ftu: 1, Dw: 0.25, Fty_E_eu_0: 1, Fty_E_eu_1: 0.98, Fty_E_eu_2: 0.8, Fty_E_eu_4: 0.5, Fty_E_eu_6: 0.36,
+    Fty_E_eu_8: 0.28, Fty_E_eu_10: 0.24,
+  }, {
+    Fty_Ftu: 1, Dw: 0.3, Fty_E_eu_0: 1, Fty_E_eu_1: 0.99, Fty_E_eu_2: 0.87, Fty_E_eu_4: 0.6, Fty_E_eu_6: 0.42,
+    Fty_E_eu_8: 0.33, Fty_E_eu_10: 0.28,
+  }, {
+    Fty_Ftu: 1, Dw: 0.35, Fty_E_eu_0: 1, Fty_E_eu_1: 0.99, Fty_E_eu_2: 0.93, Fty_E_eu_4: 0.66, Fty_E_eu_6: 0.48,
+    Fty_E_eu_8: 0.37, Fty_E_eu_10: 0.31,
+  }, {
+    Fty_Ftu: 1, Dw: 0.4, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.71, Fty_E_eu_6: 0.53,
+    Fty_E_eu_8: 0.41, Fty_E_eu_10: 0.34,
+  }, {
+    Fty_Ftu: 1, Dw: 0.45, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.97, Fty_E_eu_4: 0.75, Fty_E_eu_6: 0.58,
+    Fty_E_eu_8: 0.45, Fty_E_eu_10: 0.37,
+  }, {
+    Fty_Ftu: 1, Dw: 0.5, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.78, Fty_E_eu_6: 0.62,
+    Fty_E_eu_8: 0.49, Fty_E_eu_10: 0.4,
+  }, {
+    Fty_Ftu: 1, Dw: 0.55, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.8, Fty_E_eu_6: 0.66,
+    Fty_E_eu_8: 0.53, Fty_E_eu_10: 0.43,
+  }, {
+    Fty_Ftu: 1, Dw: 0.6, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.83, Fty_E_eu_6: 0.69,
+    Fty_E_eu_8: 0.56, Fty_E_eu_10: 0.46,
+  }, {
+    Fty_Ftu: 1, Dw: 0.65, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.87, Fty_E_eu_6: 0.73,
+    Fty_E_eu_8: 0.6, Fty_E_eu_10: 0.5,
+  }, {
+    Fty_Ftu: 1, Dw: 0.7, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.97, Fty_E_eu_4: 0.9, Fty_E_eu_6: 0.78,
+    Fty_E_eu_8: 0.64, Fty_E_eu_10: 0.53,
+  }, {
+    Fty_Ftu: 1, Dw: 0.75, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.99, Fty_E_eu_4: 0.93, Fty_E_eu_6: 0.84,
+    Fty_E_eu_8: 0.7, Fty_E_eu_10: 0.57,
+  }, {
+    Fty_Ftu: 1, Dw: 0.8, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 0.97, Fty_E_eu_6: 0.91,
+    Fty_E_eu_8: 0.76, Fty_E_eu_10: 0.63,
+  }, {
+    Fty_Ftu: 1, Dw: 0.85, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.99, Fty_E_eu_4: 0.99, Fty_E_eu_6: 0.94,
+    Fty_E_eu_8: 0.81, Fty_E_eu_10: 0.69,
+  }, {
+    Fty_Ftu: 1, Dw: 0.9, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1, Fty_E_eu_6: 0.97, Fty_E_eu_8: 0.86,
+    Fty_E_eu_10: 0.78,
+  }, {
+    Fty_Ftu: 1, Dw: 0.95, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1, Fty_E_eu_6: 0.99,
+    Fty_E_eu_8: 0.92, Fty_E_eu_10: 0.87,
+  }, {
+    Fty_Ftu: 1, Dw: 1, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1, Fty_E_eu_6: 1, Fty_E_eu_8: 1,
+    Fty_E_eu_10: 1,
+  },
+];

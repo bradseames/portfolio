@@ -1,7 +1,5 @@
 import { Card } from '@mantine/core';
 import { RadarChart } from '@mantine/charts';
-// import { data } from './data';
-// import {MathJax, MathJaxContext} from 'better-react-mathjax/esm';
 
 export const data = [
   {
