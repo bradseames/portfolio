@@ -1,7 +1,7 @@
 import { Card } from '@mantine/core';
 import { RadarChart } from '@mantine/charts';
 
-export const data = [
+const data = [
   {
     product: 'Apples',
     'Sales January': 120,
@@ -36,21 +36,19 @@ export const data = [
 
 export default function MyChart() {
   return (
-
-    <Card>
-
-      <RadarChart
-        h={300}
-        data={data}
-        dataKey="product"
-        withTooltip
-        withDots
-        series={[
-          { name: 'Sales January', color: 'lime.4', opacity: 0.1 },
-          { name: 'Sales February', color: 'cyan.4', opacity: 0.1 },
-        ]}
-        // radarChartProps={{  }}
-      />
-    </Card>
+      <Card>
+        <RadarChart
+            h={300}
+            data={data}
+            dataKey="product"
+            withTooltip
+            withDots
+            series={[
+              { name: 'Sales January', color: 'lime.4', opacity: 0.1 },
+              { name: 'Sales February', color: 'cyan.4', opacity: 0.1 },
+            ]}
+            // radarChartProps={{  }}
+        />
+      </Card>
   );
 }

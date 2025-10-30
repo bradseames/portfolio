@@ -9,12 +9,12 @@ export default function SubjectPage() {
   // const MDXContent = getMDXBySlug(subject, concept); // Returns the right MDX component
 
   return (
-    <div>
-      {/*{MDXContent ? (*/}
-      {/*  <MDXContent components={components}/>*/}
-      {/*) : (*/}
-      {/*  <div>Concept not found.</div>*/}
-      {/*)}*/}
-    </div>
+      <div>
+        {/*{MDXContent ? (*/}
+        {/*  <MDXContent components={components}/>*/}
+        {/*) : (*/}
+        {/*  <div>Concept not found.</div>*/}
+        {/*)}*/}
+      </div>
   );
 }

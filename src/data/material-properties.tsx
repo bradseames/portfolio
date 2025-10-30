@@ -25,8 +25,6 @@ export const matProps = {
   E_pin: 29000,                 // ksi
 };
 
-type stress:
-
 
 export interface Allowables {
   // Allowable stresses (units consistent w/ geometry)
@@ -38,9 +36,7 @@ export interface Allowables {
   F_cy: number;   // Bushing compressive yield, stress
   F_tux: number;  // Cross-grain tensile ultimate stress
   F_tyx: number;  // Cross-grain tensile yield stress
-
   F_bru: number;  // Cross-grain tensile yield stress
-
 
 
 }

@@ -6,12 +6,11 @@
 @import '@mantine/charts/styles.css';
 @layer mantine, mantine-datatable;
 
-
 .mathline {
-    line-height: 2rem;
+  line-height: 2rem;
 }
 
 .mathblock {
-    align-content: flex-start;
-    justify-self: flex-start;
+  align-content: flex-start;
+  justify-self: flex-start;
 }

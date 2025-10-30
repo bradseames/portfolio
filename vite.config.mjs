@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite';
-import { reactRouter } from '@react-router/dev/vite';
+import {defineConfig} from 'vite';
+import {reactRouter} from '@react-router/dev/vite';
 import mdx from '@mdx-js/rollup';
 import remarkMath from 'remark-math';
 import rehypeMathJax from 'rehype-mathjax';

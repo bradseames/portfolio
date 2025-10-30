@@ -2,25 +2,25 @@ import { Slider, Text } from '@mantine/core';
 
 export default function SliderControl() {
   return (
-    <>
-      <Text size="sm">No label</Text>
-      <Slider defaultValue={40} label={null} />
+      <>
+        <Text size="sm">No label</Text>
+        <Slider defaultValue={40} label={null} />
 
-      <Text size="sm" mt="xl">Formatted label</Text>
-      <Slider defaultValue={40} label={(value) => `${value} °C`} />
+        <Text size="sm" mt="xl">Formatted label</Text>
+        <Slider defaultValue={40} label={(value) => `${value} °C`} />
 
-      <Text size="sm" mt="xl">Label always visible</Text>
-      <Slider defaultValue={40} labelAlwaysOn />
+        <Text size="sm" mt="xl">Label always visible</Text>
+        <Slider defaultValue={40} labelAlwaysOn />
 
-      <Text size="sm" mt="xl">Custom label transition</Text>
-      <Slider
-        defaultValue={40}
-        labelTransitionProps={{
-          transition: 'skew-down',
-          duration: 150,
-          timingFunction: 'linear',
-        }}
-      />
-    </>
+        <Text size="sm" mt="xl">Custom label transition</Text>
+        <Slider
+            defaultValue={40}
+            labelTransitionProps={{
+              transition: 'skew-down',
+              duration: 150,
+              timingFunction: 'linear',
+            }}
+        />
+      </>
   );
 }

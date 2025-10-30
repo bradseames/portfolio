@@ -1,50 +1,78 @@
-## 9.2 Lug Analysis Nomenclature
+import { LineChart } from '@mantine/charts'
+import { Kb_data } from '../../../components/LugCalculator/coeff_data'
 
-<Divider />
-<Card>
-  <Card.Section w="100%" px="10%" my="xs">
-    <Accordion>
-      <AccordionItem key={'Stress'} value={'Stress'}>
-        <AccordionControl>{'Stress'}</AccordionControl>
-        <AccordionPanel>
-          <ScrollArea h={400}>
+export { Kb_data }
 
+### 9.3.2 Lug Net-Section Strength Under Uniform Axial Load
 
-          </ScrollArea>
-        </AccordionPanel>
-      </AccordionItem>
+The allowable lug net-section tensile ultimate stress $ (\text{F}_{nu_L}) $ on Section 1-1 in
+Figure 9-4a is affected by the ability of the lug material to yield and thereby relieve the
+stress concentration at the edge of the hole.
 
-      <AccordionItem key={'Loads'} value={'Loads'}>
-        <AccordionControl>{'Loads'}</AccordionControl>
-        <AccordionPanel>
-          <ScrollArea h={400}>
+$$
+\text{F}_{nu_L} = \text{K}_\text{n} \ \text{F}_\text{tu}
+$$
 
+$ \text{K}_\text{n} $, the net-tension stress coefficient, is obtained from the graphs shown in
+Figure 9-4 as a function of the ultimate and yield stress and strains of the lug material in the
+direction of the applied load. The ultimate strain $ (\varepsilon_{u}) $ can be obtained from
+MIL-HDBK-5.
 
-          </ScrollArea>
-        </AccordionPanel>
-      </AccordionItem>
+<div>
+  <LineChart
+      h={300}
+      w={600}
+      data={Kb_data}
+      dataKey="a_D"
+      tickLine="y"
+      gridAxis="xy"
+      xAxisLabel="a/D"
+      yAxisLabel="K_br"
+      yAxisProps={{ domain: [1.0, 3.0] }}
+      curveType="linear"
+      activeDotProps={true}
+      withDots={true}
+      withLegend={true}
+      legendProps={{
+        align: 'center',
+        height: 100,
+        verticalAlign: 'bottom',
+        iconSize: 6,
+        iconType: 'line'
+      }}
+      valueFormatter={(value) => `${value.toFixed(2)}`}
+      series={[
+        { name: 'Dt_2', label: 'D/t<=2', color: 'blue.2' },
+        { name: 'Dt_3', label: 'D/t=3', color: 'blue.4' },
+        { name: 'Dt_4', label: 'D/t=4', color: 'blue.6' },
+        { name: 'Dt_5', label: 'D/t=5', color: 'blue.8' },
+        { name: 'Dt_6', label: 'D/t=6', color: 'blue.9' },
+        { name: 'Dt_7', label: 'D/t=7', color: 'green.9' },
+        { name: 'Dt_8', label: 'D/t=8', color: 'green.8' },
+        { name: 'Dt_9', label: 'D/t=9', color: 'green.6' },
+        { name: 'Dt_10', label: 'D/t=10', color: 'green.4' },
+        { name: 'Dt_15', label: 'D/t=15', color: 'red.4' },
+        { name: 'Dt_20', label: 'D/t=20', color: 'red.5' },
+        { name: 'Dt_25', label: 'D/t=25', color: 'red.7' },
+        { name: 'Dt_30', label: 'D/t=30', color: 'red.9' }
+      ]}
+  />
+</div>
 
-      <AccordionItem key={'Coefficients'} value={'Coefficients'}>
-        <AccordionControl>{'Coefficients'}</AccordionControl>
-        <AccordionPanel>
+The allowable lug net-section tensile yield stress $ \text{F}_{ny_L} $ is
 
-        </AccordionPanel>
-      </AccordionItem>
+$$
+\text{F}_{ny_L} = \text{K}_{n} \text{F}_\text{ty}
+$$
 
-      <AccordionItem key={'Geometry'} value={'Geometry'}>
-        <AccordionControl>{'Geometry'}</AccordionControl>
-        <AccordionPanel>
-        </AccordionPanel>
-      </AccordionItem>
+The allowable lug net-section ultimate load $ (\text{P}_{nu_L}) $ is
 
-      <AccordionItem key={'Misc'} value={'Misc'}>
-        <AccordionControl>{'Misc'}</AccordionControl>
-        <AccordionPanel>
+$$
+\text{P}_{nu_L} = \text{F}_{nu_L} (\text{w} - \text{D}) \text{t} , \quad (\text{ if } \text{F}_{tu}
+\leq 1.304 \ \text{F}_{ty})
+$$
 
-        </AccordionPanel>
-      </AccordionItem>
-
-    </Accordion>
-  </Card.Section>
-</Card>
-
+$$
+\text{P}_{nu_L} = \text{F}_{nu_L} (\text{w} - \text{D}) \text{t} , \quad (\text{ if } \text{F}_{tu}
+\gt 1.304 \ \text{F}_{ty})
+$$

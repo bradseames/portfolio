@@ -1,4 +1,5 @@
-### 9.3.1 Lug Bearing Strength Under Uniform Axial Load
+import { Divider, Flex, Group } from '@mantine/core'
+import { LineChart } from '@mantine/charts'
 export const K_data = [
   { eD: 0.50, K: 2.00 },
   { eD: 0.52, K: 1.98 },
@@ -42,100 +43,99 @@ export const K_data = [
   { eD: 2.40, K: 1.93 }
 ]
 
-<Divider />
-
-The bearing stresses and loads for lug failure involving bearing, shear-tearout, or hoop tension in the
-region forward of the net-section in Figure 9-1 are determined from the equations below, with an allowable
-load coefficient (K) determined from Figures 9-2 and 9-3. For values of e/D less than 1. 5, lug failures are
-likely to involve shear-out or hoop tension; and for values of e/D greater than 1. 5, the bearing is likely
-to be critical. Actual lug failures may involve more than one failure mode, but such interaction effects are
-accounted for in the values of K. The lug ultimate bearing stress (Fbru L) is
-
-<Flex direction="row" justify="space-evenly" align="flex-start" maw={600}>
-  <Box>
-    <MathBlock tex={`e/D \\lt 1.5:`} />
-    <MathBlock
-      tex={`\\quad \\text{F}_{bru_L} = \\text{K} \\ \\frac{a}{D} \\ \\text{F}_\\text{tux} \\quad \\text{(9-1a)}`} />
-  </Box>
-  <Box>
-    <MathBlock tex={`e/D \\geq 1.5:`} />
-    <MathBlock tex={`\\quad \\text{F}_{bru_L} = \\text{K} \\ \\text{F}_\\text{tux} \\quad \\text{(9-1b)}`} />
-  </Box>
-</Flex>
-
-The graph in Figure 9-2 applies only to cases where D/t is 5 or less, which covers most of the cases. If
-D/t is greater than 5, there is a reduction in strength which can be approximated by the curves in Figure
-9-3. The lug yield bearing stress (FbryL) is
-
-<Flex direction="row" justify="space-evenly" align="flex-start" maw={600}>
-  <MathBlock
-    tex={`\\quad \\text{F}_{bry_L} = \\text{K} \\ \\frac{a}{D} \\ \\text{F}_\\text{tyx} \\quad \\text{(9-2a)}`} />
-  <MathBlock tex={`\\quad \\text{F}_{bry_L}  = \\text{K} \\ \\text{F}_\\text{tyx}  \\quad \\text{(9-2b)}`} />
-</Flex>
+### 9.3.1 Lug Bearing Strength Under Uniform Axial Load
 
 <Divider />
+
+The bearing stresses and loads for lug failure involving bearing, shear-tearout, or hoop tension
+in the region forward of the net-section in Figure 9-1 are determined from the equations below,
+with an allowable load coefficient $ (\text{K}) $ determined from Figures 9-2 and 9-3. For values
+of e/D less than 1.5, lug failures are likely to involve shear-out or hoop tension; and for
+values of e/D greater than 1.5, the bearing is likely to be critical. Actual lug failures may
+involve more than one failure mode, but such interaction  effects are accounted for in the
+values of $ \text{K} $. The lug ultimate bearing stress
+$ (\text{F}_{\text{bru}_{\text{L}}}) $ is
+
+$ e/D \lt 1.5: $
+
+$$
+\quad \text{F}_{\text{bru}_{\text{L}}} = \text{K} \ \frac{a}{D} \ \text{F}_\text{tux}
+\quad \text{(9-1a)}
+$$
+
+$ e/D \geq 1.5: $
+
+$$
+\quad \text{F}_{\text{bru}_{\text{L}}} = \text{K} \ \text{F}_\text{tux}
+\quad \text{(9-1b)}
+$$
+
+The graph in Figure 9-2 applies only to cases where D/t is 5 or less, which covers most of the
+cases. If D/t is greater than 5, there is a reduction in strength which can be approximated by
+the curves in Figure 9-3. The lug yield bearing stress $ (\text{F}_{bry_L}) $ is
+
+$ e/D \lt 1.5: $
+
+$$
+\quad \text{F}_{\text{bry}_{\text{L}}} = \text{K} \ \frac{a}{D} \ \text{F}_\text{tyx}
+\quad \text {(9-2a)}
+$$
+
+$ e/D \geq 1.5: $
+$$
+\quad \text{F}_{\text{bry}_{\text{L}}}  = \text{K} \ \text{F}_\text{tyx}
+\quad \text{(9-2b)}
+$$
+
 
 <LineChart
-  h={300}
-  w={600}
-  data={K_data}
-  type={"stacked"}
-  title="Allowable Axial Load Coeff"
-  dataKey="eD"
-  tickLine="xy"
-  gridAxis="xy"
-  xAxisLabel="e/D"
-  yAxisLabel="K"
-  xAxisProps={{ domain: [0.5, 2.4] }}
-  yAxisProps={{ domain: [1.0, 2.0] }}
-  curveType="linear"
-  activeDotProps={true}
-  withDots={true}
-  withLegend={true}
-  valueFormatter={(value) => `${value.toFixed(2)}`}
-  series={[
-    { name: 'K', label: 'K, Allowable Uniform Axial Load Coefficient', color: 'blue.6', }]}
+    h={300}
+    w={600}
+    data={K_data}
+    type={"stacked"}
+    title="Allowable Axial Load Coeff"
+    dataKey="eD"
+    tickLine="xy"
+    gridAxis="xy"
+    xAxisLabel="e/D"
+    yAxisLabel="K"
+    xAxisProps={{ domain: [0.5, 2.4] }}
+    yAxisProps={{ domain: [1.0, 2.0] }}
+    curveType="linear"
+    activeDotProps={true}
+    withDots={true}
+    withLegend={true}
+    valueFormatter={(value) => `${value.toFixed(2)}`}
+    series={[
+      { name: 'K', label: 'K, Allowable Uniform Axial Load Coefficient', color: 'blue.6', }]}
 />
 
-<Group justify="space-around">
-  <MathBlock
-    tex={`e_{1}/D = ${(geom.e1 / geom.D).toFixed(3)};  \\quad  k_{1} = ${1.25}`} />
-</Group>
+The allowable lug ultimate bearing load
+$ (\text{P}_{\text{bru}_{\text{L}}}) $ for lug failure in bearing, shear-out, or hoop tension is
 
-<Divider />
+$ \text{F}_\text{tux} \leq \ 1.304 \ \text{F}_\text{tyx}: $
+$$
+\quad \text{P}_{\text{bru}_{\text{L}}} = \text{F}_{\text{bru}_{\text{L}}} \ \text{D} \ \text{t}
+\quad \text{(9-3a)}
+$$
 
-The allowable lug ultimate bearing load (PbruL) for lug failure in bearing, shear-out, or hoop tension is
+$ \text{F}_\text{tux} \gt \ 1.304 \ \text{F}_\text{tyx}: $
 
-<Flex direction="row" justify="space-evenly" pt={30} align="flex-start">
-  <div>
-    <MathLine tex={`\\text{F}_\\text{tux} \\leq \\ 1.304 \\ \\text{F}_\\text{tyx}:`} />
-    <MathBlock
-      tex={`\\quad ${vars.P_bruL} = ${vars.F_bruL} \\ \\text{D} \\ \\text{t} \\quad \\text{(9-3a)}`} />
-  </div>
-  <div>
-    <MathLine tex={`\\text{F}_\\text{tux} \\gt \\ 1.304 \\ \\text{F}_\\text{tyx}:`} />
-    <MathBlock
-      tex={`\\quad ${vars.P_bruL} = \\ 1.304 \\ ${vars.F_bryL} \\ \\text{D} \\ \\text{t}  \\quad \\text{(9-3b)}`} />
-    <MathBlock
-      tex={`\\quad ${vars.P_bruL} = \\ ${(1.304 * 1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tyx_1 *
-        geom.D * geom.t1).toFixed(3)}`} />
-  </div>
-  <div>
-    {(matProps.F_tux_1 > (1.304 * matProps.F_tyx_1)) ? (
-      <div></div>
-    ) : (
-      <div></div>
-    )}
-  </div>
-</Flex>
+$$
+\quad \text{P}_{\text{bru}_{\text{L}}} = 1.304 \text{F}_{\text{bry}_{\text{L}}} \ \text{D} \
+\text{t}
+\quad \text{(9-3b)}
+$$
 
-Pbru /Dt should. not exceed either Fbru or 1.304 Fbry, where Fbru and Fbry are the allowable ultimate and
-yield bearing stresses for the lug material for e/D = 2. 0, as given in MIL-HDBK-5 or other applicable
-specification.
+$ \text{P}_{\text{bru}_{\text{L}}}/\text{Dt} $ should not exceed either
+$ \text{F}_{\text{bru}_{\text{L}}} \text{ or } 1.304 \text{F}_{\text{bry}_{\text{L}}} $, where
+$ \text{F}_{\text{bru}_{\text{L}}} \text{ and } \text{F}_{\text{bry}_{\text{L}}} $ are the
+allowable ultimate and yield bearing stresses for the lug material for e/D = 2.0, as given in
+MIL-HDBK-5 or other applicable specification.
 
-Equations (9-3a) and (9-3b) apply only if the load is uniformly distributed across the lug thickness. If
-the pin is too flexible and bends excessively, the load on the lug will tend to peak up near the shear faces
-and possibly cause premature failure of the lug.
+Equations (9-3a) and (9-3b) apply only if the load is uniformly distributed across the lug
+thickness. If the pin is too flexible and bends excessively, the load on the lug will tend to
+peak up near the shear faces and possibly cause premature failure of the lug.
 
-A procedure to check the pin bending strength in order to prevent premature lug failure is given in Section
-9.4 entitled "Double Shear Joint Strength Under Uniform Axial Load.. "
+A procedure to check the pin bending strength in order to prevent premature lug failure is given
+in Section 9.4 entitled "Double Shear Joint Strength Under Uniform Axial Load.. "

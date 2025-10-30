@@ -3,7 +3,7 @@ import { Avatar, Badge, Group, Select, Table, Text } from '@mantine/core';
 const data = [
   {
     avatar:
-      'src/assets/images/logos/virgin_galactic_logo.jpg',
+        'src/assets/images/logos/virgin_galactic_logo.jpg',
     name: 'Virgin Galactic (Contact)',
     job: 'Engineer',
     email: 'rob_wolf@gmail.com',
@@ -13,7 +13,7 @@ const data = [
   },
   {
     avatar:
-      'src/assets/images/logos/collins_aerospace_logo.jpg',
+        'src/assets/images/logos/collins_aerospace_logo.jpg',
     name: 'Collins Aerospace',
     job: 'Stress',
     email: 'jj@breaker.com',
@@ -23,7 +23,7 @@ const data = [
   },
   {
     avatar:
-      'src/assets/images/logos/orbital_logo.jpg',
+        'src/assets/images/logos/orbital_logo.jpg',
     name: 'Orbital Sciences',
     job: 'Sevel',
     email: 'henry@silkeater.io',
@@ -33,7 +33,7 @@ const data = [
   },
   {
     avatar:
-      'src/assets/images/logos/coolwell_logo.jpg',
+        'src/assets/images/logos/coolwell_logo.jpg',
     name: 'Coolwell',
     job: 'Designer',
     email: 'bhorsefighter@gmail.com',
@@ -43,7 +43,7 @@ const data = [
   },
   {
     avatar:
-      'src/assets/images/logos/raytech_logo.jpg',
+        'src/assets/images/logos/raytech_logo.jpg',
     name: 'Raytech',
     job: 'Manager',
     email: 'jeremy@foot.dev',
@@ -60,57 +60,57 @@ export default function SelectTable() {
 
   const rows = data.map((item) => (
 
-    <Table.Tr key={item.name}>
-      <Table.Td>
-        <Group gap="xs">
-          <Avatar size={30} src={item.avatar} radius={30} />
-          <div>
-            <Text fz="sm" fw={500}>
-              {item.name}
-            </Text>
-            <Text fz="xs" c="dimmed">
-              {item.email}
-            </Text>
-          </div>
-        </Group>
-      </Table.Td>
+      <Table.Tr key={item.name}>
+        <Table.Td>
+          <Group gap="xs">
+            <Avatar size={30} src={item.avatar} radius={30} />
+            <div>
+              <Text fz="sm" fw={500}>
+                {item.name}
+              </Text>
+              <Text fz="xs" c="dimmed">
+                {item.email}
+              </Text>
+            </div>
+          </Group>
+        </Table.Td>
 
-      <Table.Td>
-        <Select
-          data={rolesData}
-          defaultValue={item.role}
-          variant="unstyled"
-          allowDeselect={false}
-        />
-      </Table.Td>
-      <Table.Td>{item.lastActive}</Table.Td>
-      <Table.Td>
-        {item.active ? (
-          <Badge fullWidth variant="light">
-            Active
-          </Badge>
-        ) : (
-          <Badge color="gray" fullWidth variant="light">
-            Disabled
-          </Badge>
-        )}
-      </Table.Td>
-    </Table.Tr>
+        <Table.Td>
+          <Select
+              data={rolesData}
+              defaultValue={item.role}
+              variant="unstyled"
+              allowDeselect={false}
+          />
+        </Table.Td>
+        <Table.Td>{item.lastActive}</Table.Td>
+        <Table.Td>
+          {item.active ? (
+              <Badge fullWidth variant="light">
+                Active
+              </Badge>
+          ) : (
+              <Badge color="gray" fullWidth variant="light">
+                Disabled
+              </Badge>
+          )}
+        </Table.Td>
+      </Table.Tr>
   ));
 
   return (
-    <Table.ScrollContainer minWidth={500}>
-      <Table verticalSpacing="xs">
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Employee</Table.Th>
-            <Table.Th>Role</Table.Th>
-            <Table.Th>Last active</Table.Th>
-            <Table.Th>Status</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
-    </Table.ScrollContainer>
+      <Table.ScrollContainer minWidth={500}>
+        <Table verticalSpacing="xs">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Employee</Table.Th>
+              <Table.Th>Role</Table.Th>
+              <Table.Th>Last active</Table.Th>
+              <Table.Th>Status</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+      </Table.ScrollContainer>
   );
 }

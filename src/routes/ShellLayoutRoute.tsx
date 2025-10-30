@@ -3,8 +3,8 @@ import ShellLayout from '../app/ShellLayout';
 
 export default function ShellLayoutRoute() {
   return (
-    <ShellLayout>
-      <Outlet />
-    </ShellLayout>
+      <ShellLayout>
+        <Outlet />
+      </ShellLayout>
   );
 }

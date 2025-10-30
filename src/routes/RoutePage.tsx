@@ -1,6 +1,5 @@
 import type { Route } from './+types/DynamicMdxPage';
 import { lazy, Suspense } from 'react';
-
 import { MDXProvider } from '@mdx-js/react';
 import { MathJaxContext } from 'better-react-mathjax/MathJaxContext';
 import { mathJaxConfig } from '../components/MathJaxProvider';
@@ -10,7 +9,8 @@ const importMdx = (
     category: string | undefined,
     name: string | undefined,
 ) =>
-    lazy((): Promise<any> => import(`../content/${category}/${name}.mdx`));
+    lazy((): Promise<any> =>
+        import(`../content/${category}/${name}.mdx`));
 
 
 export async function clientLoader({ params }: Route.ComponentProps,
@@ -24,21 +24,7 @@ const Loading = () => (
 );
 
 
-//export function DynamicMdxPage({
-//      loaderData,
-//    }: Route.ComponentProps,
-//) {
-//  const MdxContent = loaderData;
-//  return (
-//      <>
-//        <Suspense fallback={<Loading />}>
-//          <MdxContent />
-//        </Suspense>
-//      </>
-//  );
-//}
-
-export default function PostPage({ loaderData }: Route.ComponentProps,
+export default function RoutePage({ loaderData }: Route.ComponentProps,
 ) {
   const MdxContent = loaderData;
   return (
@@ -46,10 +32,11 @@ export default function PostPage({ loaderData }: Route.ComponentProps,
         <Suspense fallback={<Loading />}>
           <MDXProvider components={components}>
             <MathJaxContext config={mathJaxConfig}>
-              <MdxContent />
+              <MdxContent components={components} />
             </MathJaxContext>
           </MDXProvider>
         </Suspense>
       </>
   );
 }
+
