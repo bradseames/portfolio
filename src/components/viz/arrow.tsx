@@ -18,21 +18,21 @@ export default function Arrow({ x1, y1, x2, y2, label, labelAnchor, strokeWidth 
   const hy = y2 - uy * .2;
 
   return (
-    <g>
-      <line x1={x1} y1={y1} x2={hx} y2={hy} />
-      <polygon
-        points={`
-            ${x2},${y2} 
-            ${x2 - ux * 0.2 - uy * 0.1},${y2 - uy * 0.2 + ux * 0.1} 
+      <g>
+        <line x1={x1} y1={y1} x2={hx} y2={hy} />
+        <polygon
+            points={`
+            ${x2},${y2}
+            ${x2 - ux * 0.2 - uy * 0.1},${y2 - uy * 0.2 + ux * 0.1}
             ${x2 - ux * 0.2 + uy * 0.1},${y2 - uy * 0.2 - ux * 0.1}`} />
-      <text
-        x={(x1 + x2) / 2 + .4}
-        y={(y1 + y2) / 2}
-        textAnchor={labelAnchor ?? 'start'}
-      >{label}
-      </text>
+        <text
+            x={(x1 + x2) / 2 + .4}
+            y={(y1 + y2) / 2}
+            textAnchor={labelAnchor ?? 'start'}
+        >{label}
+        </text>
 
-    </g>
+      </g>
   );
 
 }

@@ -6,8 +6,8 @@ import { Carousel } from '@mantine/carousel';
 import { Progress, Image } from '@mantine/core';
 import classes from './CarouselCard/CarouselCard.module.css';
 import Fade from 'embla-carousel-fade';
-import LugCalculator from '../components/LugCalculator/LugCalculator';
-import MyChart from '../components/Charts/MyChart';
+import React from 'react';
+
 
 const data = [
   {
@@ -77,17 +77,28 @@ const data = [
   },
 ];
 
-export default function CarouselEmbla() {
+export function SlideComponent() {
+
+  return (
+      <Carousel.Slide>
+
+      </Carousel.Slide>
+  );
+}
+
+export default function CarouselEmbla({ children }: { children: React.ReactNode }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [embla, setEmbla] = useState<EmblaCarouselType | null>(null);
 
   const autoplay = useRef(Autoplay({ delay: 2000 }));
   const fade = useRef(Fade({}));
-  //const slides = data.map(image => (
-  //  <Carousel.Slide key={image.key}>
-  //    <Image src={image.src} fit="scale-down" height={500} />
+
+  //const slides = slideData.map((content: React.ReactNode) => (
+  //    <Carousel.Slide key={1}>
+  //      {/*<Image src={image.src} fit="scale-down" height={500} />*/}
+  //      {content}
   //
-  //  </Carousel.Slide>
+  //    </Carousel.Slide>
   //));
 
   const handleScroll = useCallback(() => {
@@ -106,38 +117,27 @@ export default function CarouselEmbla() {
   }, [embla]);
 
   return (
-    <>
-      <Carousel
-        emblaOptions={{ slidesToScroll: 1, inViewThreshold: 1 }}
+      <>
+        <Carousel
+            emblaOptions={{ slidesToScroll: 1, inViewThreshold: 1 }}
+            withIndicators={true}
+            withControls={true}
+            height={500}
+            getEmblaApi={setEmbla}
+            initialSlide={1}
+            //plugins={[autoplay.current, fade.current]}
+            //onMouseEnter={autoplay.current.stop}
+            //onMouseLeave={() => autoplay.current.play()}
+            classNames={{
+              root: classes.carousel,
+              controls: classes.carouselControls,
+              indicator: classes.carouselIndicator,
+            }}
+        >
+          {children}
 
-        withIndicators={true}
-        withControls={true}
-
-        height={500}
-
-        getEmblaApi={setEmbla}
-        initialSlide={1}
-        //plugins={[autoplay.current, fade.current]}
-        //onMouseEnter={autoplay.current.stop}
-        //onMouseLeave={() => autoplay.current.play()}
-        classNames={{
-          root: classes.carousel,
-          controls: classes.carouselControls,
-          indicator: classes.carouselIndicator,
-        }}
-      >
-        {/*{slides}*/}
-        <Carousel.Slide key={1}>
-          <LugCalculator />
-
-        </Carousel.Slide>
-        <Carousel.Slide key={2}>
-          <MyChart />
-
-        </Carousel.Slide>
-
-      </Carousel>
-      <Progress value={scrollProgress} maw={320} size="sm" mt="xl" mx="auto" />
-    </>
+        </Carousel>
+        <Progress value={scrollProgress} maw={320} size="sm" mt="xl" mx="auto" />
+      </>
   );
 }

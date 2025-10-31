@@ -1,13 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 
-export const mathJaxConfig = {
-  loader: {
-    load: ['input/tex', 'output/chtml'],
-  },
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-  },
-};
 
 export function useMathJax() {
   useEffect(() => {
@@ -38,5 +30,5 @@ export function MathLine({ tex }: { tex: string }) {
     if (!MJ) return;
     MJ.typesetPromise?.([ref.current]);
   }, [tex]);
-  return <div className="mathline" ref={ref}>{`$${tex}$`}</div>;
+  return <div className="mathline" ref={ref}>{`$$${tex}$$`}</div>;
 }
