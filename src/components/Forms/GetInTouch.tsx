@@ -1,6 +1,6 @@
-import { Button, Group, SimpleGrid, Textarea, TextInput, Title } from '@mantine/core';
-import { useForm, type UseFormReturnType, hasLength, isEmail } from '@mantine/form';
-import { useUncontrolled } from '@mantine/hooks';
+import { Button, Group, SimpleGrid, Textarea, TextInput, Title } from "@mantine/core";
+import { useForm, type UseFormReturnType, hasLength, isEmail } from "@mantine/form";
+import { useUncontrolled } from "@mantine/hooks";
 
 interface FormValues {
   name: string;
@@ -9,86 +9,75 @@ interface FormValues {
   message: string;
 }
 
-function NameInput({ form }:
-{
-  form: UseFormReturnType<FormValues>
-}) {
+function NameInput({ form }: { form: UseFormReturnType<FormValues> }) {
   return (
-      <TextInput
-          key={form.key('name')}
-          {...form.getInputProps('name')}
-          label="Name"
-          placeholder="Your name"
-          name="name"
-          variant="filled"
-      />
+    <TextInput
+      key={form.key("name")}
+      {...form.getInputProps("name")}
+      label="Name"
+      placeholder="Your name"
+      name="name"
+      variant="filled"
+    />
   );
 }
 
-function EmailInput({ form }: {
-  form: UseFormReturnType<FormValues>
-}) {
+function EmailInput({ form }: { form: UseFormReturnType<FormValues> }) {
   return (
-      <TextInput
-          key={form.key('email')}
-          {...form.getInputProps('email')}
-          label="Email"
-          placeholder="Your email"
-          name="email"
-          variant="filled"
-      />
+    <TextInput
+      key={form.key("email")}
+      {...form.getInputProps("email")}
+      label="Email"
+      placeholder="Your email"
+      name="email"
+      variant="filled"
+    />
   );
 }
 
-function SubjectInput({ form }: {
-  form: UseFormReturnType<FormValues>
-}) {
+function SubjectInput({ form }: { form: UseFormReturnType<FormValues> }) {
   return (
-      <TextInput
-          key={form.key('subject')}
-          {...form.getInputProps('subject')}
-          label="Subject"
-          placeholder="Subject"
-          mt="md"
-          name="subject"
-          variant="filled"
-      />
+    <TextInput
+      key={form.key("subject")}
+      {...form.getInputProps("subject")}
+      label="Subject"
+      placeholder="Subject"
+      mt="md"
+      name="subject"
+      variant="filled"
+    />
   );
 }
 
-function MessageInput({ form }: {
-  form: UseFormReturnType<FormValues>
-}) {
+function MessageInput({ form }: { form: UseFormReturnType<FormValues> }) {
   return (
-      <Textarea
-          key={form.key('message')}
-
-          mt="md"
-          label="Message"
-          placeholder="Your message"
-          maxRows={10}
-          minRows={5}
-          autosize
-          name="message"
-          variant="filled"
-          {...form.getInputProps('message')}
-      />
+    <Textarea
+      key={form.key("message")}
+      mt="md"
+      label="Message"
+      placeholder="Your message"
+      maxRows={10}
+      minRows={5}
+      autosize
+      name="message"
+      variant="filled"
+      {...form.getInputProps("message")}
+    />
   );
 }
 
 export default function GetInTouch() {
-
   const form = useForm<FormValues>({
-    mode: 'uncontrolled',
+    mode: "uncontrolled",
     initialValues: {
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
     },
     validate: {
       name: (value) => value.trim().length < 2,
-      email: isEmail('Invalid email'),
+      email: isEmail("Invalid email"),
       subject: (value) => value.trim().length === 0,
     },
     onValuesChange: (values) => {
@@ -102,34 +91,30 @@ export default function GetInTouch() {
   };
 
   return (
-      <form
-          onSubmit={form.onSubmit(handleSubmit)}
-          onReset={form.onReset}
+    <form onSubmit={form.onSubmit(handleSubmit)} onReset={form.onReset}>
+      <Title
+        order={2}
+        size="h1"
+        style={{ fontFamily: "Outfit, var(--mantine-font-family)" }}
+        fw={900}
+        ta="center"
       >
+        Get in touch
+      </Title>
 
-        <Title
-            order={2}
-            size="h1"
-            style={{ fontFamily: 'Outfit, var(--mantine-font-family)' }}
-            fw={900}
-            ta="center">
-          Get in touch
-        </Title>
+      <SimpleGrid cols={{ base: 1, sm: 2 }} mt="xl">
+        <NameInput form={form}></NameInput>
+        <EmailInput form={form}></EmailInput>
+      </SimpleGrid>
 
-        <SimpleGrid cols={{ base: 1, sm: 2 }} mt="xl">
-          <NameInput form={form}></NameInput>
-          <EmailInput form={form}></EmailInput>
-        </SimpleGrid>
+      <SubjectInput form={form}></SubjectInput>
+      <MessageInput form={form}></MessageInput>
 
-        <SubjectInput form={form}></SubjectInput>
-        <MessageInput form={form}></MessageInput>
-
-        <Group justify="center" mt="xl">
-          <Button type="submit" size="md">
-            Send message
-          </Button>
-        </Group>
-
-      </form>
+      <Group justify="center" mt="xl">
+        <Button type="submit" size="md">
+          Send message
+        </Button>
+      </Group>
+    </form>
   );
 }

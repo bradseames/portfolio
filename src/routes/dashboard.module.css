@@ -1,0 +1,16 @@
+.max-height {
+  height: fit-content;
+}
+
+.stretch-height {
+  height: 100%;
+}
+
+.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  bottom: 60px;
+  right: 60px;
+  left: 60px;
+  top: 60px;
+}

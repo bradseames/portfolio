@@ -51,25 +51,29 @@ $$
 <Divider />
 <Card>
   <LineChart
-      h={400}
-      w={500}
-      data={K_data}
-      type={"stacked"}
-      title="Allowable Axial Load Coeff"
-      dataKey="eD"
-      tickLine="xy"
-      gridAxis="xy"
-      xAxisLabel="e/D"
-      yAxisLabel="K"
-      xAxisProps={{ domain: [0.5, 2.4] }}
-      yAxisProps={{ domain: [1.0, 2.0] }}
-      curveType="linear"
-      activeDotProps={true}
-      withDots={true}
-      withLegend={true}
-      valueFormatter={(value) => `${value.toFixed(2)}`}
-      series={[
-        { name: 'K', label: 'K, Allowable Uniform Axial Load Coefficient', color: 'blue.6', }]}
+    h={400}
+    w={500}
+    data={K_data}
+    type={"stacked"}
+    title="Allowable Axial Load Coeff"
+    dataKey="eD"
+    tickLine="xy"
+    gridAxis="xy"
+    xAxisLabel="e/D"
+    yAxisLabel="K"
+    xAxisProps={{ domain: [0.5, 2.4] }}
+    yAxisProps={{ domain: [1.0, 2.0] }}
+    curveType="linear"
+    activeDotProps={true}
+    withDots={true}
+    withLegend={true}
+    valueFormatter={(value) => `${value.toFixed(2)}`}
+    series={[
+      {
+        name: 'K',
+        label: 'K, Allowable Uniform Axial Load Coefficient',
+        color: 'blue.6',
+      }]}
   />
 
   Figure 9-2. Allowable Uniform Axial Load Coefficient
@@ -78,42 +82,42 @@ $$
 <Divider />
 <Card>
   <LineChart
-      h={300}
-      w={500}
-      data={Kb_data}
-      dataKey="Dw"
-      tickLine="y"
-      gridAxis="xy"
-      xAxisLabel="a/D"
-      yAxisLabel="K_br"
-      yAxisProps={{ domain: [0.0, 1.0] }}
-      curveType="linear"
-      activeDotProps={true}
-      withDots={true}
-      withLegend={true}
-      legendProps={{
-        align: 'center',
-        height: 100,
-        verticalAlign: 'bottom',
-        iconSize: 6,
-        iconType: 'line'
-      }}
-      valueFormatter={(value) => `${value.toFixed(2)}`}
-      series={[
-        { name: 'Dt_2', label: 'D/t<=2', color: 'blue.2' },
-        { name: 'Dt_3', label: 'D/t=3', color: 'blue.4' },
-        { name: 'Dt_4', label: 'D/t=4', color: 'blue.6' },
-        { name: 'Dt_5', label: 'D/t=5', color: 'blue.8' },
-        { name: 'Dt_6', label: 'D/t=6', color: 'blue.9' },
-        { name: 'Dt_7', label: 'D/t=7', color: 'green.9' },
-        { name: 'Dt_8', label: 'D/t=8', color: 'green.8' },
-        { name: 'Dt_9', label: 'D/t=9', color: 'green.6' },
-        { name: 'Dt_10', label: 'D/t=10', color: 'green.4' },
-        { name: 'Dt_15', label: 'D/t=15', color: 'red.4' },
-        { name: 'Dt_20', label: 'D/t=20', color: 'red.5' },
-        { name: 'Dt_25', label: 'D/t=25', color: 'red.7' },
-        { name: 'Dt_30', label: 'D/t=30', color: 'red.9' }
-      ]}
+    h={300}
+    w={500}
+    data={Kb_data}
+    dataKey="Dw"
+    tickLine="y"
+    gridAxis="xy"
+    xAxisLabel="a/D"
+    yAxisLabel="K_br"
+    yAxisProps={{ domain: [0.0, 1.0] }}
+    curveType="linear"
+    activeDotProps={true}
+    withDots={true}
+    withLegend={true}
+    legendProps={{
+      align: 'center',
+      height: 100,
+      verticalAlign: 'bottom',
+      iconSize: 6,
+      iconType: 'line'
+    }}
+    valueFormatter={(value) => `${value.toFixed(2)}`}
+    series={[
+      { name: 'Dt_2', label: 'D/t<=2', color: 'blue.2' },
+      { name: 'Dt_3', label: 'D/t=3', color: 'blue.4' },
+      { name: 'Dt_4', label: 'D/t=4', color: 'blue.6' },
+      { name: 'Dt_5', label: 'D/t=5', color: 'blue.8' },
+      { name: 'Dt_6', label: 'D/t=6', color: 'blue.9' },
+      { name: 'Dt_7', label: 'D/t=7', color: 'green.9' },
+      { name: 'Dt_8', label: 'D/t=8', color: 'green.8' },
+      { name: 'Dt_9', label: 'D/t=9', color: 'green.6' },
+      { name: 'Dt_10', label: 'D/t=10', color: 'green.4' },
+      { name: 'Dt_15', label: 'D/t=15', color: 'red.4' },
+      { name: 'Dt_20', label: 'D/t=20', color: 'red.5' },
+      { name: 'Dt_25', label: 'D/t=25', color: 'red.7' },
+      { name: 'Dt_30', label: 'D/t=30', color: 'red.9' }
+    ]}
   />
 
   Figure 9-3. Bearing Efficiency Factors for Lugs, Aluminum Alloy, and Alloy

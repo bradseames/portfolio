@@ -8,3 +8,12 @@
 /src/_archive/
 /.idea/
 /react-router-0.cpuprofile
+
+
+dist
+dist-ssr
+*.local
+
+
+# Profile outputs
+*.cpuprofile

@@ -6,14 +6,19 @@
   "keywords": [],
   "author": "",
   "scripts": {
-    "build": "react-router build",
+    "build": "react-router build --config config/vite.config.mjs",
     "ci": "pnpm build && pnpm test --run && pnpm typecheck",
-    "dev": "react-router dev",
+    "dev": "react-router dev --config config/vite.config.mjs",
     "typecheck": "react-router typegen && tsc",
+    "lint": "eslint . --config config/eslint.config.js",
+    "lint:css": "stylelint \"**/*.css\" --config config/stylelint.config.js",
+    "format": "prettier --write . --config config/prettier.config.js",
+    "format:check": "prettier --check . --config config/prettier.config.js",
     "prettier:check": "prettier --check \"**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"**/*.{ts,tsx,css}\"",
     "test": "vitest",
-    "start": "react-router-serve ./build/server/index.js"
+    "start": "react-router-serve ./build/server/index.js",
+    "": "npx eslint-config-prettier path/to/main.js"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -76,6 +81,7 @@
     "eslint-config-mantine": "^4.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-mdx": "^3.6.2",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",

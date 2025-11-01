@@ -1,64 +1,63 @@
-import { LineChart } from '@mantine/charts';
-
+import { LineChart } from "@mantine/charts";
 
 export const K_data = [
-  { eD: 0.50, K: 2.00 },
-  { eD: 0.60, K: 1.90 },
-  { eD: 0.70, K: 1.80 },
-  { eD: 0.80, K: 1.72 },
-  { eD: 0.90, K: 1.65 },
-  { eD: 1.00, K: 1.60 },
-  { eD: 1.10, K: 1.54 },
-  { eD: 1.20, K: 1.48 },
-  { eD: 1.30, K: 1.42 },
-  { eD: 1.40, K: 1.38 },
-  { eD: 1.50, K: 1.33 },
-  { eD: 1.60, K: 1.40 },
-  { eD: 1.70, K: 1.48 },
-  { eD: 1.80, K: 1.56 },
-  { eD: 1.90, K: 1.63 },
-  { eD: 2.00, K: 1.70 },
-  { eD: 2.10, K: 1.77 },
-  { eD: 2.20, K: 1.82 },
-  { eD: 2.30, K: 1.88 },
-  { eD: 2.40, K: 1.93 },
+  { eD: 0.5, K: 2.0 },
+  { eD: 0.6, K: 1.9 },
+  { eD: 0.7, K: 1.8 },
+  { eD: 0.8, K: 1.72 },
+  { eD: 0.9, K: 1.65 },
+  { eD: 1.0, K: 1.6 },
+  { eD: 1.1, K: 1.54 },
+  { eD: 1.2, K: 1.48 },
+  { eD: 1.3, K: 1.42 },
+  { eD: 1.4, K: 1.38 },
+  { eD: 1.5, K: 1.33 },
+  { eD: 1.6, K: 1.4 },
+  { eD: 1.7, K: 1.48 },
+  { eD: 1.8, K: 1.56 },
+  { eD: 1.9, K: 1.63 },
+  { eD: 2.0, K: 1.7 },
+  { eD: 2.1, K: 1.77 },
+  { eD: 2.2, K: 1.82 },
+  { eD: 2.3, K: 1.88 },
+  { eD: 2.4, K: 1.93 },
 ];
 
 export const Kb_data = [
   {
-    a_D: 0.50,
-    Dt_2: 0.00,
-    Dt_3: 0.00,
-    Dt_4: 0.00,
-    Dt_5: 0.00,
-    Dt_6: 0.00,
-    Dt_7: 0.00,
-    Dt_8: 0.00,
-    Dt_9: 0.00,
-    Dt_10: 0.00,
-    Dt_15: 0.00,
-    Dt_20: 0.00,
-    Dt_25: 0.00,
-    Dt_30: 0.00,
+    a_D: 0.5,
+    Dt_2: 0.0,
+    Dt_3: 0.0,
+    Dt_4: 0.0,
+    Dt_5: 0.0,
+    Dt_6: 0.0,
+    Dt_7: 0.0,
+    Dt_8: 0.0,
+    Dt_9: 0.0,
+    Dt_10: 0.0,
+    Dt_15: 0.0,
+    Dt_20: 0.0,
+    Dt_25: 0.0,
+    Dt_30: 0.0,
   },
   {
-    a_D: 0.60,
-    Dt_2: 0.20,
-    Dt_3: 0.20,
-    Dt_4: 0.20,
-    Dt_5: 0.20,
-    Dt_6: 0.20,
-    Dt_7: 0.20,
-    Dt_8: 0.20,
-    Dt_9: 0.20,
-    Dt_10: 0.20,
-    Dt_15: 0.20,
+    a_D: 0.6,
+    Dt_2: 0.2,
+    Dt_3: 0.2,
+    Dt_4: 0.2,
+    Dt_5: 0.2,
+    Dt_6: 0.2,
+    Dt_7: 0.2,
+    Dt_8: 0.2,
+    Dt_9: 0.2,
+    Dt_10: 0.2,
+    Dt_15: 0.2,
     Dt_20: 0.16,
     Dt_25: 0.12,
     Dt_30: 0.08,
   },
   {
-    a_D: 0.80,
+    a_D: 0.8,
     Dt_2: 0.54,
     Dt_3: 0.54,
     Dt_4: 0.54,
@@ -71,10 +70,10 @@ export const Kb_data = [
     Dt_15: 0.43,
     Dt_20: 0.33,
     Dt_25: 0.25,
-    Dt_30: 0.20,
+    Dt_30: 0.2,
   },
   {
-    a_D: 1.00,
+    a_D: 1.0,
     Dt_2: 0.88,
     Dt_3: 0.88,
     Dt_4: 0.88,
@@ -90,44 +89,44 @@ export const Kb_data = [
     Dt_30: 0.28,
   },
   {
-    a_D: 1.20,
+    a_D: 1.2,
     Dt_2: 1.13,
     Dt_3: 1.13,
     Dt_4: 1.13,
     Dt_5: 1.13,
     Dt_6: 1.13,
     Dt_7: 1.11,
-    Dt_8: 1.10,
+    Dt_8: 1.1,
     Dt_9: 1.05,
     Dt_10: 0.99,
     Dt_15: 0.67,
     Dt_20: 0.51,
-    Dt_25: 0.40,
+    Dt_25: 0.4,
     Dt_30: 0.33,
   },
   {
-    a_D: 1.40,
+    a_D: 1.4,
     Dt_2: 1.39,
     Dt_3: 1.38,
     Dt_4: 1.38,
     Dt_5: 1.38,
     Dt_6: 1.36,
-    Dt_7: 1.30,
+    Dt_7: 1.3,
     Dt_8: 1.26,
     Dt_9: 1.18,
-    Dt_10: 1.10,
+    Dt_10: 1.1,
     Dt_15: 0.74,
     Dt_20: 0.56,
     Dt_25: 0.44,
     Dt_30: 0.36,
   },
   {
-    a_D: 1.60,
+    a_D: 1.6,
     Dt_2: 1.58,
     Dt_3: 1.57,
     Dt_4: 1.57,
     Dt_5: 1.57,
-    Dt_6: 1.50,
+    Dt_6: 1.5,
     Dt_7: 1.43,
     Dt_8: 1.36,
     Dt_9: 1.26,
@@ -138,7 +137,7 @@ export const Kb_data = [
     Dt_30: 0.38,
   },
   {
-    a_D: 1.80,
+    a_D: 1.8,
     Dt_2: 1.77,
     Dt_3: 1.77,
     Dt_4: 1.77,
@@ -151,10 +150,10 @@ export const Kb_data = [
     Dt_15: 0.82,
     Dt_20: 0.61,
     Dt_25: 0.49,
-    Dt_30: 0.40,
+    Dt_30: 0.4,
   },
   {
-    a_D: 2.00,
+    a_D: 2.0,
     Dt_2: 1.91,
     Dt_3: 1.91,
     Dt_4: 1.88,
@@ -167,26 +166,26 @@ export const Kb_data = [
     Dt_15: 0.84,
     Dt_20: 0.62,
     Dt_25: 0.49,
-    Dt_30: 0.40,
+    Dt_30: 0.4,
   },
   {
-    a_D: 2.20,
+    a_D: 2.2,
     Dt_2: 2.03,
     Dt_3: 2.03,
     Dt_4: 1.98,
-    Dt_5: 1.90,
+    Dt_5: 1.9,
     Dt_6: 1.78,
     Dt_7: 1.67,
     Dt_8: 1.52,
-    Dt_9: 1.40,
+    Dt_9: 1.4,
     Dt_10: 1.28,
     Dt_15: 0.85,
     Dt_20: 0.64,
-    Dt_25: 0.50,
-    Dt_30: 0.40,
+    Dt_25: 0.5,
+    Dt_30: 0.4,
   },
   {
-    a_D: 2.40,
+    a_D: 2.4,
     Dt_2: 2.17,
     Dt_3: 2.17,
     Dt_4: 2.08,
@@ -195,67 +194,67 @@ export const Kb_data = [
     Dt_7: 1.72,
     Dt_8: 1.55,
     Dt_9: 1.42,
-    Dt_10: 1.30,
+    Dt_10: 1.3,
     Dt_15: 0.85,
     Dt_20: 0.63,
     Dt_25: 0.49,
-    Dt_30: 0.40,
+    Dt_30: 0.4,
   },
   {
-    a_D: 2.60,
+    a_D: 2.6,
     Dt_2: 2.29,
     Dt_3: 2.26,
     Dt_4: 2.16,
     Dt_5: 2.04,
-    Dt_6: 1.90,
+    Dt_6: 1.9,
     Dt_7: 1.74,
     Dt_8: 1.57,
     Dt_9: 1.43,
     Dt_10: 1.31,
     Dt_15: 0.85,
     Dt_20: 0.64,
-    Dt_25: 0.50,
-    Dt_30: 0.40,
+    Dt_25: 0.5,
+    Dt_30: 0.4,
   },
   {
-    a_D: 2.80,
+    a_D: 2.8,
     Dt_2: 2.41,
     Dt_3: 2.36,
     Dt_4: 2.23,
     Dt_5: 2.09,
     Dt_6: 1.94,
     Dt_7: 1.77,
-    Dt_8: 1.60,
+    Dt_8: 1.6,
     Dt_9: 1.45,
     Dt_10: 1.32,
     Dt_15: 0.86,
     Dt_20: 0.63,
-    Dt_25: 0.50,
-    Dt_30: 0.40,
+    Dt_25: 0.5,
+    Dt_30: 0.4,
   },
   {
-    a_D: 3.00,
+    a_D: 3.0,
     Dt_2: 2.52,
     Dt_3: 2.45,
-    Dt_4: 2.30,
+    Dt_4: 2.3,
     Dt_5: 2.15,
     Dt_6: 1.97,
     Dt_7: 1.79,
-    Dt_8: 1.60,
+    Dt_8: 1.6,
     Dt_9: 1.45,
     Dt_10: 1.33,
     Dt_15: 0.85,
     Dt_20: 0.64,
-    Dt_25: 0.50,
-    Dt_30: 0.40,
+    Dt_25: 0.5,
+    Dt_30: 0.4,
   },
   {
-    a_D: 3.20,
+    a_D: 3.2,
     Dt_2: 2.61,
     Dt_3: 2.52,
     Dt_4: 2.36,
     Dt_5: 2.19,
-    Dt_6: 2.00,
+    Dt_6: 2.0,
     Dt_7: 1.81,
     Dt_8: 1.62,
     Dt_9: 1.46,
@@ -263,12 +262,12 @@ export const Kb_data = [
     Dt_15: 0.85,
     Dt_20: 0.65,
     Dt_25: 0.51,
-    Dt_30: 0.40,
+    Dt_30: 0.4,
   },
   {
-    a_D: 3.40,
-    Dt_2: 2.70,
-    Dt_3: 2.60,
+    a_D: 3.4,
+    Dt_2: 2.7,
+    Dt_3: 2.6,
     Dt_4: 2.42,
     Dt_5: 2.22,
     Dt_6: 2.02,
@@ -278,11 +277,11 @@ export const Kb_data = [
     Dt_10: 1.34,
     Dt_15: 0.85,
     Dt_20: 0.65,
-    Dt_25: 0.50,
-    Dt_30: 0.40,
+    Dt_25: 0.5,
+    Dt_30: 0.4,
   },
   {
-    a_D: 3.60,
+    a_D: 3.6,
     Dt_2: 2.79,
     Dt_3: 2.67,
     Dt_4: 2.47,
@@ -294,15 +293,15 @@ export const Kb_data = [
     Dt_10: 1.34,
     Dt_15: 0.85,
     Dt_20: 0.65,
-    Dt_25: 0.50,
-    Dt_30: 0.40,
+    Dt_25: 0.5,
+    Dt_30: 0.4,
   },
   {
-    a_D: 3.80,
+    a_D: 3.8,
     Dt_2: 2.89,
     Dt_3: 2.75,
     Dt_4: 2.52,
-    Dt_5: 2.30,
+    Dt_5: 2.3,
     Dt_6: 2.07,
     Dt_7: 1.84,
     Dt_8: 1.61,
@@ -311,23 +310,23 @@ export const Kb_data = [
     Dt_15: 0.85,
     Dt_20: 0.64,
     Dt_25: 0.49,
-    Dt_30: 0.40,
+    Dt_30: 0.4,
   },
   {
-    a_D: 4.00,
+    a_D: 4.0,
     Dt_2: 2.96,
     Dt_3: 2.81,
     Dt_4: 2.57,
     Dt_5: 2.32,
     Dt_6: 2.08,
     Dt_7: 1.83,
-    Dt_8: 1.60,
+    Dt_8: 1.6,
     Dt_9: 1.44,
     Dt_10: 1.31,
     Dt_15: 0.85,
     Dt_20: 0.64,
-    Dt_25: 0.50,
-    Dt_30: 0.40,
+    Dt_25: 0.5,
+    Dt_30: 0.4,
   },
 ];
 
@@ -342,388 +341,809 @@ export const Kn_data = [
     Fty_E_eu_6: 0,
     Fty_E_eu_8: 0,
     Fty_E_eu_10: 0,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.05, Fty_E_eu_0: 0.33, Fty_E_eu_1: 0.33, Fty_E_eu_2: 0.26, Fty_E_eu_4: 0.15,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.05,
+    Fty_E_eu_0: 0.33,
+    Fty_E_eu_1: 0.33,
+    Fty_E_eu_2: 0.26,
+    Fty_E_eu_4: 0.15,
     Fty_E_eu_6: 0.09,
-    Fty_E_eu_8: 0.07, Fty_E_eu_10: 0.06,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.1, Fty_E_eu_0: 0.5, Fty_E_eu_1: 0.49, Fty_E_eu_2: 0.41, Fty_E_eu_4: 0.24,
+    Fty_E_eu_8: 0.07,
+    Fty_E_eu_10: 0.06,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.1,
+    Fty_E_eu_0: 0.5,
+    Fty_E_eu_1: 0.49,
+    Fty_E_eu_2: 0.41,
+    Fty_E_eu_4: 0.24,
     Fty_E_eu_6: 0.16,
-    Fty_E_eu_8: 0.12, Fty_E_eu_10: 0.1,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.15, Fty_E_eu_0: 0.61, Fty_E_eu_1: 0.58, Fty_E_eu_2: 0.52, Fty_E_eu_4: 0.32,
+    Fty_E_eu_8: 0.12,
+    Fty_E_eu_10: 0.1,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.15,
+    Fty_E_eu_0: 0.61,
+    Fty_E_eu_1: 0.58,
+    Fty_E_eu_2: 0.52,
+    Fty_E_eu_4: 0.32,
     Fty_E_eu_6: 0.22,
-    Fty_E_eu_8: 0.18, Fty_E_eu_10: 0.15,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.2, Fty_E_eu_0: 0.67, Fty_E_eu_1: 0.65, Fty_E_eu_2: 0.59, Fty_E_eu_4: 0.4,
+    Fty_E_eu_8: 0.18,
+    Fty_E_eu_10: 0.15,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.2,
+    Fty_E_eu_0: 0.67,
+    Fty_E_eu_1: 0.65,
+    Fty_E_eu_2: 0.59,
+    Fty_E_eu_4: 0.4,
     Fty_E_eu_6: 0.3,
-    Fty_E_eu_8: 0.24, Fty_E_eu_10: 0.19,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.25, Fty_E_eu_0: 0.7, Fty_E_eu_1: 0.68, Fty_E_eu_2: 0.63, Fty_E_eu_4: 0.47,
+    Fty_E_eu_8: 0.24,
+    Fty_E_eu_10: 0.19,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.25,
+    Fty_E_eu_0: 0.7,
+    Fty_E_eu_1: 0.68,
+    Fty_E_eu_2: 0.63,
+    Fty_E_eu_4: 0.47,
     Fty_E_eu_6: 0.36,
-    Fty_E_eu_8: 0.29, Fty_E_eu_10: 0.24,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.3, Fty_E_eu_0: 0.71, Fty_E_eu_1: 0.69, Fty_E_eu_2: 0.66, Fty_E_eu_4: 0.53,
+    Fty_E_eu_8: 0.29,
+    Fty_E_eu_10: 0.24,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.3,
+    Fty_E_eu_0: 0.71,
+    Fty_E_eu_1: 0.69,
+    Fty_E_eu_2: 0.66,
+    Fty_E_eu_4: 0.53,
     Fty_E_eu_6: 0.41,
-    Fty_E_eu_8: 0.33, Fty_E_eu_10: 0.27,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.35, Fty_E_eu_0: 0.72, Fty_E_eu_1: 0.7, Fty_E_eu_2: 0.68, Fty_E_eu_4: 0.57,
+    Fty_E_eu_8: 0.33,
+    Fty_E_eu_10: 0.27,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.35,
+    Fty_E_eu_0: 0.72,
+    Fty_E_eu_1: 0.7,
+    Fty_E_eu_2: 0.68,
+    Fty_E_eu_4: 0.57,
     Fty_E_eu_6: 0.45,
-    Fty_E_eu_8: 0.37, Fty_E_eu_10: 0.31,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.4, Fty_E_eu_0: 0.73, Fty_E_eu_1: 0.71, Fty_E_eu_2: 0.69, Fty_E_eu_4: 0.61,
+    Fty_E_eu_8: 0.37,
+    Fty_E_eu_10: 0.31,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.4,
+    Fty_E_eu_0: 0.73,
+    Fty_E_eu_1: 0.71,
+    Fty_E_eu_2: 0.69,
+    Fty_E_eu_4: 0.61,
     Fty_E_eu_6: 0.49,
-    Fty_E_eu_8: 0.4, Fty_E_eu_10: 0.34,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.45, Fty_E_eu_0: 0.74, Fty_E_eu_1: 0.72, Fty_E_eu_2: 0.7, Fty_E_eu_4: 0.63,
+    Fty_E_eu_8: 0.4,
+    Fty_E_eu_10: 0.34,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.45,
+    Fty_E_eu_0: 0.74,
+    Fty_E_eu_1: 0.72,
+    Fty_E_eu_2: 0.7,
+    Fty_E_eu_4: 0.63,
     Fty_E_eu_6: 0.53,
-    Fty_E_eu_8: 0.43, Fty_E_eu_10: 0.36,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.5, Fty_E_eu_0: 0.76, Fty_E_eu_1: 0.74, Fty_E_eu_2: 0.72, Fty_E_eu_4: 0.64,
+    Fty_E_eu_8: 0.43,
+    Fty_E_eu_10: 0.36,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.5,
+    Fty_E_eu_0: 0.76,
+    Fty_E_eu_1: 0.74,
+    Fty_E_eu_2: 0.72,
+    Fty_E_eu_4: 0.64,
     Fty_E_eu_6: 0.56,
-    Fty_E_eu_8: 0.46, Fty_E_eu_10: 0.4,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.55, Fty_E_eu_0: 0.77, Fty_E_eu_1: 0.76, Fty_E_eu_2: 0.73, Fty_E_eu_4: 0.66,
+    Fty_E_eu_8: 0.46,
+    Fty_E_eu_10: 0.4,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.55,
+    Fty_E_eu_0: 0.77,
+    Fty_E_eu_1: 0.76,
+    Fty_E_eu_2: 0.73,
+    Fty_E_eu_4: 0.66,
     Fty_E_eu_6: 0.59,
-    Fty_E_eu_8: 0.5, Fty_E_eu_10: 0.43,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.6, Fty_E_eu_0: 0.78, Fty_E_eu_1: 0.77, Fty_E_eu_2: 0.74, Fty_E_eu_4: 0.68,
+    Fty_E_eu_8: 0.5,
+    Fty_E_eu_10: 0.43,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.6,
+    Fty_E_eu_0: 0.78,
+    Fty_E_eu_1: 0.77,
+    Fty_E_eu_2: 0.74,
+    Fty_E_eu_4: 0.68,
     Fty_E_eu_6: 0.62,
-    Fty_E_eu_8: 0.53, Fty_E_eu_10: 0.45,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.65, Fty_E_eu_0: 0.8, Fty_E_eu_1: 0.79, Fty_E_eu_2: 0.77, Fty_E_eu_4: 0.7,
+    Fty_E_eu_8: 0.53,
+    Fty_E_eu_10: 0.45,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.65,
+    Fty_E_eu_0: 0.8,
+    Fty_E_eu_1: 0.79,
+    Fty_E_eu_2: 0.77,
+    Fty_E_eu_4: 0.7,
     Fty_E_eu_6: 0.64,
-    Fty_E_eu_8: 0.57, Fty_E_eu_10: 0.49,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.7, Fty_E_eu_0: 0.82, Fty_E_eu_1: 0.81, Fty_E_eu_2: 0.78, Fty_E_eu_4: 0.73,
+    Fty_E_eu_8: 0.57,
+    Fty_E_eu_10: 0.49,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.7,
+    Fty_E_eu_0: 0.82,
+    Fty_E_eu_1: 0.81,
+    Fty_E_eu_2: 0.78,
+    Fty_E_eu_4: 0.73,
     Fty_E_eu_6: 0.68,
-    Fty_E_eu_8: 0.61, Fty_E_eu_10: 0.53,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.75, Fty_E_eu_0: 0.84, Fty_E_eu_1: 0.82, Fty_E_eu_2: 0.81, Fty_E_eu_4: 0.77,
+    Fty_E_eu_8: 0.61,
+    Fty_E_eu_10: 0.53,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.75,
+    Fty_E_eu_0: 0.84,
+    Fty_E_eu_1: 0.82,
+    Fty_E_eu_2: 0.81,
+    Fty_E_eu_4: 0.77,
     Fty_E_eu_6: 0.72,
-    Fty_E_eu_8: 0.66, Fty_E_eu_10: 0.58,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.8, Fty_E_eu_0: 0.86, Fty_E_eu_1: 0.84, Fty_E_eu_2: 0.84, Fty_E_eu_4: 0.8,
+    Fty_E_eu_8: 0.66,
+    Fty_E_eu_10: 0.58,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.8,
+    Fty_E_eu_0: 0.86,
+    Fty_E_eu_1: 0.84,
+    Fty_E_eu_2: 0.84,
+    Fty_E_eu_4: 0.8,
     Fty_E_eu_6: 0.76,
-    Fty_E_eu_8: 0.71, Fty_E_eu_10: 0.64,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.85, Fty_E_eu_0: 0.88, Fty_E_eu_1: 0.87, Fty_E_eu_2: 0.87, Fty_E_eu_4: 0.84,
+    Fty_E_eu_8: 0.71,
+    Fty_E_eu_10: 0.64,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.85,
+    Fty_E_eu_0: 0.88,
+    Fty_E_eu_1: 0.87,
+    Fty_E_eu_2: 0.87,
+    Fty_E_eu_4: 0.84,
     Fty_E_eu_6: 0.81,
-    Fty_E_eu_8: 0.77, Fty_E_eu_10: 0.71,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.9, Fty_E_eu_0: 0.91, Fty_E_eu_1: 0.9, Fty_E_eu_2: 0.9, Fty_E_eu_4: 0.88,
+    Fty_E_eu_8: 0.77,
+    Fty_E_eu_10: 0.71,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.9,
+    Fty_E_eu_0: 0.91,
+    Fty_E_eu_1: 0.9,
+    Fty_E_eu_2: 0.9,
+    Fty_E_eu_4: 0.88,
     Fty_E_eu_6: 0.86,
-    Fty_E_eu_8: 0.83, Fty_E_eu_10: 0.79,
-  }, {
-    Fty_Ftu: 0.6, Dw: 0.95, Fty_E_eu_0: 0.95, Fty_E_eu_1: 0.95, Fty_E_eu_2: 0.95, Fty_E_eu_4: 0.94,
+    Fty_E_eu_8: 0.83,
+    Fty_E_eu_10: 0.79,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 0.95,
+    Fty_E_eu_0: 0.95,
+    Fty_E_eu_1: 0.95,
+    Fty_E_eu_2: 0.95,
+    Fty_E_eu_4: 0.94,
     Fty_E_eu_6: 0.94,
-    Fty_E_eu_8: 0.92, Fty_E_eu_10: 0.89,
-  }, {
-    Fty_Ftu: 0.6, Dw: 1, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1, Fty_E_eu_6: 1,
+    Fty_E_eu_8: 0.92,
+    Fty_E_eu_10: 0.89,
+  },
+  {
+    Fty_Ftu: 0.6,
+    Dw: 1,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 1,
+    Fty_E_eu_4: 1,
+    Fty_E_eu_6: 1,
     Fty_E_eu_8: 1,
     Fty_E_eu_10: 1,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0, Fty_E_eu_0: 0, Fty_E_eu_1: 0, Fty_E_eu_2: 0, Fty_E_eu_4: 0, Fty_E_eu_6: 0,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0,
+    Fty_E_eu_0: 0,
+    Fty_E_eu_1: 0,
+    Fty_E_eu_2: 0,
+    Fty_E_eu_4: 0,
+    Fty_E_eu_6: 0,
     Fty_E_eu_8: 0,
     Fty_E_eu_10: 0,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.05, Fty_E_eu_0: 0.4, Fty_E_eu_1: 0.38, Fty_E_eu_2: 0.24, Fty_E_eu_4: 0.14,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.05,
+    Fty_E_eu_0: 0.4,
+    Fty_E_eu_1: 0.38,
+    Fty_E_eu_2: 0.24,
+    Fty_E_eu_4: 0.14,
     Fty_E_eu_6: 0.08,
-    Fty_E_eu_8: 0.07, Fty_E_eu_10: 0.05,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.1, Fty_E_eu_0: 0.66, Fty_E_eu_1: 0.59, Fty_E_eu_2: 0.42, Fty_E_eu_4: 0.25,
+    Fty_E_eu_8: 0.07,
+    Fty_E_eu_10: 0.05,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.1,
+    Fty_E_eu_0: 0.66,
+    Fty_E_eu_1: 0.59,
+    Fty_E_eu_2: 0.42,
+    Fty_E_eu_4: 0.25,
     Fty_E_eu_6: 0.15,
-    Fty_E_eu_8: 0.12, Fty_E_eu_10: 0.1,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.15, Fty_E_eu_0: 0.79, Fty_E_eu_1: 0.73, Fty_E_eu_2: 0.56, Fty_E_eu_4: 0.35,
+    Fty_E_eu_8: 0.12,
+    Fty_E_eu_10: 0.1,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.15,
+    Fty_E_eu_0: 0.79,
+    Fty_E_eu_1: 0.73,
+    Fty_E_eu_2: 0.56,
+    Fty_E_eu_4: 0.35,
     Fty_E_eu_6: 0.22,
-    Fty_E_eu_8: 0.18, Fty_E_eu_10: 0.15,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.2, Fty_E_eu_0: 0.83, Fty_E_eu_1: 0.81, Fty_E_eu_2: 0.67, Fty_E_eu_4: 0.43,
+    Fty_E_eu_8: 0.18,
+    Fty_E_eu_10: 0.15,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.2,
+    Fty_E_eu_0: 0.83,
+    Fty_E_eu_1: 0.81,
+    Fty_E_eu_2: 0.67,
+    Fty_E_eu_4: 0.43,
     Fty_E_eu_6: 0.29,
-    Fty_E_eu_8: 0.23, Fty_E_eu_10: 0.19,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.25, Fty_E_eu_0: 0.84, Fty_E_eu_1: 0.83, Fty_E_eu_2: 0.74, Fty_E_eu_4: 0.5,
+    Fty_E_eu_8: 0.23,
+    Fty_E_eu_10: 0.19,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.25,
+    Fty_E_eu_0: 0.84,
+    Fty_E_eu_1: 0.83,
+    Fty_E_eu_2: 0.74,
+    Fty_E_eu_4: 0.5,
     Fty_E_eu_6: 0.36,
-    Fty_E_eu_8: 0.28, Fty_E_eu_10: 0.24,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.3, Fty_E_eu_0: 0.85, Fty_E_eu_1: 0.84, Fty_E_eu_2: 0.77, Fty_E_eu_4: 0.56,
+    Fty_E_eu_8: 0.28,
+    Fty_E_eu_10: 0.24,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.3,
+    Fty_E_eu_0: 0.85,
+    Fty_E_eu_1: 0.84,
+    Fty_E_eu_2: 0.77,
+    Fty_E_eu_4: 0.56,
     Fty_E_eu_6: 0.42,
-    Fty_E_eu_8: 0.33, Fty_E_eu_10: 0.28,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.35, Fty_E_eu_0: 0.85, Fty_E_eu_1: 0.85, Fty_E_eu_2: 0.8, Fty_E_eu_4: 0.62,
+    Fty_E_eu_8: 0.33,
+    Fty_E_eu_10: 0.28,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.35,
+    Fty_E_eu_0: 0.85,
+    Fty_E_eu_1: 0.85,
+    Fty_E_eu_2: 0.8,
+    Fty_E_eu_4: 0.62,
     Fty_E_eu_6: 0.48,
-    Fty_E_eu_8: 0.37, Fty_E_eu_10: 0.31,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.4, Fty_E_eu_0: 0.86, Fty_E_eu_1: 0.86, Fty_E_eu_2: 0.81, Fty_E_eu_4: 0.66,
+    Fty_E_eu_8: 0.37,
+    Fty_E_eu_10: 0.31,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.4,
+    Fty_E_eu_0: 0.86,
+    Fty_E_eu_1: 0.86,
+    Fty_E_eu_2: 0.81,
+    Fty_E_eu_4: 0.66,
     Fty_E_eu_6: 0.52,
-    Fty_E_eu_8: 0.41, Fty_E_eu_10: 0.34,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.45, Fty_E_eu_0: 0.86, Fty_E_eu_1: 0.86, Fty_E_eu_2: 0.83, Fty_E_eu_4: 0.69,
+    Fty_E_eu_8: 0.41,
+    Fty_E_eu_10: 0.34,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.45,
+    Fty_E_eu_0: 0.86,
+    Fty_E_eu_1: 0.86,
+    Fty_E_eu_2: 0.83,
+    Fty_E_eu_4: 0.69,
     Fty_E_eu_6: 0.56,
-    Fty_E_eu_8: 0.44, Fty_E_eu_10: 0.37,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.5, Fty_E_eu_0: 0.87, Fty_E_eu_1: 0.87, Fty_E_eu_2: 0.84, Fty_E_eu_4: 0.72,
+    Fty_E_eu_8: 0.44,
+    Fty_E_eu_10: 0.37,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.5,
+    Fty_E_eu_0: 0.87,
+    Fty_E_eu_1: 0.87,
+    Fty_E_eu_2: 0.84,
+    Fty_E_eu_4: 0.72,
     Fty_E_eu_6: 0.59,
-    Fty_E_eu_8: 0.47, Fty_E_eu_10: 0.4,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.55, Fty_E_eu_0: 0.88, Fty_E_eu_1: 0.88, Fty_E_eu_2: 0.84, Fty_E_eu_4: 0.74,
+    Fty_E_eu_8: 0.47,
+    Fty_E_eu_10: 0.4,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.55,
+    Fty_E_eu_0: 0.88,
+    Fty_E_eu_1: 0.88,
+    Fty_E_eu_2: 0.84,
+    Fty_E_eu_4: 0.74,
     Fty_E_eu_6: 0.62,
-    Fty_E_eu_8: 0.51, Fty_E_eu_10: 0.44,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.6, Fty_E_eu_0: 0.89, Fty_E_eu_1: 0.89, Fty_E_eu_2: 0.85, Fty_E_eu_4: 0.76,
+    Fty_E_eu_8: 0.51,
+    Fty_E_eu_10: 0.44,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.6,
+    Fty_E_eu_0: 0.89,
+    Fty_E_eu_1: 0.89,
+    Fty_E_eu_2: 0.85,
+    Fty_E_eu_4: 0.76,
     Fty_E_eu_6: 0.65,
-    Fty_E_eu_8: 0.55, Fty_E_eu_10: 0.47,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.65, Fty_E_eu_0: 0.9, Fty_E_eu_1: 0.9, Fty_E_eu_2: 0.86, Fty_E_eu_4: 0.79,
+    Fty_E_eu_8: 0.55,
+    Fty_E_eu_10: 0.47,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.65,
+    Fty_E_eu_0: 0.9,
+    Fty_E_eu_1: 0.9,
+    Fty_E_eu_2: 0.86,
+    Fty_E_eu_4: 0.79,
     Fty_E_eu_6: 0.68,
-    Fty_E_eu_8: 0.58, Fty_E_eu_10: 0.5,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.7, Fty_E_eu_0: 0.9, Fty_E_eu_1: 0.9, Fty_E_eu_2: 0.87, Fty_E_eu_4: 0.82,
+    Fty_E_eu_8: 0.58,
+    Fty_E_eu_10: 0.5,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.7,
+    Fty_E_eu_0: 0.9,
+    Fty_E_eu_1: 0.9,
+    Fty_E_eu_2: 0.87,
+    Fty_E_eu_4: 0.82,
     Fty_E_eu_6: 0.72,
-    Fty_E_eu_8: 0.63, Fty_E_eu_10: 0.53,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.75, Fty_E_eu_0: 0.91, Fty_E_eu_1: 0.91, Fty_E_eu_2: 0.89, Fty_E_eu_4: 0.84,
+    Fty_E_eu_8: 0.63,
+    Fty_E_eu_10: 0.53,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.75,
+    Fty_E_eu_0: 0.91,
+    Fty_E_eu_1: 0.91,
+    Fty_E_eu_2: 0.89,
+    Fty_E_eu_4: 0.84,
     Fty_E_eu_6: 0.77,
-    Fty_E_eu_8: 0.69, Fty_E_eu_10: 0.58,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.8, Fty_E_eu_0: 0.92, Fty_E_eu_1: 0.92, Fty_E_eu_2: 0.92, Fty_E_eu_4: 0.88,
+    Fty_E_eu_8: 0.69,
+    Fty_E_eu_10: 0.58,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.8,
+    Fty_E_eu_0: 0.92,
+    Fty_E_eu_1: 0.92,
+    Fty_E_eu_2: 0.92,
+    Fty_E_eu_4: 0.88,
     Fty_E_eu_6: 0.83,
-    Fty_E_eu_8: 0.74, Fty_E_eu_10: 0.64,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.85, Fty_E_eu_0: 0.94, Fty_E_eu_1: 0.94, Fty_E_eu_2: 0.94, Fty_E_eu_4: 0.91,
+    Fty_E_eu_8: 0.74,
+    Fty_E_eu_10: 0.64,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.85,
+    Fty_E_eu_0: 0.94,
+    Fty_E_eu_1: 0.94,
+    Fty_E_eu_2: 0.94,
+    Fty_E_eu_4: 0.91,
     Fty_E_eu_6: 0.87,
-    Fty_E_eu_8: 0.79, Fty_E_eu_10: 0.71,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.9, Fty_E_eu_0: 0.96, Fty_E_eu_1: 0.96, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.94,
+    Fty_E_eu_8: 0.79,
+    Fty_E_eu_10: 0.71,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.9,
+    Fty_E_eu_0: 0.96,
+    Fty_E_eu_1: 0.96,
+    Fty_E_eu_2: 0.96,
+    Fty_E_eu_4: 0.94,
     Fty_E_eu_6: 0.91,
-    Fty_E_eu_8: 0.85, Fty_E_eu_10: 0.79,
-  }, {
-    Fty_Ftu: 0.8, Dw: 0.95, Fty_E_eu_0: 0.97, Fty_E_eu_1: 0.97, Fty_E_eu_2: 0.97, Fty_E_eu_4: 0.97,
+    Fty_E_eu_8: 0.85,
+    Fty_E_eu_10: 0.79,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 0.95,
+    Fty_E_eu_0: 0.97,
+    Fty_E_eu_1: 0.97,
+    Fty_E_eu_2: 0.97,
+    Fty_E_eu_4: 0.97,
     Fty_E_eu_6: 0.95,
-    Fty_E_eu_8: 0.92, Fty_E_eu_10: 0.88,
-  }, {
-    Fty_Ftu: 0.8, Dw: 1, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1, Fty_E_eu_6: 1,
+    Fty_E_eu_8: 0.92,
+    Fty_E_eu_10: 0.88,
+  },
+  {
+    Fty_Ftu: 0.8,
+    Dw: 1,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 1,
+    Fty_E_eu_4: 1,
+    Fty_E_eu_6: 1,
     Fty_E_eu_8: 1,
     Fty_E_eu_10: 1,
-  }, {
-    Fty_Ftu: 1, Dw: 0, Fty_E_eu_0: 0, Fty_E_eu_1: 0, Fty_E_eu_2: 0, Fty_E_eu_4: 0, Fty_E_eu_6: 0,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0,
+    Fty_E_eu_0: 0,
+    Fty_E_eu_1: 0,
+    Fty_E_eu_2: 0,
+    Fty_E_eu_4: 0,
+    Fty_E_eu_6: 0,
     Fty_E_eu_8: 0,
     Fty_E_eu_10: 0,
-  }, {
-    Fty_Ftu: 1, Dw: 0.05, Fty_E_eu_0: 0.54, Fty_E_eu_1: 0.44, Fty_E_eu_2: 0.26, Fty_E_eu_4: 0.13,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.05,
+    Fty_E_eu_0: 0.54,
+    Fty_E_eu_1: 0.44,
+    Fty_E_eu_2: 0.26,
+    Fty_E_eu_4: 0.13,
     Fty_E_eu_6: 0.09,
-    Fty_E_eu_8: 0.07, Fty_E_eu_10: 0.06,
-  }, {
-    Fty_Ftu: 1, Dw: 0.1, Fty_E_eu_0: 0.78, Fty_E_eu_1: 0.69, Fty_E_eu_2: 0.44, Fty_E_eu_4: 0.22,
+    Fty_E_eu_8: 0.07,
+    Fty_E_eu_10: 0.06,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.1,
+    Fty_E_eu_0: 0.78,
+    Fty_E_eu_1: 0.69,
+    Fty_E_eu_2: 0.44,
+    Fty_E_eu_4: 0.22,
     Fty_E_eu_6: 0.16,
-    Fty_E_eu_8: 0.13, Fty_E_eu_10: 0.12,
-  }, {
-    Fty_Ftu: 1, Dw: 0.15, Fty_E_eu_0: 0.93, Fty_E_eu_1: 0.86, Fty_E_eu_2: 0.58, Fty_E_eu_4: 0.31,
+    Fty_E_eu_8: 0.13,
+    Fty_E_eu_10: 0.12,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.15,
+    Fty_E_eu_0: 0.93,
+    Fty_E_eu_1: 0.86,
+    Fty_E_eu_2: 0.58,
+    Fty_E_eu_4: 0.31,
     Fty_E_eu_6: 0.23,
-    Fty_E_eu_8: 0.18, Fty_E_eu_10: 0.16,
-  }, {
-    Fty_Ftu: 1, Dw: 0.2, Fty_E_eu_0: 1, Fty_E_eu_1: 0.96, Fty_E_eu_2: 0.71, Fty_E_eu_4: 0.42,
+    Fty_E_eu_8: 0.18,
+    Fty_E_eu_10: 0.16,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.2,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 0.96,
+    Fty_E_eu_2: 0.71,
+    Fty_E_eu_4: 0.42,
     Fty_E_eu_6: 0.3,
-    Fty_E_eu_8: 0.23, Fty_E_eu_10: 0.2,
-  }, {
-    Fty_Ftu: 1, Dw: 0.25, Fty_E_eu_0: 1, Fty_E_eu_1: 0.98, Fty_E_eu_2: 0.8, Fty_E_eu_4: 0.5,
+    Fty_E_eu_8: 0.23,
+    Fty_E_eu_10: 0.2,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.25,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 0.98,
+    Fty_E_eu_2: 0.8,
+    Fty_E_eu_4: 0.5,
     Fty_E_eu_6: 0.36,
-    Fty_E_eu_8: 0.28, Fty_E_eu_10: 0.24,
-  }, {
-    Fty_Ftu: 1, Dw: 0.3, Fty_E_eu_0: 1, Fty_E_eu_1: 0.99, Fty_E_eu_2: 0.87, Fty_E_eu_4: 0.6,
+    Fty_E_eu_8: 0.28,
+    Fty_E_eu_10: 0.24,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.3,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 0.99,
+    Fty_E_eu_2: 0.87,
+    Fty_E_eu_4: 0.6,
     Fty_E_eu_6: 0.42,
-    Fty_E_eu_8: 0.33, Fty_E_eu_10: 0.28,
-  }, {
-    Fty_Ftu: 1, Dw: 0.35, Fty_E_eu_0: 1, Fty_E_eu_1: 0.99, Fty_E_eu_2: 0.93, Fty_E_eu_4: 0.66,
+    Fty_E_eu_8: 0.33,
+    Fty_E_eu_10: 0.28,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.35,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 0.99,
+    Fty_E_eu_2: 0.93,
+    Fty_E_eu_4: 0.66,
     Fty_E_eu_6: 0.48,
-    Fty_E_eu_8: 0.37, Fty_E_eu_10: 0.31,
-  }, {
-    Fty_Ftu: 1, Dw: 0.4, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.71,
+    Fty_E_eu_8: 0.37,
+    Fty_E_eu_10: 0.31,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.4,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.96,
+    Fty_E_eu_4: 0.71,
     Fty_E_eu_6: 0.53,
-    Fty_E_eu_8: 0.41, Fty_E_eu_10: 0.34,
-  }, {
-    Fty_Ftu: 1, Dw: 0.45, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.97, Fty_E_eu_4: 0.75,
+    Fty_E_eu_8: 0.41,
+    Fty_E_eu_10: 0.34,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.45,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.97,
+    Fty_E_eu_4: 0.75,
     Fty_E_eu_6: 0.58,
-    Fty_E_eu_8: 0.45, Fty_E_eu_10: 0.37,
-  }, {
-    Fty_Ftu: 1, Dw: 0.5, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.78,
+    Fty_E_eu_8: 0.45,
+    Fty_E_eu_10: 0.37,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.5,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.96,
+    Fty_E_eu_4: 0.78,
     Fty_E_eu_6: 0.62,
-    Fty_E_eu_8: 0.49, Fty_E_eu_10: 0.4,
-  }, {
-    Fty_Ftu: 1, Dw: 0.55, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.8,
+    Fty_E_eu_8: 0.49,
+    Fty_E_eu_10: 0.4,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.55,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.96,
+    Fty_E_eu_4: 0.8,
     Fty_E_eu_6: 0.66,
-    Fty_E_eu_8: 0.53, Fty_E_eu_10: 0.43,
-  }, {
-    Fty_Ftu: 1, Dw: 0.6, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.83,
+    Fty_E_eu_8: 0.53,
+    Fty_E_eu_10: 0.43,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.6,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.96,
+    Fty_E_eu_4: 0.83,
     Fty_E_eu_6: 0.69,
-    Fty_E_eu_8: 0.56, Fty_E_eu_10: 0.46,
-  }, {
-    Fty_Ftu: 1, Dw: 0.65, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.96, Fty_E_eu_4: 0.87,
+    Fty_E_eu_8: 0.56,
+    Fty_E_eu_10: 0.46,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.65,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.96,
+    Fty_E_eu_4: 0.87,
     Fty_E_eu_6: 0.73,
-    Fty_E_eu_8: 0.6, Fty_E_eu_10: 0.5,
-  }, {
-    Fty_Ftu: 1, Dw: 0.7, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.97, Fty_E_eu_4: 0.9,
+    Fty_E_eu_8: 0.6,
+    Fty_E_eu_10: 0.5,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.7,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.97,
+    Fty_E_eu_4: 0.9,
     Fty_E_eu_6: 0.78,
-    Fty_E_eu_8: 0.64, Fty_E_eu_10: 0.53,
-  }, {
-    Fty_Ftu: 1, Dw: 0.75, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.99, Fty_E_eu_4: 0.93,
+    Fty_E_eu_8: 0.64,
+    Fty_E_eu_10: 0.53,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.75,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.99,
+    Fty_E_eu_4: 0.93,
     Fty_E_eu_6: 0.84,
-    Fty_E_eu_8: 0.7, Fty_E_eu_10: 0.57,
-  }, {
-    Fty_Ftu: 1, Dw: 0.8, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 0.97,
+    Fty_E_eu_8: 0.7,
+    Fty_E_eu_10: 0.57,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.8,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 1,
+    Fty_E_eu_4: 0.97,
     Fty_E_eu_6: 0.91,
-    Fty_E_eu_8: 0.76, Fty_E_eu_10: 0.63,
-  }, {
-    Fty_Ftu: 1, Dw: 0.85, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 0.99, Fty_E_eu_4: 0.99,
+    Fty_E_eu_8: 0.76,
+    Fty_E_eu_10: 0.63,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.85,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 0.99,
+    Fty_E_eu_4: 0.99,
     Fty_E_eu_6: 0.94,
-    Fty_E_eu_8: 0.81, Fty_E_eu_10: 0.69,
-  }, {
-    Fty_Ftu: 1, Dw: 0.9, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1,
-    Fty_E_eu_6: 0.97, Fty_E_eu_8: 0.86,
+    Fty_E_eu_8: 0.81,
+    Fty_E_eu_10: 0.69,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.9,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 1,
+    Fty_E_eu_4: 1,
+    Fty_E_eu_6: 0.97,
+    Fty_E_eu_8: 0.86,
     Fty_E_eu_10: 0.78,
-  }, {
-    Fty_Ftu: 1, Dw: 0.95, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 0.95,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 1,
+    Fty_E_eu_4: 1,
     Fty_E_eu_6: 0.99,
-    Fty_E_eu_8: 0.92, Fty_E_eu_10: 0.87,
-  }, {
-    Fty_Ftu: 1, Dw: 1, Fty_E_eu_0: 1, Fty_E_eu_1: 1, Fty_E_eu_2: 1, Fty_E_eu_4: 1, Fty_E_eu_6: 1,
+    Fty_E_eu_8: 0.92,
+    Fty_E_eu_10: 0.87,
+  },
+  {
+    Fty_Ftu: 1,
+    Dw: 1,
+    Fty_E_eu_0: 1,
+    Fty_E_eu_1: 1,
+    Fty_E_eu_2: 1,
+    Fty_E_eu_4: 1,
+    Fty_E_eu_6: 1,
     Fty_E_eu_8: 1,
     Fty_E_eu_10: 1,
   },
 ];
 
+export function KChart({ h, w }: { h: number | string; w: number | string }) {
+  return (
+    <>
+      <LineChart
+        h={h}
+        w={w}
+        data={K_data}
+        title="Allowable Axial Load Coeff"
+        dataKey="eD"
+        xAxisLabel="e/D"
+        yAxisLabel="K"
+        tickLine="y"
+        gridAxis="xy"
+        xAxisProps={{ domain: [0.5, 2.4] }}
+        yAxisProps={{ domain: [1.0, 2.0] }}
+        curveType="linear"
+        withDots={true}
+        withLegend={false}
+        legendProps={{
+          align: "left",
+          height: 100,
+          verticalAlign: "bottom",
+          iconSize: 6,
+          iconType: "line",
+        }}
+        valueFormatter={(value) => `${value.toFixed(2)}`}
+        series={[
+          {
+            name: "K",
+            label: "K, Allowable Uniform Axial Load Coefficient",
+            color: "blue.6",
+          },
+        ]}
+      />
+    </>
+  );
+}
 
-<LineChart
-    h={300}
-    w={800}
-    data={[
-      { Dp: 0.5, Ps_p: 200 },
-      { Dp: 1.0, Ps_p: 300 },
-      { Dp: 1.5, Ps_p: 500 },
-    ]}
-    dataKey="Dp"
-    tickLine="y"
-    gridAxis="xy"
-    xAxisLabel="Dp"
-    yAxisLabel="K_br"
-    curveType="linear"
-    withDots={true}
-    withLegend={true}
-    legendProps={{
-      align: 'center',
-      height: 100,
-      iconSize: 6,
-      iconType: 'line',
-    }}
-    valueFormatter={(value) => `${value.toFixed(0)}`}
-    series={[
-      { name: 'Ps_p', label: 'Ps_p', color: 'blue.2' },
-    ]}
-/>;
+export function KbChart({ h, w }: { h: number | string; w: number | string }) {
+  return (
+    <>
+      <LineChart
+        h={h}
+        w={w}
+        data={Kb_data}
+        dataKey="a_D"
+        xAxisLabel="a/D"
+        yAxisLabel="K_br"
+        tickLine="xy"
+        gridAxis="xy"
+        xAxisProps={{ domain: [0.0, 1.0] }}
+        yAxisProps={{ domain: [0.0, 1.0] }}
+        curveType="linear"
+        withDots={true}
+        withLegend={false}
+        legendProps={{
+          align: "center",
+          height: 100,
+          verticalAlign: "bottom",
+          iconSize: 6,
+          iconType: "line",
+        }}
+        valueFormatter={(value) => `${value.toFixed(2)}`}
+        series={[
+          { name: "Dt_2", label: "D/t<=2", color: "blue.2" },
+          { name: "Dt_3", label: "D/t=3", color: "blue.4" },
+          { name: "Dt_4", label: "D/t=4", color: "blue.6" },
+          { name: "Dt_5", label: "D/t=5", color: "blue.8" },
+          { name: "Dt_6", label: "D/t=6", color: "blue.9" },
+          { name: "Dt_7", label: "D/t=7", color: "green.9" },
+          { name: "Dt_8", label: "D/t=8", color: "green.8" },
+          { name: "Dt_9", label: "D/t=9", color: "green.6" },
+          { name: "Dt_10", label: "D/t=10", color: "green.4" },
+          { name: "Dt_15", label: "D/t=15", color: "red.4" },
+          { name: "Dt_20", label: "D/t=20", color: "red.5" },
+          { name: "Dt_25", label: "D/t=25", color: "red.7" },
+          { name: "Dt_30", label: "D/t=30", color: "red.9" },
+        ]}
+      />
+    </>
+  );
+}
 
-
-<LineChart
-    h={300}
-    w={800}
-    data={K_data}
-    dataKey="eD"
-    tickLine="y"
-    gridAxis="xy"
-    xAxisLabel="a/D"
-    yAxisLabel="K_br"
-    yAxisProps={{ domain: [1.250, 2.0] }}
-    curveType="linear"
-    withDots={true}
-    withLegend={true}
-    legendProps={{
-      align: 'center',
-      height: 100,
-      verticalAlign: 'bottom',
-      iconSize: 6,
-      iconType: 'line',
-    }}
-    valueFormatter={(value) => `${value.toFixed(2)}`}
-    series={[
-      {
-        name: 'K', label: 'K, Allowable Uniform Axial Load Coefficient',
-        color: 'blue.6',
-      },
-      {
-        name: 'K1', label: 'Lug 1',
-        color: 'red.9',
-      },
-    ]}
-/>;
-
-
-<LineChart
-    h={300}
-    w={500}
-    data={Kb_data}
-    dataKey="a_D"
-    tickLine="y"
-    gridAxis="xy"
-    xAxisLabel="a/D"
-    yAxisLabel="K_br"
-    yAxisProps={{ domain: [1.0, 3.0] }}
-    curveType="linear"
-    withDots={true}
-    withLegend={true}
-    legendProps={{
-      align: 'center',
-      height: 100,
-      verticalAlign: 'bottom',
-      iconSize: 6,
-      iconType: 'line',
-    }}
-    valueFormatter={(value) => `${value.toFixed(2)}`}
-    series={[
-      { name: 'Dt_2', label: 'D/t<=2', color: 'blue.2' },
-      { name: 'Dt_3', label: 'D/t=3', color: 'blue.4' },
-      { name: 'Dt_4', label: 'D/t=4', color: 'blue.6' },
-      { name: 'Dt_5', label: 'D/t=5', color: 'blue.8' },
-      { name: 'Dt_6', label: 'D/t=6', color: 'blue.9' },
-      { name: 'Dt_7', label: 'D/t=7', color: 'green.9' },
-      { name: 'Dt_8', label: 'D/t=8', color: 'green.8' },
-      { name: 'Dt_9', label: 'D/t=9', color: 'green.6' },
-      { name: 'Dt_10', label: 'D/t=10', color: 'green.4' },
-      { name: 'Dt_15', label: 'D/t=15', color: 'red.4' },
-      { name: 'Dt_20', label: 'D/t=20', color: 'red.5' },
-      { name: 'Dt_25', label: 'D/t=25', color: 'red.7' },
-      { name: 'Dt_30', label: 'D/t=30', color: 'red.9' },
-    ]}
-/>;
-
-
-<LineChart
-    h={300}
-    w={700}
-    data={Kn_data}
-    dataKey="Dw"
-    tickLine="y"
-    gridAxis="xy"
-    xAxisLabel="a/D"
-    yAxisLabel="K_br"
-    yAxisProps={{ domain: [1.0, 1.0] }}
-    curveType="linear"
-    withDots={true}
-    withLegend={true}
-    legendProps={{
-      align: 'center',
-      height: 100,
-      verticalAlign: 'bottom',
-      iconSize: 6,
-      iconType: 'line',
-    }}
-    valueFormatter={(value) => `${value.toFixed(2)}`}
-    series={[
-      { name: 'Fty_E_eu_0', label: 'Fty_E_eu_0', color: 'blue.2' },
-      { name: 'Fty_E_eu_1', label: 'Fty_E_eu_1', color: 'blue.4' },
-      { name: 'Fty_E_eu_2', label: 'Fty_E_eu_2', color: 'blue.6' },
-      { name: 'Fty_E_eu_4', label: 'Fty_E_eu_4', color: 'blue.8' },
-      { name: 'Fty_E_eu_6', label: 'Fty_E_eu_6', color: 'blue.9' },
-      { name: 'Fty_E_eu_8', label: 'Fty_E_eu_8', color: 'green.9' },
-      { name: 'Fty_E_eu_10', label: 'Fty_E_eu_10', color: 'green.8' },
-    ]}
-/>;
+export function KnChart({ h, w }: { h: number | string; w: number | string }) {
+  return (
+    <>
+      <LineChart
+        h={h}
+        w={w}
+        data={Kn_data}
+        dataKey="Dw"
+        xAxisLabel="D/w"
+        yAxisLabel="K_n"
+        tickLine="xy"
+        gridAxis="xy"
+        xAxisProps={{ domain: [0.5, 4.0] }}
+        yAxisProps={{ domain: [0.0, 1.0] }}
+        curveType="linear"
+        withDots={true}
+        withLegend={false}
+        legendProps={{
+          align: "center",
+          height: 100,
+          verticalAlign: "bottom",
+          iconSize: 6,
+          iconType: "line",
+        }}
+        valueFormatter={(value) => `${value.toFixed(2)}`}
+        series={[
+          { name: "Fty_E_eu_0", label: "Fty_E_eu_0", color: "blue.2" },
+          { name: "Fty_E_eu_1", label: "Fty_E_eu_1", color: "blue.4" },
+          { name: "Fty_E_eu_2", label: "Fty_E_eu_2", color: "blue.6" },
+          { name: "Fty_E_eu_4", label: "Fty_E_eu_4", color: "blue.8" },
+          { name: "Fty_E_eu_6", label: "Fty_E_eu_6", color: "blue.9" },
+          { name: "Fty_E_eu_8", label: "Fty_E_eu_8", color: "green.9" },
+          { name: "Fty_E_eu_10", label: "Fty_E_eu_10", color: "green.8" },
+        ]}
+      />
+    </>
+  );
+}

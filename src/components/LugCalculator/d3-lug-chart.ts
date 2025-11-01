@@ -122,17 +122,7 @@ export function updateLugChart(
   const enterSelection = points.enter().append("circle").attr("r", 0); // Start small
 
   enterSelection
-    .merge(
-      points as d3.Selection<
-        SVGCircleElement,
-        {
-          length: number;
-          angle: number;
-        },
-        any,
-        any
-      >,
-    )
+    .merge(points)
     .transition()
     .duration(500)
     .attr("cx", (d) => xScale(d.length))
