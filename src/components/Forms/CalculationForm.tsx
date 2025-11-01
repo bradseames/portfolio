@@ -3,14 +3,14 @@ import { Button, TextInput, Stack, Paper, Title } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 
 // Define the shape of your form data (inputs for your lug calculation)
-interface LugInputs {
+export interface LugInputs {
   lugLength: number;
   lugAngle: number;
   density: number;
   // Add other necessary inputs here
 }
 
-interface CalculationFormProps {
+export interface CalculationFormProps {
   // Function to call with validated data when the form is submitted
   onCalculate: (data: LugInputs) => void;
   isLoading: boolean;

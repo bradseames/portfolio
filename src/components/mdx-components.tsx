@@ -1,33 +1,34 @@
 import type { MDXComponents } from 'mdx/types';
-import { Title, Text, Table, Container, Code, Anchor, Button, Paper } from '@mantine/core';
+
+// Component Import Section
 import {
-  Accordion, AccordionItem, AccordionPanel, AccordionControl, Box,
-  Card, Checkbox, Divider, Drawer, Fieldset, Flex, Grid, Group, Menu,
-  NumberInput, Pagination, ScrollArea, Select, Slider, Stack, Stepper, Tabs,
+  Accordion, AccordionItem, AccordionPanel, AccordionControl,
+  Anchor, AngleSlider, AspectRatio, Autocomplete, Card, CardSection,
+  Box, Button, type Checkbox, Breadcrumbs, Input, Center, type  GetStylesApi,
+  Container, Divider, Drawer, Fieldset, Flex, Grid, Group, Menu,
+  NumberInput, Pagination, Paper, ScrollArea, Select, Slider, Stack, Stepper, Tabs,
+  Title, Text, Table, Code,
 } from '@mantine/core';
+
 import {
-  BarChart,
-  AreaChart,
-  BubbleChart,
-  CompositeChart,
-  LineChart,
-  ScatterChart,
+  AreaChart, BarChart, BubbleChart, ChartLegend, CompositeChart, Heatmap, LineChart,
+  RadarChart, RadialBarChart, ScatterChart, Sparkline,
 } from '@mantine/charts';
 
-import { MathBlock, MathLine } from './app/MathJaxProvider';
+import { MathBlock, MathLine } from './Equations';
 
 // Import custom visualization components
-import LugChart from './components/viz/LugChart';
-import CalculationForm from './components/Forms/CalculationForm';
-import LugCalculator from './components/LugCalculator/LugCalculator';
-import InteractiveStressContour from './components/viz/InteractiveStressContour';
-
+import CalculationForm from './Forms/CalculationForm';
+import InteractiveStressContour from './viz/InteractiveStressContour';
+import LugCalculator from './LugCalculator/LugCalculator';
+import LugChart from './viz/LugChart';
 
 /**
  * Maps standard HTML elements (and custom tags) to their corresponding Mantine components.
  * This is passed to the <MDXProvider components={...}>.
  */
-export const mdxComponents: MDXComponents = {
+
+export const components: MDXComponents = {
   // === Layout and Typography ===
   h1: (props) => <Title order={1} mt="xl" mb="md" {...props} />,
   h2: (props) => <Title order={2} mt="lg" mb="sm" {...props} />,
@@ -56,30 +57,24 @@ export const mdxComponents: MDXComponents = {
   table: (props) => <Table withColumnBorders withTableBorder {...props} />,
 
   // === Custom Components  ===
-  LugChart,
   CalculationForm,
   MathBlock,
   MathLine,
-  LugCalculator,
   InteractiveStressContour,
-
+  LugCalculator,
+  LugChart,
 
   // Mantine components directly by name
   Button: Button,
+  Accordion: Accordion, AccordionItem, AccordionPanel, AccordionControl,
   Container: Container,
-  BarChart,
-  AreaChart,
-  BubbleChart,
-  CompositeChart,
-  LineChart,
-  ScatterChart,
-  Accordion: Accordion, AccordionItem, AccordionPanel, AccordionControl, Box,
-  Card, Checkbox, Divider, Drawer, Fieldset, Flex, Grid, Group, Menu,
+  AreaChart, BarChart, BubbleChart, CompositeChart, LineChart, ScatterChart,
+  Box, Card, Divider, Drawer, Fieldset, Flex: Flex, Grid, Group, Menu,
   NumberInput, Pagination, ScrollArea, Select, Slider, Stack, Stepper, Tabs,
 
-};
+} satisfies MDXComponents;
 
-// Export this map for use in DynamicMdxPage.tsx
+
 export function useMDXComponents(): MDXComponents {
-  return mdxComponents;
+  return components;
 }

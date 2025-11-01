@@ -1,6 +1,23 @@
 import React, { useEffect, useRef } from 'react';
 
 
+export const mathJaxConfig = {
+  loader: { load: ['input/tex', 'output/chtml'] },
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+};
+//export const mathJaxConfig2 = {
+//  loader: {
+//    load: ['input/tex', 'output/chtml'],
+//    paths: {
+//      mathjax: '@mathjax/src/bundle',
+//    },
+//  },
+//  tex: {
+//    inlineMath: [['$', '$'], ['\\(', '\\)']],
+//  },
+//};
+
+
 export function useMathJax() {
   useEffect(() => {
     if ((window as any).MathJax) return;

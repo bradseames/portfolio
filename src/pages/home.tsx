@@ -1,5 +1,7 @@
-import { Welcome } from './Welcome/Welcome';
+//import { Welcome } from './Welcome/Welcome';
 
 export default function Home() {
-  return (<Welcome />);
+  //return (<Welcome />);
+
+  return <div>Hello</div>;
 }

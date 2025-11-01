@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel } from '@mantine/carousel';
 import { Progress, Image } from '@mantine/core';
-import classes from './CarouselCard/CarouselCard.module.css';
+import classes from '../../_archive/carosel/CarouselCard.module.css';
 import Fade from 'embla-carousel-fade';
 import React from 'react';
 

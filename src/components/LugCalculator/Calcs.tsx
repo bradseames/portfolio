@@ -1,15 +1,14 @@
 import { type LugParams, type Allowables } from './types';
-import { type DataPoint } from '../../data/types';
+//import { type DataPoint } from '../../data/types';
 import {
   linearInterpolatedObject,
-  findBoundingNumbers,
   linearInterpolate,
 } from '../../data/data_functions';
 import { Kb_data, K_data } from '../../components/LugCalculator/coeff_data';
 import * as d3 from 'd3';
 
 // ---------- Defaults ----------
-interface lugProps {
+interface LugProps {
   t: number,
   D: number,
   e: number,
@@ -21,16 +20,23 @@ interface lugProps {
   e_u: number
 }
 
-interface pinProps {
+interface PinProps {
   Dp: number,
-  type: string,
   t1: number,
   t2: number,
-  g: number | null,
   E: number,
   Ftu: number,
   Fty: number,
   Fsu: number,
+}
+
+
+interface assemProps {
+  pin: PinProps;
+  lug1: LugProps;
+  lug2: LugProps;
+  double: boolean;
+  g: number;
 }
 
 export interface Result {
@@ -65,7 +71,7 @@ export const DEFAULT_ALLOW: Allowables = {
   F_tux_1: 64000,                  // ksi
   F_tyx_1: 40000,                  // ksi
   E_1: 10500000,                   // ksi
-  e_u_1: 0.12,                  // in/in
+  e_u_1: 0.12,                     // in/in
   // Male Lug, 2 (Inner)      | Al 7075-T651 Plate
   F_tux_2: 77000,                   // psi
   F_tyx_2: 66000,                   // psi
@@ -86,9 +92,14 @@ function Kn(D_w: number, F_ty_Ftu: number, Ftu_Eeu: number) {
 }
 
 function K(e_D: number, D_t: number, a_D: number) {
-
+  e_D = Number(e_D);
+  D_t = Number(D_t);
+  a_D = Number(a_D);
+  console.log(e_D, D_t, a_D);
   if (D_t <= 5) {
-    return linearInterpolatedObject(K_data, 'eD', 'K', e_D);
+    let k = linearInterpolatedObject(K_data, 'eD', 'K', Number(e_D));
+    console.log(k);
+    return k;
   } else {
     let Kb_series = [
       { Dt: 2, series: 'Dt_2' },
@@ -111,9 +122,13 @@ function K(e_D: number, D_t: number, a_D: number) {
       Kb_series[d3.bisectRight(Kb_series.map((d) => d.Dt), D_t)],
     ];
 
+    console.log(bounding_data[0]);
+    console.log(bounding_data[2]);
+
     let kb1 = linearInterpolatedObject(Kb_data, 'a_D', bounding_data[0]['series'], a_D);
     let kb2 = linearInterpolatedObject(Kb_data, 'a_D', bounding_data[1]['series'], a_D);
-
+    console.log(kb1);
+    console.log(kb2);
     return linearInterpolate(bounding_data[0]['Dt'], kb1, bounding_data[1]['Dt'], kb2, D_t);
   }
 }
@@ -122,13 +137,13 @@ function bushing_calcs() {
 
 }
 
-function lug_calcs(props: lugProps) {
+function lug_calcs(props: LugProps) {
 
-  const t = props.t;
-  const D = props.D;
-  const e = props.e;
-  const w = props.w;
-  const w_t = props.w_t;
+  const t = Number(props.t);
+  const D = Number(props.D);
+  const e = Number(props.e);
+  const w = Number(props.w);
+  const w_t = Number(props.w_t);
 
   const a = e - D / 2;
   const e_D_ratio = e / D;
@@ -149,10 +164,10 @@ function lug_calcs(props: lugProps) {
   const area_bearing = D * t;
 
   // Material strengths
-  const F_tu = props.F_tu;
-  const F_ty = props.F_ty;
-  const E = props.E;
-  const e_u = props.e_u;
+  const F_tu = Number(props.F_tu);
+  const F_ty = Number(props.F_ty);
+  const E = Number(props.E);
+  const e_u = Number(props.e_u);
 
   const Fty_Ftu_ratio = F_ty / F_tu;
   const Ftu_Eeu_ratio = F_tu / (E * e_u);
@@ -188,41 +203,69 @@ function lug_calcs(props: lugProps) {
   //const unit_stress = `\\text{${units.F}}`;
 
   return {
-    t: `${t.toFixed(3)}`,
-    D: `${D.toFixed(3)}`,
-    w: `${w.toFixed(3)}`,
-    w_t: `${w_t.toFixed(3)}`,
-    e: `${e.toFixed(3)}`,
-    a: `${a.toFixed(3)}`,
-    e_D_ratio: `${e_D_ratio.toFixed(3)}`,
-    D_t_ratio: `${D_t_ratio.toFixed(3)}`,
-    a_D_ratio: `${a_D_ratio.toFixed(3)}`,
-    D_w_ratio: `${D_w_ratio.toFixed(3)}`,
-    k: `${k.toFixed(2)}`,
-    k_n: `${k_n.toFixed(2)}`,
-    Ftx: `${F_tu.toFixed(0)}`,
-    Fty: `${F_ty.toFixed(0)}`,
-    E: `${E.toFixed(0)}`,
-    e_u: `${e_u.toFixed(3)}`,
-    Fty_Ftu_ratio: `${Fty_Ftu_ratio.toFixed(3)}`,
-    Ftu_Eeu_ratio: `${Ftu_Eeu_ratio.toFixed(3)}`,
-    F_bru_L: `${F_bru_L.toFixed(0)}`,
-    F_bry_L: `${F_bry_L.toFixed(0)}`,
-    F_ny_L: `${F_ny_L.toFixed(0)}`,
-    F_nu_L: `${F_nu_L.toFixed(0)}`,
-    P_bru_L: `${P_bru_L.toLocaleString('en-US').split('.', 1)}`,
-    P_nu_L: `${P_nu_L.toLocaleString('en-US').split('.', 1)}`,
-    P_T_L: `${P_T.toLocaleString('en-US').split('.', 1)}`,
-    P_u_L: `${P_u_L.toLocaleString('en-US').split('.', 1)}`,
+    t: t,
+    D: D,
+    w: w,
+    w_t: w_t,
+    e: e,
+    a: a,
+    e_D_ratio: e_D_ratio,
+    D_t_ratio: D_t_ratio,
+    a_D_ratio: a_D_ratio,
+    D_w_ratio: D_w_ratio,
+    k: k,
+    k_n: k_n,
+    Ftx: F_tu,
+    Fty: F_ty,
+    E: E,
+    e_u: e_u,
+    Fty_Ftu_ratio: Fty_Ftu_ratio,
+    Ftu_Eeu_ratio: Ftu_Eeu_ratio,
+    F_bru_L: F_bru_L,
+    F_bry_L: F_bry_L,
+    F_ny_L: F_ny_L,
+    F_nu_L: F_nu_L,
+    P_bru_L: P_bru_L,
+    P_nu_L: P_nu_L,
+    P_T_L: P_T,
+    P_u_L: P_u_L,
   };
+  //return {
+  //  t: `${t.toFixed(3)}`,
+  //  D: `${D.toFixed(3)}`,
+  //  w: `${w.toFixed(3)}`,
+  //  w_t: `${w_t.toFixed(3)}`,
+  //  e: `${e.toFixed(3)}`,
+  //  a: `${a.toFixed(3)}`,
+  //  e_D_ratio: `${e_D_ratio.toFixed(3)}`,
+  //  D_t_ratio: `${D_t_ratio.toFixed(3)}`,
+  //  a_D_ratio: `${a_D_ratio.toFixed(3)}`,
+  //  D_w_ratio: `${D_w_ratio.toFixed(3)}`,
+  //  k: `${k}`,
+  //  k_n: `${k_n.toFixed(2)}`,
+  //  Ftx: `${F_tu.toFixed(0)}`,
+  //  Fty: `${F_ty.toFixed(0)}`,
+  //  E: `${E.toFixed(0)}`,
+  //  e_u: `${e_u.toFixed(3)}`,
+  //  Fty_Ftu_ratio: `${Fty_Ftu_ratio.toFixed(3)}`,
+  //  Ftu_Eeu_ratio: `${Ftu_Eeu_ratio.toFixed(3)}`,
+  //  F_bru_L: `${F_bru_L.toFixed(0)}`,
+  //  F_bry_L: `${F_bry_L.toFixed(0)}`,
+  //  F_ny_L: `${F_ny_L.toFixed(0)}`,
+  //  F_nu_L: `${F_nu_L.toFixed(0)}`,
+  //  P_bru_L: `${P_bru_L.toLocaleString('en-US').split('.', 1)}`,
+  //  P_nu_L: `${P_nu_L.toLocaleString('en-US').split('.', 1)}`,
+  //  P_T_L: `${P_T.toLocaleString('en-US').split('.', 1)}`,
+  //  P_u_L: `${P_u_L.toLocaleString('en-US').split('.', 1)}`,
+  //};
 }
 
-function pin_calcs(props: pinProps) {
+function pin_calcs(props: PinProps) {
   let Dp = props.Dp;
-  let type = props.type;
+  //let type = props.type;
   let t1 = props.t1;
   let t2 = props.t2;
-  let g = props.g;
+  //let g = props.g;
   let E = props.E;
   let Ftu = props.Ftu;
   let Fty = props.Fty;
@@ -242,40 +285,38 @@ export function calcs(params: LugParams, allow: Allowables) {
   let all = allow;
 
   let lug1 = lug_calcs({
-    t: p.t1,
-    D: p.D,
-    e: p.e1,
-    w: p.w1,
-    w_t: p.w1,
-    F_tu: all.F_tux_1,
-    F_ty: all.F_tyx_1,
-    E: all.E_1,
-    e_u: all.e_u_1,
+    t: Number(p.t1),
+    D: Number(p.D),
+    e: Number(p.e1),
+    w: Number(p.w1),
+    w_t: Number(p.w1),
+    F_tu: Number(all.F_tux_1),
+    F_ty: Number(all.F_tyx_1),
+    E: Number(all.E_1),
+    e_u: Number(all.e_u_1),
   });
 
-  let lug2 = lug_calcs({
-    t: p.t2,
-    D: p.D,
-    e: p.e2,
-    w: p.w2,
-    w_t: p.w2,
-    F_tu: all.F_tux_2,
-    F_ty: all.F_tyx_2,
-    E: all.E_2,
-    e_u: all.e_u_2,
-  });
-
-  let pin = pin_calcs({
-    Dp: p.Dp,
-    type: p.mode,
-    t1: p.t1,
-    t2: p.t2,
-    g: p.g,
-    E: all.E_pin,
-    Ftu: all.F_tu_pin,
-    Fty: all.F_ty_pin,
-    Fsu: all.F_su_pin,
-  });
+  //let lug2 = lug_calcs({
+  //  t: p.t2,
+  //  D: p.D,
+  //  e: p.e2,
+  //  w: p.w2,
+  //  w_t: p.w2,
+  //  F_tu: all.F_tux_2,
+  //  F_ty: all.F_tyx_2,
+  //  E: all.E_2,
+  //  e_u: all.e_u_2,
+  //});
+  //
+  //let pin = pin_calcs({
+  //  Dp: p.Dp,
+  //  t1: p.t1,
+  //  t2: p.t2,
+  //  E: all.E_pin,
+  //  Ftu: all.F_tu_pin,
+  //  Fty: all.F_ty_pin,
+  //  Fsu: all.F_su_pin,
+  //});
 
   //const nInterfaces = p.mode === 'double' ? 2 : 1;
   //const warnings: string[] = [];

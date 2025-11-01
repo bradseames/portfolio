@@ -5,17 +5,19 @@
  * @param {number} x The x-value for which to interpolate the corresponding y-value.
  * @returns {number|null} The interpolated y-value, or null if x is outside the data range.
  */
-import { type DataPoint } from './types';
+//import { type DataPoint } from './types';
+import * as d3 from 'd3';
 
-
-export function linearInterpolate(x1: number, y1: number, x2: number, y2: number, x_target: number): number {
+export function linearInterpolate(x1: number, y1: number, x2: number, y2: number,
+    x_target: number): number {
   if (x1 === x2) {
     return y1; // Avoid division by zero if x values are identical
   }
   return y1 + ((x_target - x1) * (y2 - y1)) / (x2 - x1);
 }
 
-export function linearInterpolateArray(data: Array<Array<number>>, x_target: number): number | null {
+export function linearInterpolateArray(data: Array<Array<number>>,
+    x_target: number): number | null {
   // Handle edge cases where x is outside the data range
   if (x_target < data[0][0] || x_target > data[data.length - 1][0]) {
     console.warn('Input x-value is outside the range of the provided data.');
@@ -57,8 +59,11 @@ export function findBoundingNumbers(data: Array<number>, x_target: number): Arra
   return null;
 }
 
-export function linearInterpolatedObject(data: DataPoint[], x_key: string, y_key: string, x_target: number): number {
+export function linearInterpolatedObject(data: Array<{ [key: string]: number }>, x_key: string,
+    y_key: string,
+    x_target: number): number {
   // Handle edge cases where x_target is outside the data range
+
   if (x_target <= data[0][x_key]) {
     return data[0][y_key];
   }
@@ -71,6 +76,12 @@ export function linearInterpolatedObject(data: DataPoint[], x_key: string, y_key
     const p2 = data[i + 1];
 
     if (x_target >= p1[x_key] && x_target <= p2[x_key]) {
+      console.log(p1[x_key]);
+      console.log(p1[y_key]);
+      console.log(p2[x_key]);
+      console.log(p2[y_key]);
+      console.log(x_target);
+
       return linearInterpolate(p1[x_key], p1[y_key], p2[x_key], p2[y_key], x_target);
     }
   }

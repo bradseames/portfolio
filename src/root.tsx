@@ -1,39 +1,24 @@
-import { ErrorBoundary } from './app';
-import React from 'react';
-import { Outlet } from 'react-router';
-import { type MantineProviderProps, MantineProvider } from '@mantine/core';
-import { appTheme } from './app/app-theme';
-import ShellLayout from './app/ShellLayout';
-//import ShellLayoutRoute from './routes/ShellLayoutRoute';
-import './app/app.css';
-import { MDXProvider } from '@mdx-js/react';
-//import { MathJaxContext } from 'better-react-mathjax/MathJaxContext';
-//import { mathJaxConfig } from './components/MathJaxProvider';
-import { components } from './routes/MDXProvider';
+import type { Route } from "./+types/root";
+import { Links, Meta, Scripts, ScrollRestoration } from "react-router";
+import { isRouteErrorResponse } from "react-router";
+import { Outlet } from "react-router";
+import React from "react";
+import { mantineHtmlProps } from "@mantine/core";
+import { Box, Code, Container, Text, Title } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
+import { MDXProvider } from "@mdx-js/react";
+import { CacheProvider } from "@emotion/react";
+import { cache } from "./app/emotion";
+import { appTheme } from "./app/app-theme";
+import { mathJaxConfig } from "./components/Equations";
+import "./app/app.css";
+import * as MathJaxModule from "better-react-mathjax";
 
-function Providers({
-  children,
-  theme = appTheme,
-  ...props
-}: MantineProviderProps) {
-  return (
-      <MantineProvider
-          theme={theme}
-          defaultColorScheme="dark"
-          {...props}
-      >
-        {children}
-      </MantineProvider>
-  );
-}
-
-//import React from 'react';
-import { Links, Meta, Scripts, ScrollRestoration } from 'react-router';
-import { mantineHtmlProps } from '@mantine/core';
+export const { MathJaxContext, MathJax } = MathJaxModule;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-      <html lang="en" {...mantineHtmlProps}>
+    <html lang="en" {...mantineHtmlProps}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,45 +26,53 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-      <Providers>
         {children}
-      </Providers>
-      <ScrollRestoration />
-      <Scripts />
+        <ScrollRestoration />
+        <Scripts />
       </body>
-      </html>
+    </html>
   );
 }
 
 export default function App() {
   return (
-      <ShellLayout>
-        <Outlet />
-      </ShellLayout>
+    <>
+      <meta name="emotion-insertion-point" content="" />
+      <CacheProvider value={cache}>
+        <MantineProvider theme={appTheme}>
+          <MathJaxContext config={mathJaxConfig}>
+            <MDXProvider>
+              <Outlet />
+            </MDXProvider>
+          </MathJaxContext>
+        </MantineProvider>
+      </CacheProvider>
+    </>
   );
 }
 
-export { ErrorBoundary };
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  let message = "Oops!";
+  let details = "An unexpected error occurred.";
+  let stack: string | undefined;
 
-//import type { Route } from './+types/root';
-
-// function getVersion() {
-//   return 1.0
-// };
-
-// export async function loader() {
-//   return {
-//     version: getVersion()
-//   };
-// }
-//
-// export function HydrateFallback({
-//   loaderData
-// }: Route.ComponentProps) {
-//   return <NothingFoundBackground/>
-// }
-//
-// export default function App() {
-//   return <Outlet/>;
-// }
-//
+  if (isRouteErrorResponse(error)) {
+    message = error.status === 404 ? "404" : "Error";
+    details =
+      error.status === 404 ? "The requested page could not be found." : error.statusText || details;
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
+  }
+  return (
+    <Container component="main" pt="xl" p="md" mx="auto">
+      <Title>{message}</Title>
+      <Text>{details}</Text>
+      {stack && (
+        <Box component="pre" w="100%" style={{ overflowX: "auto" }} p="md">
+          <Code>{stack}</Code>
+        </Box>
+      )}
+    </Container>
+  );
+}

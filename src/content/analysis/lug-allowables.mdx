@@ -1,4 +1,30 @@
-import { lug } from './lug/00-0-lug-analysis.mdx'
+import LugDocs from './lug/00-0-lug-analysis.mdx'
+import LugCalculator from '../../components/LugCalculator/LugCalculator'
+import { K_data } from '../../components/LugCalculator/coeff_data'
+import Tabs from '@mantine/core'
 
+<Tabs color="teal" defaultValue="first">
+  <Tabs.List>
+    <Tabs.Tab value="first"> Lug Geometry </Tabs.Tab>
+    <Tabs.Tab value="second" color="blue">Results</Tabs.Tab>
+    <Tabs.Tab value="docs">Reference</Tabs.Tab>
+    <Tabs.Tab value="d3">D3</Tabs.Tab>
+  </Tabs.List>
 
-<lug></lug>
+  <Tabs.Panel value="first" pt={0} m={20}>
+    <LugCalculator />
+  </Tabs.Panel>
+
+  <Tabs.Panel value="second" pt={0} m={20}>
+    <LinePlot data={[1, 2, 5, 2, 99, 3]}></LinePlot>
+  </Tabs.Panel>
+
+  <Tabs.Panel value="docs" pt={0} m={20}>
+    <LugDocs />
+  </Tabs.Panel>
+
+  <Tabs.Panel value="d3" pt={0} m={20}>
+    <PathD3 data={K_data}></PathD3>
+  </Tabs.Panel>
+</Tabs>
+

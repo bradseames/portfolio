@@ -20,9 +20,9 @@ export default function Experience() {
   const companies = experience.map((company) => (
       <Timeline.Item
           title={
-            <Group justify="space-between" align="flex-start">
+            <Group>
               <Text>{company.company}</Text>
-              <Text size="sm" pr="md">
+              <Text>
                 {company.start} - {company.end}
               </Text>
             </Group>
@@ -31,32 +31,20 @@ export default function Experience() {
             <Avatar size={22} radius="xl" src={company.logo} />}
       >
         <>
-          <Accordion chevronPosition="left" variant="filled">
+          <Accordion>
             {company.roles.map((role) => (
                 <Accordion.Item key={role.title} value={role.title}>
                   <Accordion.Control>
-                    <Group justify="flex-start" align="center">
-
+                    <Group>
                       <Text>{role.title}</Text>
-                      <Text c="dimmed" size="sm">
-                        {role.group}
-                      </Text>
+                      <Text>{role.group}</Text>
 
-
-                      {/*<Text c="dimmed" size="sm">*/}
-                      {/*  <NumberFormatter*/}
-                      {/*    value={role.months / 12}*/}
-                      {/*    decimalScale={1}*/}
-                      {/*  />*/}
-                      {/*  {' yr'}*/}
-                      {/*</Text>*/}
                     </Group>
                   </Accordion.Control>
-
                   <Accordion.Panel>
-                    <List key={role.title} size="sm" pr="sm">
+                    <List key={role.title}>
                       {role.accomplishments.map((bullet) => (
-                          <List.Item c="gray" p="xs" pl="md">{bullet}</List.Item>
+                          <List.Item>{bullet}</List.Item>
                       ))}
                     </List>
                   </Accordion.Panel>
@@ -68,7 +56,7 @@ export default function Experience() {
   ));
 
   return (
-      <Timeline bulletSize={24} h="500" mb={500} pb="xl" py="xs">
+      <Timeline>
         {companies}
       </Timeline>
   );

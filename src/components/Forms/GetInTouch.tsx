@@ -95,8 +95,8 @@ export default function GetInTouch() {
       // ✅ This will be called on every form values change
       console.log(values);
     },
-
   });
+
   const handleSubmit = (values: typeof form.values) => {
     console.log(values);
   };
@@ -106,13 +106,13 @@ export default function GetInTouch() {
           onSubmit={form.onSubmit(handleSubmit)}
           onReset={form.onReset}
       >
+
         <Title
             order={2}
             size="h1"
             style={{ fontFamily: 'Outfit, var(--mantine-font-family)' }}
             fw={900}
-            ta="center"
-        >
+            ta="center">
           Get in touch
         </Title>
 

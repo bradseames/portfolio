@@ -70,7 +70,8 @@ export const vars = {
       <MathLine tex={`\\text{F}_\\text{tyx1}= ${matProps.F_tyx_1.toFixed(3)} ${stressUnits}`} />
       <MathLine tex={`\\text{E}_{1} = ${matProps.E_1} ${stressUnits}`} />
       <MathLine tex={`\\varepsilon_{u_{1}} = ${matProps.e_u_1}`} />
-      <MathLine tex={`1.304 \\ \\text{F}_\\text{tyx1} = ${(1.304 * matProps.F_tyx_1).toFixed(3)} ${stressUnits}`} />
+      <MathLine
+          tex={`1.304 \\ \\text{F}_\\text{tyx1} = ${(1.304 * matProps.F_tyx_1).toFixed(3)} ${stressUnits}`} />
     </div>
   </Flex>
 </Card>
@@ -99,80 +100,6 @@ export const vars = {
         <ScrollArea h={500}>
           <Card maw={700} mx="auto" my={30}>
 
-            ### 9.3.2 Lug Net-Section Strength Under Uniform Axial Load
-
-            The allowable lug net-section tensile ultimate stress (FnuL) on Section 1-1 in Figure 9-4a is affected by
-            the ability of the lug material to yield and thereby relieve the stress concentration at the edge of the
-            hole.
-
-            $$
-            \text{F}_{nu_L} = \text{K}_\text{n} \ \text{F}_\text{tu}
-            $$
-
-            <MathBlock tex={`\\text{F}_\\text{suL} = K_{n1} \\ \\text{F}_\\text{tu}`} />
-
-            Kn, the net-tension stress coefficient, is obtained, from the graphs shown in Figure 9-4 as a function of
-            the ultimate and yield stress and strains of the lug material in the direction of the applied load. The
-            ultimate strain (E,!!!) can be obtained from MIL-HDBK-5.
-
-            <Flex direction="row" justify="space-between" p="md">
-              <MathBlock tex={`\\frac{D}{w1} = \\frac{${geom.D}}{${geom.w1}} = ${geom.D / geom.w1}`} />
-              <MathBlock
-                tex={`\\frac{F_{ty}}{F_{tu}} = \\frac{${matProps.F_tyx_1}}{${matProps.F_tux_1}} = ${matProps.F_tyx_1 / matProps.F_tux_1}`} />
-              <MathBlock
-                tex={`\\frac{F_{tu}}{E \\ \\varepsilon_{u}} = \\frac{${matProps.F_tux_1}}{${matProps.E_1} \\ ${matProps.e_u_1}} = ${(matProps.F_tux_1 / (matProps.E_1 * matProps.e_u_1)).toFixed(3)} `} />
-            </Flex>
-
-
-            <LineChart
-              h={300}
-              w={600}
-              dataKey="a_D"
-              tickLine="y"
-              gridAxis="xy"
-              xAxisLabel="a/D"
-              yAxisLabel="K_br"
-              yAxisProps={{ domain: [1.0, 3.0] }}
-              curveType="linear"
-              activeDotProps={true}
-              withDots={true}
-              withLegend={true}
-              legendProps={{ align: 'center', height: 100, verticalAlign: 'bottom', iconSize: 6, iconType: 'line' }}
-              valueFormatter={(value) => `${value.toFixed(2)}`}
-              series={[
-                { name: 'Dt_2', label: 'D/t<=2', color: 'blue.2' },
-                { name: 'Dt_3', label: 'D/t=3', color: 'blue.4' },
-                { name: 'Dt_4', label: 'D/t=4', color: 'blue.6' },
-                { name: 'Dt_5', label: 'D/t=5', color: 'blue.8' },
-                { name: 'Dt_6', label: 'D/t=6', color: 'blue.9' },
-                { name: 'Dt_7', label: 'D/t=7', color: 'green.9' },
-                { name: 'Dt_8', label: 'D/t=8', color: 'green.8' },
-                { name: 'Dt_9', label: 'D/t=9', color: 'green.6' },
-                { name: 'Dt_10', label: 'D/t=10', color: 'green.4' },
-                { name: 'Dt_15', label: 'D/t=15', color: 'red.4' },
-                { name: 'Dt_20', label: 'D/t=20', color: 'red.5' },
-                { name: 'Dt_25', label: 'D/t=25', color: 'red.7' },
-                { name: 'Dt_30', label: 'D/t=30', color: 'red.9' }
-              ]}
-            />
-
-            $$
-            \text{F}_{ny_L} = \text{K}_{n} \text{F}_\text{ty}
-            $$
-
-
-            <MathLine tex={`k_{n1} = 0.74`} />
-
-            <MathLine tex={`\\text{F}_\\text{syL} =  K_{n1} \\ \\text{F}_\\text{ty}`} />
-            <MathLine
-              tex={`\\text{P}_\\text{suL} = n_{s} \\ 1.304 \\ k_{n1} \\ \\text{F}_\\text{ty} t_{1} \\ (w_{1}-D)`} />
-            <MathLine
-              tex={`\\text{P}_\\text{suL} = ${2} \\ 1.304 \\ ${0.74} \\ ${matProps.F_tyx_1} \\ ${geom.t1} \\ (${geom.w1}-${geom.D})`} />
-            <MathLine
-              tex={`\\text{P}_\\text{suL} = ${(2 * 1.304 * 0.74 * matProps.F_tyx_1 * geom.t1 * (geom.w1 - geom.D)).toFixed(3)}`} />
-            <MathLine tex={`\\text{P}_\\text{suL} = n_{s}\\, t_{1}\\,(w_{1}-D)`} />
-            <MathLine tex={`\\text{F}_\\text{suL} = k_{n1} \\ \\text{F}_\\text{tu}`} />
-            <MathLine tex={`\\text{F}_\\text{suL} = k_{n1} \\ \\text{F}_\\text{tu}`} />
           </Card>
         </ScrollArea>
       </AccordionPanel>
@@ -370,23 +297,23 @@ export const vars = {
 
 <div>
   {((geom.e1 / geom.D) < 1.5) ? (
-    <div>
-      <MathLine tex={`e/D \\lt 1.5:`} />
-      <MathLine tex={`\\quad ${vars.F_bruL} = \\text{K} \\ \\frac{a}{D} \\ ${vars.F_tux}`} />
-      <MathLine tex={`\\quad ${vars.F_bryL} = \\text{K} \\ \\frac{a}{D} \\ ${vars.F_tyx}`} />
-      <MathLine
-        tex={`\\quad ${vars.F_bryL} = ${1.48} \\ \\frac{${(geom.e1 - geom.D / 2)}}{${geom.D}} \\ ${matProps.F_tyx_1}`} />
-      <MathLine
-        tex={`\\quad ${vars.F_bryL} = ${(1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tyx_1).toFixed(3)}`} />
-      <MathLine
-        tex={`\\quad ${vars.F_bruL} = ${(1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tux_1).toFixed(3)}`} />
-    </div>
+      <div>
+        <MathLine tex={`e/D \\lt 1.5:`} />
+        <MathLine tex={`\\quad ${vars.F_bruL} = \\text{K} \\ \\frac{a}{D} \\ ${vars.F_tux}`} />
+        <MathLine tex={`\\quad ${vars.F_bryL} = \\text{K} \\ \\frac{a}{D} \\ ${vars.F_tyx}`} />
+        <MathLine
+            tex={`\\quad ${vars.F_bryL} = ${1.48} \\ \\frac{${(geom.e1 - geom.D / 2)}}{${geom.D}} \\ ${matProps.F_tyx_1}`} />
+        <MathLine
+            tex={`\\quad ${vars.F_bryL} = ${(1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tyx_1).toFixed(3)}`} />
+        <MathLine
+            tex={`\\quad ${vars.F_bruL} = ${(1.48 * (geom.e1 - geom.D / 2) / geom.D * matProps.F_tux_1).toFixed(3)}`} />
+      </div>
   ) : (
-    <div>
-      <MathLine tex={`e/D \\geq 1.5:`} />
-      <MathLine tex={`\\quad ${vars.F_bruL} = \\text{K} \\ ${vars.F_tux}`} />
-      <MathLine tex={`\\quad ${vars.F_bryL} = \\text{K} \\ ${vars.F_tyx}`} />
-    </div>
+      <div>
+        <MathLine tex={`e/D \\geq 1.5:`} />
+        <MathLine tex={`\\quad ${vars.F_bruL} = \\text{K} \\ ${vars.F_tux}`} />
+        <MathLine tex={`\\quad ${vars.F_bryL} = \\text{K} \\ ${vars.F_tyx}`} />
+      </div>
   )}
 </div>
 
