@@ -30,9 +30,9 @@ export default function StressContour({
 
     const y = d3.scaleLinear().domain([0, 1]).range([innerHeight, margin.top]);
 
-    const color = d3
-      .scaleSequential(d3.interpolateViridis)
-      .domain([0, d3.max(data, (d) => d.stress)]);
+    const maxStress = d3.max(data, (d) => d.stress);
+
+    const color = d3.scaleSequential(d3.interpolateViridis).domain([0, maxStress ?? 1]);
 
     svg
       .append("g")
@@ -41,7 +41,7 @@ export default function StressContour({
       .join("circle")
       .attr("cx", (d) => x(d.x))
       .attr("cy", (d) => y(d.y))
-      .attr("r", 6)
+      .attr("r", (d) => (10 * d.stress) / (maxStress ?? d.stress))
       .attr("fill", (d) => color(d.stress))
       .attr("stroke", "black")
       .attr("stroke-width", 0.5);

@@ -483,7 +483,7 @@ export default function LugCalculator() {
                 tex={`P_{nu} = ${results.P_nu_L.toLocaleString("en-US").split(
                   ".",
                   1,
-                )}  \\ \\text{lb}`}
+                )} \\ \\text{lb}`}
               ></MathLine>
 
               <MathLine

@@ -7,6 +7,10 @@ export default function InteractiveStressContour() {
   const [width, setWidth] = useState(0.5); // Lug width in meters
   const [height, setHeight] = useState(0.3); // Lug height in meters
 
+  function loadUpdate(val: number | string) {
+    setLoad(Number(val));
+  }
+
   // Generate synthetic stress data based on inputs
   const generateStressData = () => {
     const points = [];
@@ -23,7 +27,13 @@ export default function InteractiveStressContour() {
     <Stack>
       <Title order={3}>Stress Contour Diagram</Title>
       <Group grow>
-        <NumberInput label="Applied Load (kN)" value={load} onChange={setLoad} min={0} max={500} />
+        <NumberInput
+          label="Applied Load (kN)"
+          value={load}
+          onChange={loadUpdate}
+          min={0}
+          max={500}
+        />
         <Slider
           label="Lug Width (m)"
           value={width}

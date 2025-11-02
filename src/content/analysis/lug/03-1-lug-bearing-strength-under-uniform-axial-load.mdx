@@ -1,9 +1,8 @@
 import { Divider, Flex, Group, Card } from '@mantine/core'
 import { LineChart } from '@mantine/charts'
-import { K_data } from '../../../components/LugCalculator/coeff_data'
-import { Kb_data } from '../../../components/LugCalculator/coeff_data'
-export { K_data }
-export { Kb_data }
+import { KChart, KbChart } from '../../../components/LugCalculator/coeff_data'
+export { KChart }
+export { KbChart }
 
 ### 9.3.1 Lug Bearing Strength Under Uniform Axial Load
 
@@ -14,9 +13,8 @@ in the region forward of the net-section in Figure 9-1 are determined from the e
 with an allowable load coefficient $ (\text{K}) $ determined from Figures 9-2 and 9-3. For values
 of e/D less than 1.5, lug failures are likely to involve shear-out or hoop tension; and for
 values of e/D greater than 1.5, the bearing is likely to be critical. Actual lug failures may
-involve more than one failure mode, but such interaction  effects are accounted for in the
+involve more than one failure mode, but such interaction effects are accounted for in the
 values of $ \text{K} $. The lug ultimate bearing stress
-
 $ (\text{F}_{\text{bru}_{\text{L}}}) $ is
 
 $$
@@ -43,88 +41,45 @@ $$
 $$
 
 $ e/D \geq 1.5: $
+
 $$
 \quad \text{F}_{\text{bry}_{\text{L}}}  = \text{K} \ \text{F}_\text{tyx}
 \quad \text{(9-2b)}
 $$
 
-<Divider />
 <Card>
-  <LineChart
-    h={400}
-    w={500}
-    data={K_data}
-    type={"stacked"}
-    title="Allowable Axial Load Coeff"
-    dataKey="eD"
-    tickLine="xy"
-    gridAxis="xy"
-    xAxisLabel="e/D"
-    yAxisLabel="K"
-    xAxisProps={{ domain: [0.5, 2.4] }}
-    yAxisProps={{ domain: [1.0, 2.0] }}
-    curveType="linear"
-    activeDotProps={true}
-    withDots={true}
-    withLegend={true}
-    valueFormatter={(value) => `${value.toFixed(2)}`}
-    series={[
-      {
-        name: 'K',
-        label: 'K, Allowable Uniform Axial Load Coefficient',
-        color: 'blue.6',
-      }]}
-  />
+  <Group bg="white" c="black" mx="auto" w='100%'>
+    <KChart h={400}
+            w={'100%'}
+            style={{
+              padding: 20,
+              paddingBottom: 0
+            }} />
 
-  Figure 9-2. Allowable Uniform Axial Load Coefficient
-
+    <p style={{ margin: 'auto', maxWidth: 400, textAlign: 'center' }}>
+      Figure 9-2. Allowable Uniform Axial Load Coefficient
+    </p>
+  </Group>
 </Card>
-<Divider />
+
+
 <Card>
-  <LineChart
-    h={300}
-    w={500}
-    data={Kb_data}
-    dataKey="Dw"
-    tickLine="y"
-    gridAxis="xy"
-    xAxisLabel="a/D"
-    yAxisLabel="K_br"
-    yAxisProps={{ domain: [0.0, 1.0] }}
-    curveType="linear"
-    activeDotProps={true}
-    withDots={true}
-    withLegend={true}
-    legendProps={{
-      align: 'center',
-      height: 100,
-      verticalAlign: 'bottom',
-      iconSize: 6,
-      iconType: 'line'
-    }}
-    valueFormatter={(value) => `${value.toFixed(2)}`}
-    series={[
-      { name: 'Dt_2', label: 'D/t<=2', color: 'blue.2' },
-      { name: 'Dt_3', label: 'D/t=3', color: 'blue.4' },
-      { name: 'Dt_4', label: 'D/t=4', color: 'blue.6' },
-      { name: 'Dt_5', label: 'D/t=5', color: 'blue.8' },
-      { name: 'Dt_6', label: 'D/t=6', color: 'blue.9' },
-      { name: 'Dt_7', label: 'D/t=7', color: 'green.9' },
-      { name: 'Dt_8', label: 'D/t=8', color: 'green.8' },
-      { name: 'Dt_9', label: 'D/t=9', color: 'green.6' },
-      { name: 'Dt_10', label: 'D/t=10', color: 'green.4' },
-      { name: 'Dt_15', label: 'D/t=15', color: 'red.4' },
-      { name: 'Dt_20', label: 'D/t=20', color: 'red.5' },
-      { name: 'Dt_25', label: 'D/t=25', color: 'red.7' },
-      { name: 'Dt_30', label: 'D/t=30', color: 'red.9' }
-    ]}
-  />
+  <Group bg="white" c="black" mx="auto" w='100%'>
+    <KbChart h={400}
+             w={'100%'}
+             style={{
+               padding: 20,
+               paddingBottom: 0
+             }} />
 
-  Figure 9-3. Bearing Efficiency Factors for Lugs, Aluminum Alloy, and Alloy
-  Steel with $ \text{F}_{tu} \lt $ 160 KSI
-
+    <p style={{ margin: 'auto', maxWidth: 400, textAlign: 'center' }}>
+      Figure 9-3. Bearing Efficiency Factors for Lugs Aluminum Alloy,
+      and Alloy Steel with $\text{F}_{tu} \lt$ 160 KSI
+    </p>
+  </Group>
 </Card>
-<Divider />
+
+
 
 The allowable lug ultimate bearing load
 $ (\text{P}_{\text{bru}_{\text{L}}}) $ for lug failure in bearing, shear-out, or hoop tension is

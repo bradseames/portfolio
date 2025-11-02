@@ -13,7 +13,7 @@ interface LugData {
 }
 
 interface LugChartProps {
-  lugData: LugData[]; // Example data structure
+  lugData: LugData; // Example data structure
   isLoading: boolean;
   width?: number;
   height?: number;
@@ -23,7 +23,7 @@ const LugChart: React.FC<LugChartProps> = ({ lugData, isLoading, width = 600, he
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Memoize the update function to prevent unnecessary re-renders of the wrapper
-  const handleUpdate = useCallback((data: LugData[]) => {
+  const handleUpdate = useCallback((data: LugData) => {
     if (containerRef.current) {
       updateLugChart(containerRef.current, data);
     }

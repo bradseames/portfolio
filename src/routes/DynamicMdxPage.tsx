@@ -5,7 +5,7 @@ import { useMDXComponents } from "../components/mdx-components";
 export async function clientLoader({ params }: Route.ComponentProps) {
   const subject = !params.subject ? "" : `${params.subject}/`;
   const path = `../content/${params.category}/${subject}${params.name}.mdx`;
-  const module = await /* @vite-ignore */ import(path);
+  const module = await import(/* @vite-ignore */ path);
   return module.default;
 }
 

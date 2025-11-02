@@ -11,7 +11,7 @@ export default function LayoutShell() {
   return (
     <AppShell
       padding={0}
-      header={{ height: 60 }}
+      header={{ height: 40 }}
       navbar={{
         width: 150,
         breakpoint: "sm",
@@ -19,7 +19,7 @@ export default function LayoutShell() {
       }}
     >
       <AppShell.Header>
-        <Group>
+        <Group h="100%" px="md" justify="space-between" align="stretch">
           <Group justify="flex-start" align="center">
             <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />

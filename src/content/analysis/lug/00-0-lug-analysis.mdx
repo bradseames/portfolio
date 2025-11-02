@@ -9,6 +9,19 @@ import Lug06 from './06-0-example-of-uniform-axially-loaded-lug-analysis.mdx'
 import Lug07 from './07-0-lug-and-bushing-strength-under-transverse-load.mdx'
 import Lug08 from './08-0-double-shear-joints-under-transverse-load.mdx'
 
+<TableOfContents
+    variant="filled"
+    color="blue"
+    size="sm"
+    radius="sm"
+    scrollSpyOptions={{
+      selector: "#mdx :is(h1, h2, h3, h4, h5, h6)",
+    }}
+    getControlProps={({ data }) => ({
+      onClick: () => data.getNode().scrollIntoView(),
+      children: data.value,
+    })}
+/>
 
 Maddux, Gene, **[STRESS ANALYSIS MANUAL](https://apps.dtic.mil/sti/pdfs/AD0759199.pdf)**,
 Air Force Flight Dynamics Laboratory, AFFDL-TR-69-42, 1969
