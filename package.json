@@ -11,14 +11,11 @@
     "dev": "react-router dev --config config/vite.config.mjs",
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint . --config config/eslint.config.js",
-    "lint:css": "stylelint \"**/*.css\" --config config/stylelint.config.js",
+    "lint:css": "stylelint \"**/*.css\" --config config/stylelint.config.mjs",
     "format": "prettier --write . --config config/prettier.config.js",
     "format:check": "prettier --check . --config config/prettier.config.js",
-    "prettier:check": "prettier --check \"**/*.{ts,tsx}\"",
-    "prettier:write": "prettier --write \"**/*.{ts,tsx,css}\"",
-    "test": "vitest",
-    "start": "react-router-serve ./build/server/index.js",
-    "": "npx eslint-config-prettier path/to/main.js"
+    "test": "vitest --config config/vite.config.mjs",
+    "start": "react-router-serve ./build/server/index.js"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -65,6 +62,7 @@
     "@eslint/js": "^9.39.0",
     "@eslint/json": "^0.13.2",
     "@eslint/markdown": "^7.5.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@mdx-js/mdx": "^3.1.1",
     "@mdx-js/rollup": "^3.1.1",
     "@react-router/dev": "^7.9.5",

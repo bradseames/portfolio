@@ -4,7 +4,7 @@ const config = {
   printWidth: 100,
   semi: true,
   singleQuote: true,
-  tabwidth: 2,
+  tabWidth: 2,
   trailingComma: 'all',
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
   importOrder: [

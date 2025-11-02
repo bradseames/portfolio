@@ -1,22 +1,29 @@
+import json from '@eslint/json';
+import markdown from '@eslint/markdown';
 import mantine from 'eslint-config-mantine';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import mdx from 'eslint-plugin-mdx';
 import tseslint from 'typescript-eslint';
-import { CompatibleConfigArray } from 'typescript-eslint/dist/compatibility-types.js';
 
-// @ts-check
-export default CompatibleConfigArray(
-  tseslint.configs.recommended,
+export default tseslint.config(
   ...mantine,
-  { ignores: ['**/*.{mjs,cjs,js,d.ts,d.mts}'] },
+  { ...mdx.flat, files: ['**/*.mdx'] },
+  ...markdown.configs.recommended,
+  ...json.configs.recommended,
   {
-    files: ['**/*.story.tsx'],
-    rules: { 'no-console': 'off' },
-  },
-  {
-    languageOptions: {
-      parserOptions: {
-        tsconfigRootDir: process.cwd(),
-        project: ['./tsconfig.json'],
-      },
+    rules: {
+      'react/react-in-jsx-scope': 'off',
     },
+  },
+  eslintConfigPrettier, // Must be last
+  {
+    ignores: [
+      '**/node_modules/**',
+      '**/.react-router/**',
+      '**/build/**',
+      '**/dist/**',
+      'config/',
+      '.idea/',
+    ],
   },
 );

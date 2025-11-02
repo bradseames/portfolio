@@ -10,8 +10,12 @@ import GetInTouch from "../components/Forms/GetInTouch";
 import LugCalculator from "../components/LugCalculator/LugCalculator";
 import CalculationForm, { type LugInputs } from "../components/Forms/CalculationForm";
 import classes from "./dashboard.module.css";
+import { useState, useRef } from "react";
+import { useElementSize } from "@mantine/hooks";
 
 export default function Dashboard() {
+  useElementSize;
+
   function calcs(data: LugInputs) {
     console.log(data);
   }

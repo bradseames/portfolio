@@ -1,19 +1,16 @@
-.DS_Store
-/node_modules/
+# Dependencies
+/node_modules
 
-# React Router
+# Build artifacts
+/build
+/dist
+/dist-ssr
 /.react-router/
-/build/
-/.editorconfig
-/src/_archive/
-/.idea/
-/react-router-0.cpuprofile
 
-
-dist
-dist-ssr
+# IDE and local files
+.idea/
 *.local
-
-
-# Profile outputs
 *.cpuprofile
+
+# Archive
+/src/_archive/
