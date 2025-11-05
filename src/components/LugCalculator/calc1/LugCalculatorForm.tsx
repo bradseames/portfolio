@@ -39,11 +39,6 @@ export default function LugCalculatorForm({
         onChange={(value) => setFty(typeof value === "number" ? value : 0)}
       />
       <NumberInput
-        label="Kn"
-        value={Kn}
-        onChange={(value) => setKn(typeof value === "number" ? value : 1)}
-      />
-      <NumberInput
         label="w"
         value={w}
         onChange={(value) => setW(typeof value === "number" ? value : 0)}

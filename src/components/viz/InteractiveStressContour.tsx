@@ -51,7 +51,7 @@ export default function InteractiveStressContour() {
           step={0.05}
         />
       </Group>
-      <StressContour width={400} height={300} data={generateStressData()} />
+      <StressContour width={300} height={200} data={generateStressData()} />
     </Stack>
   );
 }

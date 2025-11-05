@@ -9,14 +9,16 @@
 .no-scroll {
   overflow: hidden;
   position: fixed;
-  inset: 60px;
+
+  /* inset: 60px; */
 }
 
 .header {
   padding-top: var(--mantine-spacing-sm);
   background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
   border-bottom: 1px solid light-dark(var(--mantine-color-gray-2), transparent);
-  margin-bottom: 120px;
+
+  /* margin-bottom: 120px; */
 }
 
 .tabsList {
@@ -27,10 +29,13 @@
 
 .tab {
   font-weight: 500;
-  height: 38px;
-  background-color: transparent;
+
+  /* height: 38px; */
+
+  /* background-color: transparent; */
   position: relative;
-  bottom: -1px;
+
+  /* bottom: -1px; */
 
   &::before,
   &::after {

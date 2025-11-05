@@ -2,6 +2,22 @@ import React, { useState, useMemo } from "react";
 import * as d3 from "d3";
 import { ScalableDimension } from "../viz/ScalableDimensions";
 
+type Unit = "m" | "in" | "mm";
+
+const convMeters = {
+  m: 1,
+  in: 0.0254,
+  mm: 0.001,
+};
+const METERS_PER_INCH = 0.0254;
+const METERS_PER_MM = 0.001;
+const scalePxPerMeter = 1;
+//let conversionFactorMeters = 1;
+
+let strokeW = 0.001;
+let arrowSizePx = strokeW * 6;
+let fontSize = strokeW * 8;
+
 enum LugMode {
   single = "single",
   double = "double",
@@ -13,10 +29,11 @@ interface LugParams {
   e1: number;
   w2: number;
   e2: number;
-  D: number; // hole diameter
-  Dp: number; // pin diameter
-  thickness: number; // lug thickness (for side view)
-  length: number; // pin length or lug length side view
+  D: number;
+  Dp: number;
+  t1: number;
+  t2: number;
+  gap: number;
 }
 
 const color = {
@@ -28,85 +45,6 @@ const color = {
   highlight: "orange",
 };
 
-interface DimensionProps {
-  start: [number, number];
-  end: [number, number];
-  label: string;
-  id: string;
-  isFocused?: boolean;
-  onHover?: (id: string | null) => void;
-}
-
-const Dimension: React.FC<DimensionProps> = ({
-  start,
-  end,
-  label,
-  id,
-  isFocused = false,
-  onHover,
-}) => {
-  const midX = (start[0] + end[0]) / 2;
-  const midY = (start[1] + end[1]) / 2;
-  const angle = Math.atan2(end[1] - start[1], end[0] - start[0]);
-  const arrowSize = 6;
-
-  // Points for arrows on the line ends
-  const arrowPoints = (x: number, y: number, offsetAngle: number): string =>
-    [
-      `${x},${y}`,
-      `${x - arrowSize * Math.cos(angle + offsetAngle)},${
-        y - arrowSize * Math.sin(angle + offsetAngle)
-      }`,
-    ].join(" ");
-
-  return (
-    <g
-      onMouseEnter={() => onHover && onHover(id)}
-      onMouseLeave={() => onHover && onHover(null)}
-      style={{ cursor: "pointer" }}
-    >
-      {/* Dimension line */}
-      <line
-        x1={start[0]}
-        y1={start[1]}
-        x2={end[0]}
-        y2={end[1]}
-        stroke={isFocused ? color.highlight : color.dim}
-        strokeWidth={2}
-      />
-      {/* Arrows */}
-      <polygon
-        points={arrowPoints(start[0], start[1], Math.PI / 6)}
-        fill={isFocused ? color.highlight : color.dim}
-      />
-      <polygon
-        points={arrowPoints(start[0], start[1], -Math.PI / 6)}
-        fill={isFocused ? color.highlight : color.dim}
-      />
-      <polygon
-        points={arrowPoints(end[0], end[1], Math.PI - Math.PI / 6)}
-        fill={isFocused ? color.highlight : color.dim}
-      />
-      <polygon
-        points={arrowPoints(end[0], end[1], Math.PI + Math.PI / 6)}
-        fill={isFocused ? color.highlight : color.dim}
-      />
-      {/* Label */}
-      <text
-        x={midX}
-        y={midY - 8}
-        fill={isFocused ? color.highlight : color.dim}
-        fontSize={12}
-        fontFamily="Arial"
-        textAnchor="middle"
-        pointerEvents="none"
-      >
-        {label}
-      </text>
-    </g>
-  );
-};
-
 interface LugDrawingProps {
   params: LugParams;
   hoveredDimension: string | null;
@@ -114,17 +52,32 @@ interface LugDrawingProps {
 }
 
 const LugDrawing: React.FC<LugDrawingProps> = ({ params, hoveredDimension, onDimensionHover }) => {
-  // Compute front view height
-  const frontHeight = Math.max(params.e1, params.e2) * 6;
-  const frontWidth = Math.max(params.w1, params.w2) * 1.5;
+  const [unit, setUnit] = useState<Unit>("m");
+
+  const toggleUnit = () => {
+    setUnit((prev) => (prev === "m" ? "in" : prev === "in" ? "mm" : "m"));
+  };
+
+  const maxEd = Math.max(params.e1, params.e2);
+  const yPadding = maxEd;
+  const totalHeight = maxEd * 4 + yPadding * 2;
+
+  const yCenter = totalHeight / 2;
+  const yTop = yPadding;
+  const yBot = totalHeight - yPadding;
+
+  // Side view parameters and sizing
+  const maxW = Math.max(params.w1, params.w2);
+  const maxT = params.t1 * 2 + params.t2 + params.gap * 2;
+  const xPadding = maxW * 0.5;
+  const totalWidth = maxW + maxT + xPadding * 4;
 
   // Front lug 1 path (bottom semicircle)
   const frontLug1Path = useMemo(() => {
     const path = d3.path();
     const w = params.w1;
     const e = params.e1;
-    const yBot = frontHeight - e * 1;
-    const yCenter = frontHeight - e * 3;
+
     path.moveTo(-w / 2, yBot);
     path.lineTo(-w / 2, yCenter);
     path.arc(0, yCenter, w / 2, Math.PI, 0, false);
@@ -132,7 +85,7 @@ const LugDrawing: React.FC<LugDrawingProps> = ({ params, hoveredDimension, onDim
     path.closePath();
 
     return path.toString();
-  }, [params.w1, params.e1, frontHeight]);
+  }, [params.w1, params.e1, totalHeight]);
 
   // Front lug 2 path (top semicircle) if double mode
   const frontLug2Path = useMemo(() => {
@@ -140,8 +93,7 @@ const LugDrawing: React.FC<LugDrawingProps> = ({ params, hoveredDimension, onDim
     const path = d3.path();
     const w = params.w2;
     const e = params.e2;
-    const yTop = e * 0.5;
-    const yCenter = e * 3;
+
     path.moveTo(-w / 2, yTop);
     path.lineTo(-w / 2, yCenter);
     path.arc(0, yCenter, w / 2, Math.PI, 0, true);
@@ -151,248 +103,314 @@ const LugDrawing: React.FC<LugDrawingProps> = ({ params, hoveredDimension, onDim
     return path.toString();
   }, [params.w2, params.e2, params.mode]);
 
-  // Hole and pin radii
-  const holeRadius = params.D / 2;
-  const pinRadius = params.Dp / 2;
-
-  // Side view parameters and sizing
-  const sideWidth = params.thickness * 3;
-  const sideHeight = frontHeight;
-  const sidePaddingX = frontWidth + 30;
-
   // Side lug shape path (simple rectangle for thickness and height)
   const sideLugPath = useMemo(() => {
     const path = d3.path();
-    path.rect(0, -params.e1, params.thickness, params.e1 * 2.5);
+    path.rect(0, -params.e1, params.t1, yBot - yCenter + params.e1);
     return path.toString();
-  }, [params.thickness, frontHeight]);
+  }, [params.t1, totalHeight]);
+
   const sideLugPath2 = useMemo(() => {
     const path = d3.path();
-    path.rect(0, -3 * params.e2, params.thickness, 4 * params.e2);
+    path.rect(0, -yCenter + yTop, params.t2, params.e2 + yCenter - yTop);
     return path.toString();
-  }, [params.thickness, frontHeight]);
-
-  // Side hole and pin positions
-  // Hole is a circle centered vertically at frontHeight - e1*2 approximately
-  const holeY = frontHeight / 2;
+  }, [params.t2, totalHeight]);
 
   return (
-    <svg
-      width="100%"
-      height={350}
-      viewBox={`0 0 ${sidePaddingX + sideWidth + 100} ${frontHeight + 100}`}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Front view group */}
-      <g transform={`translate(${Math.max(params.w1, params.w2) / 2 + params.e2 * 2}, 0)`}>
-        {/* Lug 2 front view */}
-        {params.mode === LugMode.double && frontLug2Path && (
-          <path d={frontLug2Path} fill={color.lug2} stroke={color.dim} strokeWidth={1} />
-        )}
-
-        {/* Lug 1 front view */}
-        {/*<path d={frontLug1Path} fill={color.lug1} stroke={color.dim} strokeWidth={0.12} />*/}
-        <path d={frontLug1Path} fill={color.lug1} opacity={1} stroke={color.dim} strokeWidth={1} />
-
-        <path
-          d={frontLug2Path}
+    <div>
+      <button onClick={toggleUnit}>
+        Switch to {unit === "m" ? "in" : unit === "in" ? "mm" : "m"}
+      </button>
+      <svg
+        width={"100%"}
+        height={"100%"}
+        viewBox={`0 0 ${totalWidth} ${totalHeight}`}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x={0}
+          y={0}
+          width={"100%"}
+          height={"100%"}
           fill="none"
-          stroke={color.dim}
-          strokeDasharray="3 0 3"
-          strokeWidth={1}
+          strokeWidth={strokeW}
+          stroke={"green"}
         />
-        {/* Hole and pin */}
-        <circle cx={0} cy={holeY} r={holeRadius} fill={color.hole} stroke={color.dim} />
-        <circle cx={0} cy={holeY} r={pinRadius} fill={color.pin} stroke={color.dim} />
-        {
-          <ScalableDimension
-            id={"w1"}
-            lengthInMeters={params.w1 / 1000}
-            unit={"in"}
-            scalePxPerMeter={1000}
-            startX={-params.w1 / 2}
-            startY={holeY + params.e1 * 2}
-            arrowSizePx={10}
-            orientation={"horizontal"}
-            position={"middle"}
-            below={true}
-            leadL={params.e1 / 4}
-          />
-        }
-        {
-          <ScalableDimension
-            id={"w2"}
-            lengthInMeters={params.w2 / 1000}
-            unit={"in"}
-            scalePxPerMeter={1000}
-            startX={-params.w2 / 2}
-            startY={holeY - params.e2 * 2}
-            arrowSizePx={10}
-            orientation={"horizontal"}
-            position={"middle"}
-            below={false}
-            leadL={-params.e2 / 2}
-          />
-        }
-        {/* Dimensions on front view */}
-        {/*<Dimension*/}
-        {/*  id="dimension_w1"*/}
-        {/*  start={[-params.w1 / 2, frontHeight + 10]}*/}
-        {/*  end={[params.w1 / 2, frontHeight + 10]}*/}
-        {/*  label={`w1 = ${params.w1} mm`}*/}
-        {/*  isFocused={hoveredDimension === "dimension_w1"}*/}
-        {/*  onHover={onDimensionHover}*/}
-        {/*/>*/}
 
-        {/*<Dimension*/}
-        {/*  id="dimension_e1"*/}
-        {/*  start={[params.w1 / 2 + 10, holeY]}*/}
-        {/*  end={[params.w1 / 2 + 10, frontHeight]}*/}
-        {/*  label={`e1 = ${params.e1} mm`}*/}
-        {/*  isFocused={hoveredDimension === "dimension_e1"}*/}
-        {/*  onHover={onDimensionHover}*/}
-        {/*/>*/}
-      </g>
+        <g id="front_view" transform={`translate(${maxW / 2 + xPadding}, 0)`}>
+          <g id="front_view_parts">
+            {frontLug2Path ? (
+              <path d={frontLug2Path} fill={color.lug2} stroke={color.dim} strokeWidth={strokeW} />
+            ) : (
+              ""
+            )}
+            <path
+              d={frontLug1Path}
+              fill={color.lug1}
+              opacity={1}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+            +
+            {frontLug2Path ? (
+              <path
+                d={frontLug2Path}
+                fill="none"
+                strokeDasharray={`${strokeW * 3} 0 ${strokeW * 3}`}
+                stroke={color.dim}
+                strokeWidth={strokeW}
+              />
+            ) : (
+              ""
+            )}
+            {/* Hole and pin */}
+            <circle
+              cx={0}
+              cy={yCenter}
+              r={params.D / 2}
+              fill={color.hole}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+            <circle
+              cx={0}
+              cy={yCenter}
+              r={params.Dp / 2}
+              fill={color.pin}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+          </g>
 
-      {/* Side view group */}
-      <g transform={`translate(${sidePaddingX}, ${holeY})`}>
-        {/* Side lug rectangle */}
-        <path d={sideLugPath} fill={color.lug1} stroke={color.dim} strokeWidth={1} />
+          <g id="front_view_dimensions">
+            <ScalableDimension
+              id={"w1"}
+              lengthInMeters={params.w1}
+              unit={unit}
+              scalePxPerMeter={scalePxPerMeter}
+              startX={-params.w1 / 2}
+              startY={yBot}
+              arrowSizePx={arrowSizePx}
+              orientation={"horizontal"}
+              position={"middle"}
+              below={true}
+              leadL={params.e1 / 4}
+              strokeW={strokeW}
+              fontSize={fontSize}
+            />
 
-        {/* Side hole as circle cut-out */}
-        <rect
-          width={params.thickness}
-          height={params.D}
-          x={0}
-          y={-params.D / 2}
-          fill={color.hole}
-          stroke={color.dim}
-          strokeWidth={1}
-        />
-        <rect
-          width={params.thickness}
-          height={params.Dp}
-          x={0}
-          y={-params.Dp / 2}
-          fill={color.pin}
-          stroke={color.dim}
-          strokeWidth={1}
-        />
-        {
-          <ScalableDimension
-            id={"t1"}
-            lengthInMeters={params.thickness / 1000}
-            unit={"in"}
-            scalePxPerMeter={1000}
-            startX={0}
-            startY={params.e2 * 2.5 + params.e1 * 2.5}
-            arrowSizePx={10}
-            orientation={"horizontal"}
-            position={"end"}
-            below={false}
-            leadL={-params.e2 / 2}
-          />
-        }
+            <ScalableDimension
+              id={"w2"}
+              lengthInMeters={params.w2}
+              unit={unit}
+              scalePxPerMeter={scalePxPerMeter}
+              startX={-params.w2 / 2}
+              startY={yTop}
+              arrowSizePx={arrowSizePx}
+              orientation={"horizontal"}
+              position={"middle"}
+              below={false}
+              leadL={-params.e2 / 4}
+              strokeW={strokeW}
+              fontSize={fontSize}
+            />
 
-        {
-          <ScalableDimension
-            id={"Dp"}
-            lengthInMeters={params.Dp / 1000}
-            unit={"in"}
-            scalePxPerMeter={1000}
-            startX={0}
-            startY={-params.Dp / 2}
-            arrowSizePx={10}
-            orientation={"vertical"}
-            position={"end"}
-            below={false}
-            leadL={-params.e2 / 2}
-          />
-        }
-        {
-          <ScalableDimension
-            id={"Dp"}
-            lengthInMeters={params.D / 1000}
-            unit={"in"}
-            scalePxPerMeter={1000}
-            startX={0}
-            startY={-params.D / 2}
-            arrowSizePx={10}
-            orientation={"vertical"}
-            position={"end"}
-            below={false}
-            leadL={-params.e2}
-          />
-        }
-        <g transform={`translate(${params.thickness}, 0)`}>
-          <path d={sideLugPath2} fill={color.lug2} stroke={color.dim} strokeWidth={1} />
+            <ScalableDimension
+              id={"e1"}
+              lengthInMeters={params.e1}
+              unit={unit}
+              scalePxPerMeter={scalePxPerMeter}
+              startX={0}
+              startY={yCenter - params.e1}
+              arrowSizePx={arrowSizePx}
+              orientation={"vertical"}
+              position={"middle"}
+              below={false}
+              leadL={-params.w1 * 0.75}
+              strokeW={strokeW}
+              fontSize={fontSize}
+            />
 
-          {/* Side hole as circle cut-out */}
-          <rect
-            width={params.thickness}
-            height={params.D}
-            x={0}
-            y={-params.D / 2}
-            fill={color.hole}
-            stroke={color.dim}
-            strokeWidth={1}
-          />
-          <rect
-            width={params.thickness}
-            height={params.Dp}
-            x={0}
-            y={-params.Dp / 2}
-            fill={color.pin}
-            stroke={color.dim}
-            strokeWidth={1}
-          />
+            <ScalableDimension
+              id={"e2"}
+              lengthInMeters={params.e2}
+              unit={unit}
+              scalePxPerMeter={scalePxPerMeter}
+              startX={0}
+              startY={yCenter}
+              arrowSizePx={arrowSizePx}
+              orientation={"vertical"}
+              position={"start"}
+              below={false}
+              leadL={-params.w1 * 0.75}
+              strokeW={strokeW}
+              fontSize={fontSize}
+            />
+          </g>
         </g>
 
-        <g transform={`translate(${params.thickness * 2}, 0)`}>
-          {/* Side lug rectangle */}
-          <path d={sideLugPath} fill={color.lug1} stroke={color.dim} strokeWidth={1} />
+        <g id="side_view" transform={`translate(${maxW + xPadding * 3}, ${yCenter})`}>
+          <g id="side_view_parts">
+            <path d={sideLugPath} fill={color.lug1} stroke={color.dim} strokeWidth={strokeW} />
 
-          {/* Side hole as circle cut-out */}
-          <rect
-            width={params.thickness}
-            height={params.D}
-            x={0}
-            y={-params.D / 2}
-            fill={color.hole}
-            stroke={color.dim}
-            strokeWidth={1}
-          />
-          <rect
-            width={params.thickness}
-            height={params.Dp}
-            x={0}
-            y={-params.Dp / 2}
-            fill={color.pin}
-            stroke={color.dim}
-            strokeWidth={1}
-          />
+            {/* Side hole as circle cut-out */}
+            <rect
+              width={params.t1}
+              height={params.D}
+              x={0}
+              y={-params.D / 2}
+              fill={color.hole}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+            <rect
+              width={params.t1}
+              height={params.Dp}
+              x={0}
+              y={-params.Dp / 2}
+              fill={color.pin}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+          </g>
+
+          <g id="side_view_dimensions">
+            <ScalableDimension
+              id={"t1"}
+              lengthInMeters={params.t1}
+              unit={unit}
+              scalePxPerMeter={scalePxPerMeter}
+              startX={0}
+              startY={yBot - yCenter}
+              arrowSizePx={arrowSizePx}
+              orientation={"horizontal"}
+              position={"end"}
+              below={false}
+              leadL={params.t1 / 2}
+              strokeW={strokeW}
+              fontSize={fontSize}
+            />
+
+            <ScalableDimension
+              id={"t2"}
+              lengthInMeters={params.t2}
+              unit={unit}
+              scalePxPerMeter={scalePxPerMeter}
+              startX={params.t1 + params.gap}
+              startY={yTop - yCenter}
+              arrowSizePx={arrowSizePx}
+              orientation={"horizontal"}
+              position={"end"}
+              below={false}
+              leadL={-2 * arrowSizePx}
+              strokeW={strokeW}
+              fontSize={fontSize}
+            />
+
+            <ScalableDimension
+              id={"Dp"}
+              lengthInMeters={params.Dp}
+              unit={unit}
+              scalePxPerMeter={scalePxPerMeter}
+              startX={0}
+              startY={-params.Dp / 2}
+              arrowSizePx={arrowSizePx}
+              orientation={"vertical"}
+              position={"end"}
+              below={false}
+              leadL={-2 * arrowSizePx}
+              strokeW={strokeW}
+              fontSize={fontSize}
+            />
+
+            <ScalableDimension
+              id={"D"}
+              lengthInMeters={params.D}
+              unit={unit}
+              scalePxPerMeter={scalePxPerMeter}
+              startX={0}
+              startY={-params.D / 2}
+              arrowSizePx={arrowSizePx}
+              orientation={"vertical"}
+              position={"end"}
+              below={false}
+              leadL={-4 * arrowSizePx}
+              strokeW={strokeW}
+              fontSize={fontSize}
+            />
+          </g>
+
+          <g id="lug2_side_view" transform={`translate(${params.t1 + params.gap}, 0)`}>
+            <path d={sideLugPath2} fill={color.lug2} stroke={color.dim} strokeWidth={strokeW} />
+
+            <rect
+              width={params.t2}
+              height={params.D}
+              x={0}
+              y={-params.D / 2}
+              fill={color.hole}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+            <rect
+              width={params.t2}
+              height={params.Dp}
+              x={0}
+              y={-params.Dp / 2}
+              fill={color.pin}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+          </g>
+
+          <g
+            id="Lug1_double_shear_side_view"
+            transform={`translate(${params.t1 + params.t2 + params.gap * 2}, 0)`}
+          >
+            <path d={sideLugPath} fill={color.lug1} stroke={color.dim} strokeWidth={strokeW} />
+            <rect
+              width={params.t1}
+              height={params.D}
+              x={0}
+              y={-params.D / 2}
+              fill={color.hole}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+            <rect
+              width={params.t1}
+              height={params.Dp}
+              x={0}
+              y={-params.Dp / 2}
+              fill={color.pin}
+              stroke={color.dim}
+              strokeWidth={strokeW}
+            />
+          </g>
         </g>
-      </g>
-    </svg>
+      </svg>
+    </div>
   );
 };
 
 export default function LugCalculator() {
   const [params, setParams] = useState<LugParams>({
     mode: LugMode.double,
-    w1: 120,
-    e1: 60,
-    w2: 100,
-    e2: 30,
-    D: 40,
-    Dp: 35,
-    thickness: 30,
-    length: 120,
+    w1: 3 * METERS_PER_INCH,
+    e1: 1.5 * METERS_PER_INCH,
+    w2: 2.5 * METERS_PER_INCH,
+    e2: 1.25 * METERS_PER_INCH,
+    D: 0.75 * METERS_PER_INCH,
+    Dp: 0.75 * METERS_PER_INCH,
+    t1: 0.5 * METERS_PER_INCH,
+    t2: 1 * METERS_PER_INCH,
+    gap: 0.01 * METERS_PER_INCH,
   });
+  //// Scale: 200 px = 1 meter (adjust as needed)
 
   const [hoveredDimension, setHoveredDimension] = useState<string | null>(null);
 
-  // Handle input changes
+  //// Handle input changes
   function handleParamChange<K extends keyof LugParams>(key: K, value: number) {
     setParams((prev) => ({ ...prev, [key]: value }));
   }
@@ -408,25 +426,24 @@ export default function LugCalculator() {
       </div>
 
       {/*<form style={{ flex: "0 0 220px" }}>*/}
+
       {/*  {Object.entries(params).map(*/}
       {/*    ([key, value]) =>*/}
       {/*      key !== "mode" && (*/}
       {/*        <div key={key} style={{ marginBottom: 10 }}>*/}
       {/*          <label htmlFor={key}>*/}
-      {/*            {key}:*/}
-      {/*            <input*/}
+      {/*            {key} ({unit}):*/}
+      {/*            <NumberInput*/}
       {/*              id={key}*/}
-      {/*              type="number"*/}
+      {/*              //type="number"*/}
       {/*              value={value}*/}
       {/*              min={0}*/}
       {/*              style={{*/}
-      {/*                width: "100%",*/}
+      {/*                width: "150px",*/}
       {/*                borderColor:*/}
       {/*                  hoveredDimension === `dimension_${key}` ? color.highlight : "initial",*/}
       {/*              }}*/}
-      {/*              onChange={(e) =>*/}
-      {/*                handleParamChange(key as keyof LugParams, Number(e.target.value))*/}
-      {/*              }*/}
+      {/*              onChange={(e) => handleParamChange(key as keyof LugParams, Number(e))}*/}
       {/*              onFocus={() => setHoveredDimension(`dimension_${key}`)}*/}
       {/*              onBlur={() => setHoveredDimension(null)}*/}
       {/*            />*/}
@@ -532,3 +549,131 @@ export default function LugCalculator() {
 //    </svg>
 //  );
 //};
+
+
+//interface DimensionProps {
+//  start: [number, number];
+//  end: [number, number];
+//  label: string;
+//  id: string;
+//  isFocused?: boolean;
+//  onHover?: (id: string | null) => void;
+//}
+//
+//const Dimension: React.FC<DimensionProps> = ({
+//  start,
+//  end,
+//  label,
+//  id,
+//  isFocused = false,
+//  onHover,
+//}) => {
+//  const midX = (start[0] + end[0]) / 2;
+//  const midY = (start[1] + end[1]) / 2;
+//  const angle = Math.atan2(end[1] - start[1], end[0] - start[0]);
+//  const arrowSize = 6;
+//
+//  // Points for arrows on the line ends
+//  const arrowPoints = (x: number, y: number, offsetAngle: number): string =>
+//    [
+//      `${x},${y}`,
+//      `${x - arrowSize * Math.cos(angle + offsetAngle)},${
+//        y - arrowSize * Math.sin(angle + offsetAngle)
+//      }`,
+//    ].join(" ");
+//
+//  return (
+//    <g
+//      onMouseEnter={() => onHover && onHover(id)}
+//      onMouseLeave={() => onHover && onHover(null)}
+//      style={{ cursor: "pointer" }}
+//    >
+//      {/* Dimension line */}
+//      <line
+//        x1={start[0]}
+//        y1={start[1]}
+//        x2={end[0]}
+//        y2={end[1]}
+//        stroke={isFocused ? color.highlight : color.dim}
+//        strokeWidth={2}
+//      />
+//      {/* Arrows */}
+//      <polygon
+//        points={arrowPoints(start[0], start[1], Math.PI / 6)}
+//        fill={isFocused ? color.highlight : color.dim}
+//      />
+//      <polygon
+//        points={arrowPoints(start[0], start[1], -Math.PI / 6)}
+//        fill={isFocused ? color.highlight : color.dim}
+//      />
+//      <polygon
+//        points={arrowPoints(end[0], end[1], Math.PI - Math.PI / 6)}
+//        fill={isFocused ? color.highlight : color.dim}
+//      />
+//      <polygon
+//        points={arrowPoints(end[0], end[1], Math.PI + Math.PI / 6)}
+//        fill={isFocused ? color.highlight : color.dim}
+//      />
+//      {/* Label */}
+//      <text
+//        x={midX}
+//        y={midY - 8}
+//        fill={isFocused ? color.highlight : color.dim}
+//        fontSize={12}
+//        fontFamily="Arial"
+//        textAnchor="middle"
+//        pointerEvents="none"
+//      >
+//        {label}
+//      </text>
+//    </g>
+//  );
+//};
+
+
+//
+//
+//const [convFact, setConvFact] = useState(1);
+//
+//const convertedParams = useMemo(() => {
+//  const factor = unit === "m" ? convMeters.m : unit === "in" ? convMeters.in : convMeters.mm;
+//
+//  setConvFact(factor);
+//
+//  return {
+//    ...params,
+//    w1: params.w1 * factor,
+//    e1: params.e1 * factor,
+//    w2: params.w2 * factor,
+//    e2: params.e2 * factor,
+//    D: params.D * factor,
+//    Dp: params.Dp * factor,
+//    t1: params.t1 * factor,
+//    t2: params.t2 * factor,
+//    gap: params.gap * factor,
+//  };
+//}, [params, unit]);
+//
+//params = convertedParams;
+//
+////const toggleUnit = () => {
+////  setUnit((prev) => {
+////    const nextUnit = prev === "m" ? "in" : prev === "in" ? "mm" : "m";
+////    setConvFact(
+////      nextUnit === "m" ? convMeters.m : nextUnit === "in" ? convMeters.in : convMeters.mm,
+////    );
+////    return nextUnit;
+////  });
+////};
+
+// Compute front view height
+
+//params.w1 = params.w1 * convFact;
+//params.e1 = params.e1 * convFact;
+//params.w2 = params.w2 * convFact;
+//params.e2 = params.e2 * convFact;
+//params.D = params.D * convFact;
+//params.Dp = params.Dp * convFact;
+//params.t1 = params.t1 * convFact;
+//params.t2 = params.t2 * convFact;
+//params.gap = params.gap * convFact;

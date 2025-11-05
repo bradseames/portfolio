@@ -32,8 +32,8 @@ const ResponsiveMultiLineChart: React.FC<Props> = ({ data }) => {
 
   // Logical chart size for viewBox
   const WIDTH = 600;
-  const HEIGHT = 400;
-  const MARGIN = { top: 20, right: 140, bottom: 50, left: 50 };
+  const HEIGHT = 300;
+  const MARGIN = { top: 50, right: 150, bottom: 50, left: 50 };
 
   // Function to interpolate y for given x in a series
   function interpolateY(series: DataPoint[], x: number): number | null {
@@ -133,13 +133,14 @@ const ResponsiveMultiLineChart: React.FC<Props> = ({ data }) => {
           .attr("d", (d) => line(d.values))
           //.call((enter) => enter.transition().duration(700).attr("opacity", 1)),
           .call((enter) => enter.attr("opacity", 1)),
-      (update) =>
-        update.call((update) =>
+      (update) => {
+        update.call((update) => {
           update
             //.transition()
             //.duration(700)
-            .attr("d", (d) => line(d.values)),
-        ),
+            .attr("d", (d) => line(d.values));
+        });
+      },
 
       //(exit) => exit.call((exit) => exit.transition().duration(700).attr("opacity", 0).remove()),
       (exit) => exit.call((exit) => exit.remove()),
@@ -333,7 +334,7 @@ const ResponsiveMultiLineChart: React.FC<Props> = ({ data }) => {
     <div style={{ width: "100%", height: "100%", position: "relative" }} ref={containerRef}>
       <svg
         ref={svgRef}
-        style={{ width: "100%", height: "400px", display: "block" }}
+        style={{ width: "100%", height: "100%", display: "block" }}
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         preserveAspectRatio="none"
       />

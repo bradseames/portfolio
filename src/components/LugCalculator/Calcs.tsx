@@ -1,35 +1,32 @@
-import { type LugParams, type Allowables } from './types';
+import { type LugParams, type Allowables } from "./types";
 //import { type DataPoint } from '../../data/types';
-import {
-  linearInterpolatedObject,
-  linearInterpolate,
-} from '../../data/data_functions';
-import { Kb_data, K_data } from '../../components/LugCalculator/coeff_data';
-import * as d3 from 'd3';
+import { linearInterpolatedObject, linearInterpolate } from "../../data/data_functions";
+import { Kb_data, K_data, Kn_data } from "../../components/LugCalculator/coeff_data";
+import * as d3 from "d3";
+import { interpolateKFull } from "./coeff_interp";
 
 // ---------- Defaults ----------
 interface LugProps {
-  t: number,
-  D: number,
-  e: number,
-  w: number,
-  w_t: number,
-  F_tu: number,
-  F_ty: number,
-  E: number,
-  e_u: number
+  t: number;
+  D: number;
+  e: number;
+  w: number;
+  w_t: number;
+  F_tu: number;
+  F_ty: number;
+  E: number;
+  e_u: number;
 }
 
 interface PinProps {
-  Dp: number,
-  t1: number,
-  t2: number,
-  E: number,
-  Ftu: number,
-  Fty: number,
-  Fsu: number,
+  Dp: number;
+  t1: number;
+  t2: number;
+  E: number;
+  Ftu: number;
+  Fty: number;
+  Fsu: number;
 }
-
 
 interface assemProps {
   pin: PinProps;
@@ -40,56 +37,53 @@ interface assemProps {
 }
 
 export interface Result {
-  Anet: number;           // net-tension area of the critical plate
-  Abearing_each: number;  // projected bearing area per interface (t * Dp)
+  Anet: number; // net-tension area of the critical plate
+  Abearing_each: number; // projected bearing area per interface (t * Dp)
   Abearing_total: number; // sum over interfaces (depends on mode)
-  Apin_shear: number;     // pin shear area (single or double shear)
+  Apin_shear: number; // pin shear area (single or double shear)
   P_net_tension: number;
   P_bearing_lug: number;
   P_us_p: number;
-  P_governing: number;    // min of the above
+  P_governing: number; // min of the above
   warnings: string[];
 }
 
 export const DEFAULT_PARAMS: LugParams = {
-  mode: 'double',
-  units: 'in',
-  Dp: Number(1.00),
-  D: Number(1.00),
-  w1: Number(3.00),
-  w2: Number(3.50),
-  e1: Number(1.50),
+  mode: "double",
+  units: "in",
+  Dp: Number(1.0),
+  D: Number(1.0),
+  w1: Number(3.0),
+  w2: Number(3.5),
+  e1: Number(1.5),
   e2: Number(1.75),
-  t1: Number(0.50),
+  t1: Number(0.5),
   t2: Number(0.75),
-  g: Number(0.010),
+  g: Number(0.01),
 };
 
 export const DEFAULT_ALLOW: Allowables = {
   // Female Lugs, 1 (Outer)   | Al 2024-T351 Plate
-  units: 'psi',
-  F_tux_1: 64000,                  // ksi
-  F_tyx_1: 40000,                  // ksi
-  E_1: 10500000,                   // ksi
-  e_u_1: 0.12,                     // in/in
+  units: "psi",
+  F_tux_1: 64000, // ksi
+  F_tyx_1: 40000, // ksi
+  E_1: 10500000, // ksi
+  e_u_1: 0.12, // in/in
   // Male Lug, 2 (Inner)      | Al 7075-T651 Plate
-  F_tux_2: 77000,                   // psi
-  F_tyx_2: 66000,                   // psi
-  E_2: 10300000,                    // psi
-  e_u_2: 0.06,                   // in/in
+  F_tux_2: 77000, // psi
+  F_tyx_2: 66000, // psi
+  E_2: 10300000, // psi
+  e_u_2: 0.06, // in/in
   // Bushings, 1 and 2        | Al Bronze
-  F_tu_bush: 110000,                // psi
-  F_ty_bush: 60000,                 // psi
-  F_cy_bush: 60000,                 // psi
+  F_tu_bush: 110000, // psi
+  F_ty_bush: 60000, // psi
+  F_cy_bush: 60000, // psi
   // Pin                      | 4130 Steel
-  F_tu_pin: 125000,                // psi
-  F_ty_pin: 103000,                // psi
-  F_su_pin: 82000,                 // psi
-  E_pin: 29000000,                 // psi
+  F_tu_pin: 125000, // psi
+  F_ty_pin: 103000, // psi
+  F_su_pin: 82000, // psi
+  E_pin: 29000000, // psi
 };
-
-function Kn(D_w: number, F_ty_Ftu: number, Ftu_Eeu: number) {
-}
 
 function K(e_D: number, D_t: number, a_D: number) {
   e_D = Number(e_D);
@@ -97,48 +91,53 @@ function K(e_D: number, D_t: number, a_D: number) {
   a_D = Number(a_D);
   console.log(e_D, D_t, a_D);
   if (D_t <= 5) {
-    let k = linearInterpolatedObject(K_data, 'eD', 'K', Number(e_D));
+    let k = linearInterpolatedObject(K_data, "eD", "K", Number(e_D));
     console.log(k);
     return k;
   } else {
     let Kb_series = [
-      { Dt: 2, series: 'Dt_2' },
-      { Dt: 3, series: 'Dt_3' },
-      { Dt: 4, series: 'Dt_4' },
-      { Dt: 5, series: 'Dt_5' },
-      { Dt: 6, series: 'Dt_6' },
-      { Dt: 7, series: 'Dt_7' },
-      { Dt: 8, series: 'Dt_8' },
-      { Dt: 9, series: 'Dt_9' },
-      { Dt: 10, series: 'Dt_10' },
-      { Dt: 15, series: 'Dt_15' },
-      { Dt: 20, series: 'Dt_20' },
-      { Dt: 25, series: 'Dt_25' },
-      { Dt: 30, series: 'Dt_30' },
+      { Dt: 2, series: "Dt_2" },
+      { Dt: 3, series: "Dt_3" },
+      { Dt: 4, series: "Dt_4" },
+      { Dt: 5, series: "Dt_5" },
+      { Dt: 6, series: "Dt_6" },
+      { Dt: 7, series: "Dt_7" },
+      { Dt: 8, series: "Dt_8" },
+      { Dt: 9, series: "Dt_9" },
+      { Dt: 10, series: "Dt_10" },
+      { Dt: 15, series: "Dt_15" },
+      { Dt: 20, series: "Dt_20" },
+      { Dt: 25, series: "Dt_25" },
+      { Dt: 30, series: "Dt_30" },
     ];
 
     let bounding_data = [
-      Kb_series[d3.bisectLeft(Kb_series.map((d) => d.Dt), D_t)],
-      Kb_series[d3.bisectRight(Kb_series.map((d) => d.Dt), D_t)],
+      Kb_series[
+        d3.bisectLeft(
+          Kb_series.map((d) => d.Dt),
+          D_t,
+        )
+      ],
+      Kb_series[
+        d3.bisectRight(
+          Kb_series.map((d) => d.Dt),
+          D_t,
+        )
+      ],
     ];
 
     console.log(bounding_data[0]);
     console.log(bounding_data[2]);
 
-    let kb1 = linearInterpolatedObject(Kb_data, 'a_D', bounding_data[0]['series'], a_D);
-    let kb2 = linearInterpolatedObject(Kb_data, 'a_D', bounding_data[1]['series'], a_D);
+    let kb1 = linearInterpolatedObject(Kb_data, "a_D", bounding_data[0]["series"], a_D);
+    let kb2 = linearInterpolatedObject(Kb_data, "a_D", bounding_data[1]["series"], a_D);
     console.log(kb1);
     console.log(kb2);
-    return linearInterpolate(bounding_data[0]['Dt'], kb1, bounding_data[1]['Dt'], kb2, D_t);
+    return linearInterpolate(bounding_data[0]["Dt"], kb1, bounding_data[1]["Dt"], kb2, D_t);
   }
 }
 
-function bushing_calcs() {
-
-}
-
 function lug_calcs(props: LugProps) {
-
   const t = Number(props.t);
   const D = Number(props.D);
   const e = Number(props.e);
@@ -173,12 +172,12 @@ function lug_calcs(props: LugProps) {
   const Ftu_Eeu_ratio = F_tu / (E * e_u);
 
   const k = K(e_D_ratio, D_t_ratio, a_D_ratio);
-  const k_n = 1.2;
+  const k_n = interpolateKFull(Kn_data, Fty_Ftu_ratio, D_w_ratio, Ftu_Eeu_ratio);
   //Kn(D_w_ratio, Fty_Ftu_ratio, Ftu_Eeu_ratio);
   //const k_tru;
   //const k_try = linearInterpolatedObject();
 
-  let F_br_small_eD = ((e_D_ratio < 1.5) ? (a / D) : 1);
+  let F_br_small_eD = e_D_ratio < 1.5 ? a / D : 1;
 
   let F_bry_L = k * F_ty * F_br_small_eD;
   let F_bru_L = k * F_tu * F_br_small_eD;
@@ -271,13 +270,12 @@ function pin_calcs(props: PinProps) {
   let Fty = props.Fty;
   let Fsu = props.Fsu;
 
-  let Psu = 1.571 * Dp ^ 2 * Fsu;
+  let Psu = (((2 * 3.14) / 4) * Dp) ^ (2 * Fsu);
   let kbp = 1.5;
-  let Mup = 0.0982 * kbp * Dp ^ 3 * Ftu;
+  let Mup = (0.0982 * kbp * Dp) ^ (3 * Ftu);
 
   //let Marm = t1 / 2 + t2 / 4\\+ g;
   //let Pubp = (0.1963 * kbp * Dp ^ 3 * Ftu) / Marm;
-
 }
 
 export function calcs(params: LugParams, allow: Allowables) {
@@ -328,5 +326,3 @@ export function calcs(params: LugParams, allow: Allowables) {
   //P_governing = Math.min(P_net_tension, P_bearing_lug, P_us_p);
   return lug1;
 }
-
-

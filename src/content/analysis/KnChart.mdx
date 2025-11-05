@@ -1,4 +1,13 @@
-import KnChart from '../../components/LugCalculator/coeff_data.tsx'
+import { KnChart, KChart, KbChart } from '../../components/LugCalculator/coeff_data.tsx'
 
-
-<KnChart w="100%" h={400} />
+<Group>
+  <Card w={700} h={300} mx='auto'>
+    <KChart w="100%" h="100%" />
+  </Card>
+  <Card w={700} h={300} mx='auto'>
+    <KbChart w="100%" h="100%" />
+  </Card>
+  <Card w={700} h={300} mx='auto'>
+    <KnChart w="100%" h="100%" />
+  </Card>
+</Group>

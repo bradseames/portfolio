@@ -29,14 +29,9 @@ import { KChart, KbChart, KnChart } from "../components/LugCalculator/coeff_data
 import LugDoc from "../content/analysis/lug/00-0-lug-analysis.mdx";
 import { useMDXComponents } from "../components/mdx-components";
 import classes from "./dashboard.module.css";
-import Subgrid from "../components/Grids/SubGrid";
-//import StressContour from "../components/viz/StressContour";
-//import ConceptMap from '../components/viz/ConceptMap';
-//import { ParentCalculatorPage } from "../components/LugCalculator/calc1/LugParent";
+
 import ResponsiveMultiLineChart from "../components/viz/ResponsiveMultiLineChart";
 import LugCalculator from "../components/LugCalculator/LugDrawing";
-import { DEFAULT_PARAMS } from "../components/LugCalculator/Calcs";
-import Example from "../components/viz/ScalableDimensions";
 
 export default function Dashboard() {
   const { ref, width, height } = useElementSize();
@@ -49,14 +44,8 @@ export default function Dashboard() {
     console.log(FnuL, FnyL, PnuL);
   }
 
-  //const items = tabs.map((tab) => (
-  //  <Tabs.Tab value={tab} key={tab}>
-  //    {tab}
-  //  </Tabs.Tab>
-  //));
-
   return (
-    <Group bg="none" h="100%" w="100%" p={0}>
+    <Group bg="none" h="100%" w="100%" p={0} ref={ref}>
       {/*<Title order={2}>Engineering Dashboard</Title>*/}
       <Tabs
         defaultValue="charts"
@@ -88,7 +77,7 @@ export default function Dashboard() {
           </Group>
 
           <Group h={"100%"} w="100%">
-            <ScrollArea offsetScrollbars="y" w="100%" h={450} m="auto">
+            <ScrollArea offsetScrollbars="y" w="100%" h={500} m="auto">
               <Tabs.Panel value="charts" w="100%" p={0} m={0}>
                 <Group p={0} m={"auto"} w="100%">
                   <Group bg="green.5" p={0} m={"auto"} w={"45%"}>
@@ -186,13 +175,41 @@ export default function Dashboard() {
                   }
                 </Group>
               </Tabs.Panel>
-              {/*<Tabs.Panel value="svg">{<LugCalculator />}</Tabs.Panel>*/}
+
               <Tabs.Panel value="svg">
-                <Group>
-                  <Group>{<LugCalculator />}</Group>
+                <Group w={800} h={height} mx="auto" bg="blue">
+                  {<LugCalculator />}
                 </Group>
               </Tabs.Panel>
               <Tabs.Panel value="contact">
+                <Group h={250}>
+                  {
+                    <ResponsiveMultiLineChart
+                      data={[
+                        {
+                          name: "test1",
+                          values: [
+                            { x: 0, y: 0 },
+                            { x: 1, y: 1 },
+                            { x: 2, y: 4 },
+                            { x: 3, y: 9 },
+                            { x: 4, y: 16 },
+                          ],
+                        },
+                        {
+                          name: "test2",
+                          values: [
+                            { x: 0, y: 0 },
+                            { x: 1, y: 12 },
+                            { x: 2, y: 2 },
+                            { x: 3, y: 5 },
+                            { x: 4, y: 10 },
+                          ],
+                        },
+                      ]}
+                    />
+                  }
+                </Group>
                 <Card p={16} maw={300}>
                   {<GetInTouch />}
                 </Card>
@@ -213,12 +230,12 @@ export default function Dashboard() {
                 </Group>
               </Tabs.Panel>
               <Tabs.Panel value="stress">
-                <Group p={16} w={"100%"}>
+                <Group p={16} h={250}>
                   {<InteractiveStressContour />}
                 </Group>
               </Tabs.Panel>
               <Tabs.Panel value="stress_contour">
-                <Group p={16} w={"100%"}>
+                <Group p={16} h={"100%"}>
                   {
                     <TableOfContents
                       variant="filled"

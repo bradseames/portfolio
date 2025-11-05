@@ -53,7 +53,7 @@ export default function CarouselComponent({ slides }: { slides: React.ReactNode 
       >
         {slides}
       </Carousel>
-      <Progress value={scrollProgress} maw={320} size="sm" mt="xl" mx="auto" />
+      <Progress value={scrollProgress} maw={300} size="sm" mt="xl" mx="auto" />
     </>
   );
 }

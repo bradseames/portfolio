@@ -14,6 +14,9 @@ type Pages = {
   "/": {
     params: {};
   };
+  "/home": {
+    params: {};
+  };
   "/dashboard": {
     params: {};
   };
@@ -37,15 +40,19 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/dashboard" | "/lug" | "/docs/:category/:subject?/:name" | "/*";
+    page: "/" | "/home" | "/dashboard" | "/lug" | "/docs/:category/:subject?/:name" | "/*";
   };
   "app/LayoutShell.tsx": {
     id: "app/LayoutShell";
-    page: "/" | "/dashboard" | "/lug" | "/docs/:category/:subject?/:name" | "/*";
+    page: "/" | "/home" | "/dashboard" | "/lug" | "/docs/:category/:subject?/:name" | "/*";
+  };
+  "routes/TabView.tsx": {
+    id: "routes/TabView";
+    page: "/";
   };
   "pages/home.tsx": {
     id: "pages/home";
-    page: "/";
+    page: "/home";
   };
   "routes/Dashboard.tsx": {
     id: "routes/Dashboard";
@@ -68,6 +75,7 @@ type RouteFiles = {
 type RouteModules = {
   "root": typeof import("./../src/root.tsx");
   "app/LayoutShell": typeof import("./../src/app/LayoutShell.tsx");
+  "routes/TabView": typeof import("./../src/routes/TabView.tsx");
   "pages/home": typeof import("./../src/pages/home.tsx");
   "routes/Dashboard": typeof import("./../src/routes/Dashboard.tsx");
   "components/LugCalculator/LugCalculator": typeof import("./../src/components/LugCalculator/LugCalculator.tsx");

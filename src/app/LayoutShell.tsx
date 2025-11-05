@@ -37,6 +37,7 @@ export default function LayoutShell() {
         <AppShell.Section id="navBody" grow component={ScrollArea}>
           <NavLink label="Home" href="/" />
           <NavLink label="Dashboard" href="/dashboard/" />
+          <NavLink label="Tabs" href="/tabs/" />
           <NavLink label="Lug" href="/lug/" />
           <NavLink label="Docs" href="/docs/analysis/lug/00-0-lug-analysis" />
         </AppShell.Section>

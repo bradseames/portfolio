@@ -105,7 +105,7 @@ function interpolateAlongFty_E_eu(
 }
 
 // Main function: interpolate K given inputs
-function interpolateKFull(
+export function interpolateKFull(
   data: KnEntry[],
   Fty_Ftu_val: number,
   Dw_val: number,

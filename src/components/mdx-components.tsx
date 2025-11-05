@@ -64,6 +64,7 @@ import CalculationForm from "./Forms/CalculationForm";
 import InteractiveStressContour from "./viz/InteractiveStressContour";
 import LugCalculator from "./LugCalculator/LugCalculator";
 import LugChart from "./LugCalculator/calc1/LugChart";
+import { KnChart, KChart, KbChart } from "../components/LugCalculator/coeff_data";
 
 /**
  * Maps standard HTML elements (and custom tags) to their corresponding Mantine components.
@@ -105,6 +106,9 @@ export const components: MDXComponents = {
   InteractiveStressContour,
   LugCalculator,
   LugChart,
+  KnChart,
+  KChart,
+  KbChart,
 
   // Mantine components directly by name
   Button: Button,
