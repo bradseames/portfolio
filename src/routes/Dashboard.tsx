@@ -8,29 +8,35 @@ import {
   CardSection,
   Group,
   ScrollArea,
-  Collapse,
+  TableOfContents,
 } from "@mantine/core";
-import LugDoc from "../content/analysis/lug/00-0-lug-analysis.mdx";
-import InteractiveStressContour from "../components/viz/InteractiveStressContour";
-import StressContour from "../components/viz/StressContour";
-//import ConceptMap from '../components/viz/ConceptMap';
-//import { lugStressData , type } from
-// '../components/LugCalculator/lugStressData';
-import LinePlot from "../components/viz/Charts/LinePlot";
+
+import { useState, useRef } from "react";
+import { useElementSize, useDisclosure, useHeadroom } from "@mantine/hooks";
+
+import GetInTouch from "../components/Forms/GetInTouch";
+import LugCalculatorForm from "../components/LugCalculator/calc1/LugCalculatorForm";
+import CalculationForm, { type LugInputs } from "../components/Forms/CalculationForm";
+
 import UsersTable from "../components/Tables/UserTable";
 import SelectTable from "../components/Tables/SelectTable";
-import LugCalculatorForm from "../components/LugCalculator/LugCalculatorForm";
+
+import InteractiveStressContour from "../components/viz/InteractiveStressContour";
+import LinePlot from "../components/viz/Charts/LinePlot";
+
 import { KChart, KbChart, KnChart } from "../components/LugCalculator/coeff_data";
-import GetInTouch from "../components/Forms/GetInTouch";
-import LugCalculator from "../components/LugCalculator/LugCalculator";
-import CalculationForm, { type LugInputs } from "../components/Forms/CalculationForm";
-import classes from "./dashboard.module.css";
-import { useState, useRef } from "react";
-import { useElementSize } from "@mantine/hooks";
-import { useHeadroom } from "@mantine/hooks";
-import { useDisclosure } from "@mantine/hooks";
+//import LugCalculator from "../components/LugCalculator/LugCalculator";
+import LugDoc from "../content/analysis/lug/00-0-lug-analysis.mdx";
 import { useMDXComponents } from "../components/mdx-components";
-import { TableOfContents } from "@mantine/core";
+import classes from "./dashboard.module.css";
+import Subgrid from "../components/Grids/SubGrid";
+//import StressContour from "../components/viz/StressContour";
+//import ConceptMap from '../components/viz/ConceptMap';
+//import { ParentCalculatorPage } from "../components/LugCalculator/calc1/LugParent";
+import ResponsiveMultiLineChart from "../components/viz/ResponsiveMultiLineChart";
+import LugCalculator from "../components/LugCalculator/LugDrawing";
+import { DEFAULT_PARAMS } from "../components/LugCalculator/Calcs";
+import Example from "../components/viz/ScalableDimensions";
 
 export default function Dashboard() {
   const { ref, width, height } = useElementSize();
@@ -65,10 +71,11 @@ export default function Dashboard() {
           tab: classes.tab,
         }}
       >
-        <Card h="100%">
-          <CardSection bg="black">
+        <Group h="100%" w="100%">
+          <Group bg="black" w="100%">
             <Tabs.List>
               <Tabs.Tab value="charts">Charts</Tabs.Tab>
+              <Tabs.Tab value="calc">Calc</Tabs.Tab>
               <Tabs.Tab value="form1">Form 1</Tabs.Tab>
               <Tabs.Tab value="svg">SVG</Tabs.Tab>
               <Tabs.Tab value="contact">Contact Form</Tabs.Tab>
@@ -78,10 +85,10 @@ export default function Dashboard() {
               <Tabs.Tab value="stress">Stress</Tabs.Tab>
               <Tabs.Tab value="stress_contour">Stress Contour</Tabs.Tab>
             </Tabs.List>
-          </CardSection>
+          </Group>
 
-          <Group h={"100%"}>
-            <ScrollArea offsetScrollbars="y" w="100%" h={500} m="auto">
+          <Group h={"100%"} w="100%">
+            <ScrollArea offsetScrollbars="y" w="100%" h={450} m="auto">
               <Tabs.Panel value="charts" w="100%" p={0} m={0}>
                 <Group p={0} m={"auto"} w="100%">
                   <Group bg="green.5" p={0} m={"auto"} w={"45%"}>
@@ -128,20 +135,72 @@ export default function Dashboard() {
               </Tabs.Panel>
               <Tabs.Panel value="form1">
                 <Group p={16} w={"100%"}>
+                  {/*{<Subgrid />}*/}
                   {<CalculationForm onCalculate={calcs} isLoading={false} />}
                   {<LinePlot data={[1, 2, 5, 3, 2, 0]} />}
                 </Group>
               </Tabs.Panel>
-              <Tabs.Panel value="svg">{<LugCalculator />}</Tabs.Panel>
+
+              <Tabs.Panel value="calc">
+                <Group w={600} mx="auto" px="sm">
+                  {
+                    <ResponsiveMultiLineChart
+                      data={[
+                        //{
+                        //  name: "test1",
+                        //  values: [
+                        //    { x: 0, y: 0 },
+                        //    { x: 1, y: 1 },
+                        //    { x: 2, y: 4 },
+                        //    { x: 3, y: 9 },
+                        //    { x: 4, y: 16 },
+                        //    { x: 4, y: 0 },
+                        //    { x: 0, y: 0 },
+                        //  ],
+                        //},
+                        //{
+                        //  name: "test2",
+                        //  values: [
+                        //    { x: 0, y: 0 },
+                        //    { x: 1, y: 12 },
+                        //    { x: 2, y: 2 },
+                        //    { x: 3, y: 5 },
+                        //    { x: 4, y: 10 },
+                        //  ],
+                        //},
+                        {
+                          name: "lug",
+                          values: [
+                            { x: -2, y: 0 },
+                            { x: -2, y: -3 },
+                            { x: 2, y: -3 },
+                            { x: 2, y: 0 },
+                            { x: 1.4, y: 1.4 },
+                            { x: 0, y: 2 },
+                            { x: -1.4, y: 1.4 },
+                            { x: -2, y: 0 },
+                          ],
+                        },
+                      ]}
+                    />
+                  }
+                </Group>
+              </Tabs.Panel>
+              {/*<Tabs.Panel value="svg">{<LugCalculator />}</Tabs.Panel>*/}
+              <Tabs.Panel value="svg">
+                <Group>
+                  <Group>{<LugCalculator />}</Group>
+                </Group>
+              </Tabs.Panel>
               <Tabs.Panel value="contact">
-                <Box p={16} maw={300}>
+                <Card p={16} maw={300}>
                   {<GetInTouch />}
-                </Box>
+                </Card>
               </Tabs.Panel>
               <Tabs.Panel value="lug_form">
-                <Box p={16} maw={300}>
+                <Group p={16} maw={300}>
                   {<LugCalculatorForm onCalculate={calcLugLoads} />}
-                </Box>
+                </Group>
               </Tabs.Panel>
               <Tabs.Panel value="select_table">
                 <Group p={16} w={"100%"}>
@@ -180,7 +239,7 @@ export default function Dashboard() {
               </Tabs.Panel>
             </ScrollArea>
           </Group>
-        </Card>
+        </Group>
       </Tabs>
     </Group>
   );

@@ -3,6 +3,7 @@ import ColorToggle from "../components/Layouts/ColorToggle/ColorToggle";
 import { useDisclosure } from "@mantine/hooks";
 import { NavLink } from "@mantine/core";
 import { Outlet } from "react-router";
+import { HeaderTabs } from "../components/Layouts/HeaderTabs";
 
 export default function LayoutShell() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
@@ -18,6 +19,7 @@ export default function LayoutShell() {
         collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
       }}
     >
+      {/*<HeaderTabs />*/}
       <AppShell.Header>
         <Group h="100%" px="md" justify="space-between" align="stretch">
           <Group justify="flex-start" align="center">
@@ -30,7 +32,6 @@ export default function LayoutShell() {
           </Group>
         </Group>
       </AppShell.Header>
-
       <AppShell.Navbar>
         <AppShell.Section id="navHeader" />
         <AppShell.Section id="navBody" grow component={ScrollArea}>
@@ -41,7 +42,6 @@ export default function LayoutShell() {
         </AppShell.Section>
         <AppShell.Section id="navFooter" />
       </AppShell.Navbar>
-
       <AppShell.Main>
         <Outlet />
       </AppShell.Main>

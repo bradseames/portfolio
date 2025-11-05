@@ -63,7 +63,7 @@ import { MathBlock, MathLine } from "./Equations";
 import CalculationForm from "./Forms/CalculationForm";
 import InteractiveStressContour from "./viz/InteractiveStressContour";
 import LugCalculator from "./LugCalculator/LugCalculator";
-import LugChart from "./viz/LugChart";
+import LugChart from "./LugCalculator/calc1/LugChart";
 
 /**
  * Maps standard HTML elements (and custom tags) to their corresponding Mantine components.

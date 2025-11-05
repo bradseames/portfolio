@@ -86,9 +86,18 @@ export default function LugCalculator() {
   let res_data = { eD: Number(results.e_D_ratio), K1: Number(results.k) };
 
   return (
-    <Flex bg="grape" direction="row" m={0} p={0} wrap="nowrap" justify="stretch" align="flex-start">
+    <Flex
+      bg="grape"
+      w="100%"
+      direction="row"
+      m={0}
+      p={0}
+      wrap="nowrap"
+      justify="stretch"
+      align="flex-start"
+    >
       <Flex
-        w={400}
+        w={200}
         m={0}
         p={0}
         bg="teal"
@@ -456,11 +465,11 @@ export default function LugCalculator() {
         </Accordion>
       </Flex>
       <Container bg="lime" w="100%" h="calc(100dvh - var(--app-shell-header-height))">
-        <Card ref={ref} h="calc(80dvh - var(--app-shell-header-height))">
+        <Card ref={ref} w="100%" h="calc(80dvh - var(--app-shell-header-height))">
           {/*<Tabs>*/}
           {/*<CarouselEmbla></CarouselEmbla>*/}
 
-          <Tabs color="teal" defaultValue="first">
+          <Tabs color="teal" w="100%" defaultValue="first">
             <Tabs.List>
               <Tabs.Tab value="first">Lug Geometry</Tabs.Tab>
               <Tabs.Tab value="second" color="blue">
@@ -470,7 +479,7 @@ export default function LugCalculator() {
               <Tabs.Tab value="d3">D3</Tabs.Tab>
             </Tabs.List>
 
-            <Tabs.Panel value="first" pt={0} m={20}>
+            <Tabs.Panel w="100%" value="first" pt={0} m={20}>
               <LugSketch params={{ ...params }} allow={{ ...allow }} />
             </Tabs.Panel>
 

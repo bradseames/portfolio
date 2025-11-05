@@ -1174,3 +1174,87 @@ export function KnChart({
     </>
   );
 }
+
+type KnEntry = {
+  Fty_Ftu: number;
+  Dw: number;
+  [key: string]: number; // for Fty_E_eu_xx keys
+};
+
+// Utility: linear interpolation between two points
+function lerp(x: number, x0: number, y0: number, x1: number, y1: number): number {
+  if (x1 === x0) return y0; // avoid div by zero
+  return y0 + ((x - x0) * (y1 - y0)) / (x1 - x0);
+}
+
+// Find entries in Kn_data that match the given Fty_Ftu (bracketing low and high)
+function findBracketingFtyFtu(data: KnEntry[], target: number): [KnEntry[], KnEntry[]] {
+  const allFtyFtu = Array.from(new Set(data.map((d) => d.Fty_Ftu))).sort((a, b) => a - b);
+  let lowF = allFtyFtu[0];
+  let highF = allFtyFtu[allFtyFtu.length - 1];
+
+  for (let i = 0; i < allFtyFtu.length - 1; i++) {
+    if (target >= allFtyFtu[i] && target <= allFtyFtu[i + 1]) {
+      lowF = allFtyFtu[i];
+      highF = allFtyFtu[i + 1];
+      break;
+    }
+  }
+  const lowEntries = data.filter((d) => d.Fty_Ftu === lowF);
+  const highEntries = data.filter((d) => d.Fty_Ftu === highF);
+  return [lowEntries, highEntries];
+}
+
+// Similarly find bracketing Dw entries in an array with same Fty_Ftu
+function findBracketingDw(data: KnEntry[], target: number): [KnEntry, KnEntry] | null {
+  const sorted = data.sort((a, b) => a.Dw - b.Dw);
+  if (target <= sorted[0].Dw) return [sorted[0], sorted[0]];
+  if (target >= sorted[sorted.length - 1].Dw)
+    return [sorted[sorted.length - 1], sorted[sorted.length - 1]];
+
+  for (let i = 0; i < sorted.length - 1; i++) {
+    if (target >= sorted[i].Dw && target <= sorted[i + 1].Dw) {
+      return [sorted[i], sorted[i + 1]];
+    }
+  }
+  return null;
+}
+
+// Main interpolation function for given Fty_Ftu, Dw, Fty_E_key (like "Fty_E_eu_04")
+function interpolateK(
+  data: KnEntry[],
+  Fty_Ftu_val: number,
+  Dw_val: number,
+  Fty_E_key: string,
+): number | null {
+  const [lowFtyEntries, highFtyEntries] = findBracketingFtyFtu(data, Fty_Ftu_val);
+
+  // Interpolate at low Fty_Ftu
+  const lowDwPair = findBracketingDw(lowFtyEntries, Dw_val);
+  if (!lowDwPair) return null;
+  const lowK = lerp(
+    Dw_val,
+    lowDwPair[0].Dw,
+    lowDwPair[0][Fty_E_key],
+    lowDwPair[1].Dw,
+    lowDwPair[1][Fty_E_key],
+  );
+
+  // Interpolate at high Fty_Ftu
+  const highDwPair = findBracketingDw(highFtyEntries, Dw_val);
+  if (!highDwPair) return null;
+  const highK = lerp(
+    Dw_val,
+    highDwPair[0].Dw,
+    highDwPair[0][Fty_E_key],
+    highDwPair[1].Dw,
+    highDwPair[1][Fty_E_key],
+  );
+
+  // Interpolate between the two Fty_Ftu interpolated values
+  const ftyLow = lowFtyEntries[0].Fty_Ftu;
+  const ftyHigh = highFtyEntries[0].Fty_Ftu;
+  const K = lerp(Fty_Ftu_val, ftyLow, lowK, ftyHigh, highK);
+
+  return K;
+}

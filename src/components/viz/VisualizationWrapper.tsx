@@ -1,6 +1,6 @@
 // src/components/viz/VisualizationWrapper.tsx
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from "react";
 
 interface VizProps {
   data: any[];

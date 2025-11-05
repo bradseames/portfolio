@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Grid, Container } from "@mantine/core";
-import { type LugInputs } from "../Forms/CalculationForm";
-import CalculationForm from "../Forms/CalculationForm";
-import LugChart from "../viz/LugChart";
+import { type LugInputs } from "../../Forms/CalculationForm";
+import CalculationForm from "../../Forms/CalculationForm";
+import LugChart from "./LugChart";
 
 export const ParentCalculatorPage = () => {
   const [calculationData, setCalculationData] = useState({});
@@ -17,7 +17,7 @@ export const ParentCalculatorPage = () => {
       // Example output structure for your D3 chart:
       const newVizData = {
         length: Number(inputs.lugLength),
-        angle: Number(inputs.lugAngle),
+        angle: Number(inputs.lugAngle)
       };
 
       setCalculationData(newVizData);
@@ -33,7 +33,7 @@ export const ParentCalculatorPage = () => {
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 8 }}>
           {/* The output of the form drives the input of the chart */}
-          <LugChart lugData={calculationData} isLoading={isCalculating} />
+          <LugChart lugData={calculationData {4} {45}} isLoading={isCalculating} />
         </Grid.Col>
       </Grid>
     </Container>

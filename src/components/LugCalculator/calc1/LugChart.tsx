@@ -1,11 +1,7 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import { Box, Paper, Loader, Center } from "@mantine/core";
 // Import your D3 functions (to be created in the next step)
-import {
-  initLugChart,
-  updateLugChart,
-  cleanupLugChart,
-} from "../../components/LugCalculator/d3-lug-chart";
+import { initLugChart, updateLugChart, cleanupLugChart } from "../d3-lug-chart";
 
 interface LugData {
   length: number;
