@@ -56,7 +56,7 @@ export default function Dashboard() {
         }}
       >
         <Group w="100%">
-          <Group w="100%">
+          <Group w="100%" bg="black">
             <Tabs.List>
               <Tabs.Tab value="charts">Charts</Tabs.Tab>
               <Tabs.Tab value="calc">Calc</Tabs.Tab>

@@ -25,7 +25,7 @@ export default function LayoutShell() {
           <Group justify="flex-start" align="center">
             <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
-            <Text size="xl">Brad Seames</Text>
+            <Text size="xl">elucidesign</Text>
           </Group>
           <Group grow justify="flex-end" align="center">
             <ColorToggle />

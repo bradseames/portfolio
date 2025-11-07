@@ -7,6 +7,7 @@ import {
   SegmentedControl,
   Title,
   Text,
+  Combobox,
   Select,
   Stack,
   Tabs,
@@ -63,6 +64,32 @@ export const DEFAULT_ALLOW: Allowables = {
   E_pin: 29000000, // psi
 };
 
+const MaterialProps = {
+  "Al2024-T351 Plate": {
+    Ftu: 64000,
+    Fty: 40000,
+    E: 10500000,
+    strainUlt: 0.12,
+  },
+  "Al7075-T651 Plate": {
+    Ftu: 77000,
+    Fty: 66000,
+    E: 10300000,
+    strainUlt: 0.06,
+  },
+  "Al Bronze": {
+    Ftu: 110000,
+    Fty: 60000,
+    Fcy: 60000,
+  },
+  "4130 Steel": {
+    Ftu: 125000,
+    Fty: 103000,
+    Fsu: 82000,
+    E: 29000000,
+  },
+};
+
 export default function LugStrength() {
   const [params, setParams] = useState<LugParams>(DEFAULT_PARAMS);
   const [allow, setAllow] = useState<Allowables>(DEFAULT_ALLOW);
@@ -73,6 +100,7 @@ export default function LugStrength() {
   const [activeTab, setActiveTab] = useState<string | null>("first");
   console.log(params);
   console.log(unitL);
+  const [value, setValue] = useState<ComboboxItem | null>(null);
 
   function handleUnitChange(unit: LengthUnit) {
     setParams({
@@ -125,8 +153,9 @@ export default function LugStrength() {
 
   const { ref, width, height } = useElementSize();
   return (
-    <Group bg="none" w="100%" p={0} style={{ alignItems: "flex-start" }}>
+    <Group w="100%" p={0} style={{ alignItems: "flex-start" }}>
       <Tabs
+        bg="black"
         w="50%"
         pt={0}
         ml={"sm"}
@@ -223,7 +252,11 @@ export default function LugStrength() {
                   <Fieldset legend="Material">
                     <Select
                       label="Material Name"
-                      data={[{ value: "al-6061-t6", label: "Al 6061-T6" }]}
+                      //data={[{ value: "al-6061-t6", label: "Al 6061-T6" }]}
+                      data={Object.keys(MaterialProps)}
+                      value={value ? value.value : null}
+                      onChange={(_value, option) => setValue(option)}
+
                       //value={material ? material.value : null}
                       //onChange={(_value, option) => setMaterial(option)}
                     />
