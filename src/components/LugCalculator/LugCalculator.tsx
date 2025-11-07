@@ -4,12 +4,8 @@ import { Flex, NumberInput, SegmentedControl, Slider, Text, Tabs } from "@mantin
 import { useElementSize } from "@mantine/hooks";
 import { type Allowables, type LugParams } from "./types";
 import { DEFAULT_ALLOW, DEFAULT_PARAMS } from "./Calcs";
-import { LugSketch } from "./parametric_lug";
 import classes from "./lug.module.css";
 import { calcs } from "./Calcs";
-import { MathLine } from "../Equations";
-import { K_data } from "../LugCalculator/coeff_data";
-import LinePlot from "../viz/Charts/LinePlot";
 
 //import * as d3 from "d3";
 
@@ -82,8 +78,8 @@ export default function LugCalculator() {
 
   const { ref, width, height } = useElementSize();
   const results = calcs(params, allow);
-  let kd = K_data;
-  let res_data = { eD: Number(results.e_D_ratio), K1: Number(results.k) };
+  //let kd = K_data;
+  //let res_data = { eD: Number(results.e_D_ratio), K1: Number(results.k) };
 
   return (
     <Flex
@@ -464,66 +460,6 @@ export default function LugCalculator() {
           </Accordion.Item>
         </Accordion>
       </Flex>
-      <Container bg="lime" w="100%" h="calc(100dvh - var(--app-shell-header-height))">
-        <Card ref={ref} w="100%" h="calc(80dvh - var(--app-shell-header-height))">
-          {/*<Tabs>*/}
-          {/*<CarouselEmbla></CarouselEmbla>*/}
-
-          <Tabs color="teal" w="100%" defaultValue="first">
-            <Tabs.List>
-              <Tabs.Tab value="first">Lug Geometry</Tabs.Tab>
-              <Tabs.Tab value="second" color="blue">
-                Results
-              </Tabs.Tab>
-              <Tabs.Tab value="docs">Reference</Tabs.Tab>
-              <Tabs.Tab value="d3">D3</Tabs.Tab>
-            </Tabs.List>
-
-            <Tabs.Panel w="100%" value="first" pt={0} m={20}>
-              <LugSketch params={{ ...params }} allow={{ ...allow }} />
-            </Tabs.Panel>
-
-            <Tabs.Panel value="second" pt="xs">
-              <MathLine
-                tex={`P_u = ${results.P_u_L.toLocaleString("en-US").split(".", 1)}  \\ \\text{lb}`}
-              ></MathLine>
-
-              <MathLine
-                tex={`P_{nu} = ${results.P_nu_L.toLocaleString("en-US").split(
-                  ".",
-                  1,
-                )} \\ \\text{lb}`}
-              ></MathLine>
-
-              <MathLine
-                tex={`P_{bru} = ${results.P_bru_L.toLocaleString("en-US").split(
-                  ".",
-                  1,
-                )}  \\ \\text{lb}`}
-              ></MathLine>
-
-              <MathLine
-                tex={`P_T = ${results.P_T_L.toLocaleString("en-US").split(".", 1)} \\ \\text{lb}`}
-              ></MathLine>
-            </Tabs.Panel>
-
-            <Tabs.Panel value="d3" pt="xs">
-              <LinePlot
-                data={[1, 2, 4, 6, 4]}
-                width={600}
-                height={300}
-                marginTop={20}
-                marginRight={20}
-                marginBottom={20}
-                marginLeft={20}
-              ></LinePlot>
-            </Tabs.Panel>
-          </Tabs>
-
-          {/*</Tabs>*/}
-        </Card>
-      </Container>
-      ;
     </Flex>
   );
 }

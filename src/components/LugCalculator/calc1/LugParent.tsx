@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Grid, Container } from "@mantine/core";
-import { type LugInputs } from "../../Forms/CalculationForm";
-import CalculationForm from "../../Forms/CalculationForm";
+import { type LugInputs } from "../../Forms/PinInputForm";
+import CalculationForm from "../../Forms/PinInputForm";
 import LugChart from "./LugChart";
 
 export const ParentCalculatorPage = () => {

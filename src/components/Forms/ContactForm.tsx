@@ -1,5 +1,5 @@
 import { Button, Group, SimpleGrid, Textarea, TextInput, Title } from "@mantine/core";
-import { useForm, type UseFormReturnType, hasLength, isEmail } from "@mantine/form";
+import { useForm, type UseFormReturnType, isEmail } from "@mantine/form";
 import { useUncontrolled } from "@mantine/hooks";
 
 interface FormValues {
@@ -66,7 +66,7 @@ function MessageInput({ form }: { form: UseFormReturnType<FormValues> }) {
   );
 }
 
-export default function GetInTouch() {
+export default function ContactForm() {
   const form = useForm<FormValues>({
     mode: "uncontrolled",
     initialValues: {
@@ -81,7 +81,6 @@ export default function GetInTouch() {
       subject: (value) => value.trim().length === 0,
     },
     onValuesChange: (values) => {
-      // ✅ This will be called on every form values change
       console.log(values);
     },
   });

@@ -91,7 +91,8 @@ const experience = [
         end: "08/2018",
         months: 24,
         accomplishments: [
-          "Led the technical transition to Microsoft Dynamics CRM by designing custom workflows, automating business processes, andintegrating SharePoint document storage",
+          "Led the technical transition to Microsoft Dynamics CRM by designing custom workflows," +
+            " automating business processes, and integrating SharePoint document storage",
           "Led cross-functional Lean initiatives, deploying a configuration-controlled Standard Work SharePoint library to enforce standardized workflows across departments",
           "Consolidated 22 legacy SharePoint sites into a unified, searchable platform, increasing data access and team productivity",
         ],

@@ -4,7 +4,7 @@ import { Container } from "@mantine/core";
 
 export default function Home() {
   return (
-    <Container w="50%">
+    <Container w="70%">
       <LugCalculator />
     </Container>
   );

@@ -1,5 +1,4 @@
 import { Divider, Center, Image, Group, Container, Text } from "@mantine/core";
-import Experience from "../../content/portfolio/Experience";
 
 const skill_groups = [
   {

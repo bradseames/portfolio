@@ -29,7 +29,7 @@ export const LugSketch: React.FC<SketchProps> = ({ params, allow }) => {
   const maxWidth = Math.max(params.w1, params.w2);
   const totalThk =
     params.mode === LugMode.double
-      ? params.t1 * 2 + params.g * 2 + params.t2
+      ? params.t1 * 2 + params.gap * 2 + params.t2
       : params.t1 + params.t2;
 
   const maxHeight = Math.max(params.e1, params.e2) * 1.5 * 2;
@@ -618,7 +618,7 @@ export const LugSketch: React.FC<SketchProps> = ({ params, allow }) => {
             <g
               transform={
                 "translate(" +
-                (xSideCenter + params.t2 / 2 + params.t1 / 2 + params.g) +
+                (xSideCenter + params.t2 / 2 + params.t1 / 2 + params.gap) +
                 ", " +
                 yBottom +
                 ")"

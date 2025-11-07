@@ -60,7 +60,7 @@ import {
 import { MathBlock, MathLine } from "./Equations";
 
 // Import custom visualization components
-import CalculationForm from "./Forms/CalculationForm";
+import CalculationForm from "./Forms/PinInputForm";
 import InteractiveStressContour from "./viz/InteractiveStressContour";
 import LugCalculator from "./LugCalculator/LugCalculator";
 import LugChart from "./LugCalculator/calc1/LugChart";

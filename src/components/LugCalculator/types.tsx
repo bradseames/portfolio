@@ -1,41 +1,58 @@
-export enum LugMode {single = 'single', double = 'double'}
+export enum LugMode {
+  single = "single",
+  double = "double",
+}
 
-export enum UnitMode {english = 'english', metric = 'metric'}
+export enum UnitSystem {
+  imperial = "imperial",
+  metric = "metric",
+}
+
+export enum LengthUnit {
+  m = "m",
+  in = "in",
+  mm = "mm",
+}
+
+export enum StressUnit {
+  psi = "psi",
+  Pa = "Pa",
+}
 
 export interface LugParams {
-  mode: LugMode | string;      // single or double shear
-  units: UnitMode | string;
+  //mode: LugMode | string; // single or double shear
+  lengthUnit?: LengthUnit;
 
-  Dp: number;         // Pin diameter
-  D: number;          // Lug hole diameter
+  Dp: number; // Pin diameter
+  D: number; // Lug hole diameter
 
-  w1: number;         // Outer plate width (each side)
-  e1: number;         // Edge distance (hole center to free end)
-  t1: number;         // Outer plate thickness (single: the plate)
+  w1: number; // Outer plate width (each side)
+  e1: number; // Edge distance (hole center to free end)
+  t1: number; // Outer plate thickness (single: the plate)
 
-  w2: number;        // Center plate width (double only)
+  w2: number; // Center plate width (double only)
   e2: number;
-  t2: number;        // Center plate thickness (double shear only)
+  t2: number; // Center plate thickness (double shear only)
 
-  g: number;         // Gap between outer plates (double shear)
+  gap: number; // Gap between outer plates (double shear)
 }
 
 export interface Allowables {
   units: string;
   F_tux_1: number;
   F_tyx_1: number;
-  E_1: number;          // Modulus of elasticity, psi
-  e_u_1: number;        // Strain, inches/inch
+  E_1: number; // Modulus of elasticity, psi
+  e_u_1: number; // Strain, inches/inch
   F_tux_2: number;
   F_tyx_2: number;
-  E_2: number;         // Modulus of elasticity, psi
-  e_u_2: number;       // Strain, inches/inch
+  E_2: number; // Modulus of elasticity, psi
+  e_u_2: number; // Strain, inches/inch
   F_tu_bush: number;
-  F_ty_bush: number;   // Allowable bearing yield stress for bushings
-  F_cy_bush: number;   // Bushing compressive yield, stress
-  F_tu_pin: number;     // Pin ultimate tensile stress
+  F_ty_bush: number; // Allowable bearing yield stress for bushings
+  F_cy_bush: number; // Bushing compressive yield, stress
+  F_tu_pin: number; // Pin ultimate tensile stress
   F_ty_pin: number;
-  F_su_pin: number;     // Ultimate shear stress of the pin material
+  F_su_pin: number; // Ultimate shear stress of the pin material
   E_pin: number;
 }
 
@@ -51,6 +68,7 @@ export interface SketchProps {
   //style?: React.CSSProperties;
 }
 
+
 // interface NumberSlideProps {
 //   label: string;
 //   value: number;
@@ -63,3 +81,4 @@ export interface SketchProps {
 //   allowNegative: boolean;
 //   fixedDecimalScale: boolean;
 // }
+

@@ -1,8 +1,5 @@
-.card {
-  background-color: light-dark(
-      var(--mantine-color-gray-0),
-      var(--mantine-color-dark-6)
-  );
+.Card {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
 }
 
 .title {
@@ -19,7 +16,9 @@
   border-radius: var(--mantine-radius-md);
   height: 90px;
   background-color: var(--mantine-color-body);
-  transition: box-shadow 150ms ease, transform 100ms ease;
+  transition:
+    box-shadow 150ms ease,
+    transform 100ms ease;
 
   @mixin hover {
     box-shadow: var(--mantine-shadow-md);

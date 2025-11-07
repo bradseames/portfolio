@@ -14,9 +14,8 @@ import {
 import { useState, useRef } from "react";
 import { useElementSize, useDisclosure, useHeadroom } from "@mantine/hooks";
 
-import GetInTouch from "../components/Forms/GetInTouch";
-import LugCalculatorForm from "../components/LugCalculator/calc1/LugCalculatorForm";
-import CalculationForm, { type LugInputs } from "../components/Forms/CalculationForm";
+import ContactForm from "../components/Forms/ContactForm";
+import LugCalculatorForm from "../_archive/LugCalculatorForm";
 
 import UsersTable from "../components/Tables/UserTable";
 import SelectTable from "../components/Tables/SelectTable";
@@ -25,20 +24,16 @@ import InteractiveStressContour from "../components/viz/InteractiveStressContour
 import LinePlot from "../components/viz/Charts/LinePlot";
 
 import { KChart, KbChart, KnChart } from "../components/LugCalculator/coeff_data";
-//import LugCalculator from "../components/LugCalculator/LugCalculator";
+
+//@ts-ignore
 import LugDoc from "../content/analysis/lug/00-0-lug-analysis.mdx";
 import { useMDXComponents } from "../components/mdx-components";
 import classes from "./dashboard.module.css";
-
 import ResponsiveMultiLineChart from "../components/viz/ResponsiveMultiLineChart";
-import LugCalculator from "../components/LugCalculator/LugDrawing";
+import LugStrength from "../features/LugStrength";
 
 export default function Dashboard() {
   const { ref, width, height } = useElementSize();
-
-  function calcs(data: LugInputs) {
-    console.log(data);
-  }
 
   function calcLugLoads({ FnuL, FnyL, PnuL }: { FnuL: number; FnyL: number; PnuL: number }) {
     console.log(FnuL, FnyL, PnuL);
@@ -60,8 +55,8 @@ export default function Dashboard() {
           tab: classes.tab,
         }}
       >
-        <Group h="100%" w="100%">
-          <Group bg="black" w="100%">
+        <Group w="100%">
+          <Group w="100%">
             <Tabs.List>
               <Tabs.Tab value="charts">Charts</Tabs.Tab>
               <Tabs.Tab value="calc">Calc</Tabs.Tab>
@@ -76,11 +71,11 @@ export default function Dashboard() {
             </Tabs.List>
           </Group>
 
-          <Group h={"100%"} w="100%">
+          <Group w="100%">
             <ScrollArea offsetScrollbars="y" w="100%" h={500} m="auto">
               <Tabs.Panel value="charts" w="100%" p={0} m={0}>
                 <Group p={0} m={"auto"} w="100%">
-                  <Group bg="green.5" p={0} m={"auto"} w={"45%"}>
+                  <Group p={0} m={"auto"} w={"45%"}>
                     {
                       <KChart
                         h={400}
@@ -93,7 +88,7 @@ export default function Dashboard() {
                       />
                     }
                   </Group>
-                  <Group bg="red.8" p={0} m={"auto"} w={700}>
+                  <Group p={0} m={"auto"} w={700}>
                     {
                       <KbChart
                         h={400}
@@ -107,7 +102,7 @@ export default function Dashboard() {
                     }
                   </Group>
 
-                  <Group w={"80%"} p={0} m={"auto"} bg={"orange"}>
+                  <Group w={"80%"} p={0} m={"auto"}>
                     {
                       <KnChart
                         h={400}
@@ -125,7 +120,7 @@ export default function Dashboard() {
               <Tabs.Panel value="form1">
                 <Group p={16} w={"100%"}>
                   {/*{<Subgrid />}*/}
-                  {<CalculationForm onCalculate={calcs} isLoading={false} />}
+                  {/*{<CalculationForm onCalculate={calcs} isLoading={false} />}*/}
                   {<LinePlot data={[1, 2, 5, 3, 2, 0]} />}
                 </Group>
               </Tabs.Panel>
@@ -177,8 +172,8 @@ export default function Dashboard() {
               </Tabs.Panel>
 
               <Tabs.Panel value="svg">
-                <Group w={800} h={height} mx="auto" bg="blue">
-                  {<LugCalculator />}
+                <Group w={"100%"} mx="auto">
+                  <LugStrength />
                 </Group>
               </Tabs.Panel>
               <Tabs.Panel value="contact">
@@ -211,7 +206,7 @@ export default function Dashboard() {
                   }
                 </Group>
                 <Card p={16} maw={300}>
-                  {<GetInTouch />}
+                  {<ContactForm />}
                 </Card>
               </Tabs.Panel>
               <Tabs.Panel value="lug_form">

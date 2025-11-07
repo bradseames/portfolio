@@ -140,7 +140,7 @@ export default function Skills() {
           </Group>
         </Stack>
 
-        <Stack py="xs" wrap="nowrap" justify="space-between">
+        <Stack py="xs" justify="space-between">
           <Text c="cyan" size="md" style={{ fontWeight: "bold" }} mx="auto">
             Structural Analysis
           </Text>
@@ -578,7 +578,7 @@ export default function Skills() {
             {/*          width="120"*/}
             {/*          height="24"*/}
             {/*          viewBox="0 0 2500 498.9"*/}
-            {/*          enable-background="new 0 0 2500 498.9;"*/}
+            {/*          enable-background="new 0 0 2500 498.9"*/}
             {/*        >*/}
             {/*          <path*/}
             {/*            fill="#0072C6"*/}
